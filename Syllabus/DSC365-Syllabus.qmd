@@ -1,5 +1,5 @@
 ---
-title: "DSC 365: Introduction to Data Science"
+title: "DSC 365: Introduction to Data Science but now with a new title!"
 subtitle: "Course Policies and Syllabus, Fall 2024"
 
 format: 
@@ -44,10 +44,10 @@ fontsize: 11pt
 +---------------------------------------------------------------------------------------------+------------------------------------------+
 | Lecture: Tuesday/Thursday 9:30-10:45                                                        | Hixson-Lied 522                          |
 +---------------------------------------------------------------------------------------------+------------------------------------------+
-| Office Hours:\                                                                              | \                                        |
+| Office Hours (but I made a change here too):\                                                                              | \                                        |
 | Mondays\                                                                                    | 12:00-1:00 and 2:30-4\                   |
 | Wednesdays\                                                                                 | 2:00-4:00\                               |
-| or by appointment (send an email!)                                                          |                                          |
+| or by appointment (send an email!)  (one more change!)                                                        |                                          |
 +---------------------------------------------------------------------------------------------+------------------------------------------+
 
 ```{r setup, include=FALSE}
