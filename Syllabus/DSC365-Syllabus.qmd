@@ -1,6 +1,6 @@
 ---
 title: "DSC 365: Introduction to Data Science but now with a new title!"
-subtitle: "Course Policies and Syllabus, Fall 2024"
+subtitle: "Course Policies and Syllabus, Fall 2024 (and another change!)"
 
 format: 
   pdf:

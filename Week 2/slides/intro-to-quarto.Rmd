@@ -1,5 +1,5 @@
 ---
-title: "Basic R and Quarto"
+title: "Basic R and Quarto (and look, I made changes here!)"
 author: "DSC365: Introduction to Data Science"
 date: "Jan 21, 2025"
 output: 
