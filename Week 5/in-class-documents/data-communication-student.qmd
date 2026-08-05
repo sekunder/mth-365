@@ -1,8 +1,10 @@
 ---
 title: "Week 5: Data Communication and Ethics"
 author: 'DSC 365: Introduction to Data Science'
-date: "September 17, 2024"
-format: html
+date: "February 11, 2025"
+format:
+  html:
+    embed-resources: true
 ---
 
 ```{r echo=FALSE, message=FALSE, warning = FALSE}
