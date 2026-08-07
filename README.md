@@ -1,5 +1,7 @@
 # DSC 365 - Spring 2025
 
+**As of August 2026, this page is now only available on the `spring-25` branch.**
+
 This webpage includes links to the slides along with additional files needed for class.
 
 ### Online Texts
