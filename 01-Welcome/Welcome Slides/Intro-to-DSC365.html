@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Welcome to DSC365: Introduction to Data Science!</title>
+    <title>Welcome!</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Alison Kleffner" />
-    <meta name="date" content="2026-01-13" />
-    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <meta name="author" content="Alex Kunin" />
+    <meta name="date" content="2026-08-18" />
+    <script src="libs/header-attrs-2.29/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
     <link rel="stylesheet" href="modal.css" type="text/css" />
@@ -21,31 +21,29 @@
 class:inverse
 
 &lt;br&gt;&lt;br&gt;&lt;br&gt;
-## DSC365: Intro to Data Science
-### Welcome to DSC365
-#### January 13, 2026
+## Welcome to DSC365
+### DSC365: Intro to Data Science
+#### August 18, 2026
 
 ---
 
 ## Homework
 
-- Software downloaded by beginning of class on **Thursday January 15**
+- Software downloaded by beginning of class on **Thursday**
   + Should hopefully have time at end of class
 
 
 ---
 
-## Alison Kleffner, PhD
+## Alex Kunin, PhD
 
-- BS in Applied Mathematics and Economics at Rockhurst University
-- Master and PhD in Statistics at University of Nebraska at Lincoln
-- Thesis: *Visualization and Modeling of Multivariate Data in Environmental Applications*
+- Too many college degrees
+- Computational Neuroscientist, currently interested in neuronal circuitry
 
-???
+**Now introduce yourselves! Get into groups of 2-3**
 
-**Now let introduce yourselves! Get into groups of 2-3**
-
-- Name
+Talk to each other for a bit, then designate someone to speak on behalf of your group, telling us...
+- Your names
 - Something your group has in common (besides things like major ...)
 
 ---
@@ -72,7 +70,7 @@ Data science is an exciting discipline that allows you to turn raw data into und
 - Data science is a vast field, and there’s no way you can master it all by taking a single course. But we are going to lay a solid foundation.
 
 .center[
-&lt;img src="../images/data-science.png" alt="Venn Diagram depicting skills that a good data scientist must have. Data scientists needs skills from math and stats, computer science, and domain area." width="60%" /&gt;
+&lt;img src="images/data-science.png" alt="Venn Diagram depicting skills that a good data scientist must have. Data scientists needs skills from math and stats, computer science, and the domain of application" width="60%" /&gt;
 ]
 
 
@@ -80,7 +78,7 @@ Data science is an exciting discipline that allows you to turn raw data into und
 ### Data Science
 
 .center[
-&lt;img src="../images/data-flowchart.png" alt="The Data Science Flow Chart. First you must import the data into your programing language of preference. Next you must clean the data. Then you have a cycle of transforming, visualizing, and modeling your data. Finally once you have answered your research question, you must then communicate your results to a non-statistical audience." width="1477" /&gt;
+&lt;img src="images/data-flowchart.png" alt="The Data Science Flow Chart. First you must import the data into your programing language of preference. Next you must clean the data. Then you have a cycle of transforming, visualizing, and modeling your data. Finally once you have answered your research question, you must then communicate your results to a non-statistical audience." width="1477" /&gt;
 ]
 
 ---
@@ -144,7 +142,7 @@ If you have never used *R* (or even heard of it) before, it is totally OK! We wi
 - Walk away
 
 ].pull-right[
-&lt;img src="../images/begin-R.png" alt="Cartoon depicting that R can be frustrating to learn at first, but hopefully after some time it becomes more fun to use." width="1565" /&gt;
+&lt;img src="images/begin-R.png" alt="Cartoon depicting that R can be frustrating to learn at first, but hopefully after some time it becomes more fun to use." width="1565" /&gt;
 .center[&lt;font size = "0.75"&gt;Artwork by Allison Horst&lt;/font&gt;]
 ]
 
@@ -159,7 +157,7 @@ If you have never used *R* (or even heard of it) before, it is totally OK! We wi
 - CRAN (comprehensive R archive network) is R's central software repository. Contains contributed packages
 - New major release once a year
 
-&lt;img src="../images/base-r.png" alt="Visual of the R Console. This is the place where you would type R code." width="50%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/base-r.png" alt="Visual of the R Console. This is the place where you would type R code." width="50%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -174,6 +172,7 @@ Every R installation comes with the *R* Console, so we don’t actually need an 
   + In 2020, RStudio became a PBC (*Public Benefit Corp*), meaning they are legally obligated to support education and open-source development.
 - “Integrated Development Environment”
   + Clean user interface
+  + quality of life features (syntax highlighting, tab completion,etc)
 
 ---
 ### Eventually... Move to Positron
@@ -411,6 +410,363 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
 
+<script>
+        /* Get the modal*/
+          var modalfiles = document.getElementById('modalfiles');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfiles = document.getElementById('imgfiles');
+          var modalImgfiles = document.getElementById('imgmodalfiles');
+          var captionTextfiles = document.getElementById('captionfiles');
+          imgfiles.onclick = function(){
+            modalfiles.style.display = 'block';
+            modalImgfiles.src = this.src;
+            captionTextfiles.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfiles.onclick = function() {
+            modalfiles.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalpackages = document.getElementById('modalpackages');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgpackages = document.getElementById('imgpackages');
+          var modalImgpackages = document.getElementById('imgmodalpackages');
+          var captionTextpackages = document.getElementById('captionpackages');
+          imgpackages.onclick = function(){
+            modalpackages.style.display = 'block';
+            modalImgpackages.src = this.src;
+            captionTextpackages.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgpackages.onclick = function() {
+            modalpackages.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhelp = document.getElementById('modalhelp');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghelp = document.getElementById('imghelp');
+          var modalImghelp = document.getElementById('imgmodalhelp');
+          var captionTexthelp = document.getElementById('captionhelp');
+          imghelp.onclick = function(){
+            modalhelp.style.display = 'block';
+            modalImghelp.src = this.src;
+            captionTexthelp.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghelp.onclick = function() {
+            modalhelp.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfiles = document.getElementById('modalfiles');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfiles = document.getElementById('imgfiles');
+          var modalImgfiles = document.getElementById('imgmodalfiles');
+          var captionTextfiles = document.getElementById('captionfiles');
+          imgfiles.onclick = function(){
+            modalfiles.style.display = 'block';
+            modalImgfiles.src = this.src;
+            captionTextfiles.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfiles.onclick = function() {
+            modalfiles.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalpackages = document.getElementById('modalpackages');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgpackages = document.getElementById('imgpackages');
+          var modalImgpackages = document.getElementById('imgmodalpackages');
+          var captionTextpackages = document.getElementById('captionpackages');
+          imgpackages.onclick = function(){
+            modalpackages.style.display = 'block';
+            modalImgpackages.src = this.src;
+            captionTextpackages.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgpackages.onclick = function() {
+            modalpackages.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhelp = document.getElementById('modalhelp');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghelp = document.getElementById('imghelp');
+          var modalImghelp = document.getElementById('imgmodalhelp');
+          var captionTexthelp = document.getElementById('captionhelp');
+          imghelp.onclick = function(){
+            modalhelp.style.display = 'block';
+            modalImghelp.src = this.src;
+            captionTexthelp.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghelp.onclick = function() {
+            modalhelp.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfiles = document.getElementById('modalfiles');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfiles = document.getElementById('imgfiles');
+          var modalImgfiles = document.getElementById('imgmodalfiles');
+          var captionTextfiles = document.getElementById('captionfiles');
+          imgfiles.onclick = function(){
+            modalfiles.style.display = 'block';
+            modalImgfiles.src = this.src;
+            captionTextfiles.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfiles.onclick = function() {
+            modalfiles.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalpackages = document.getElementById('modalpackages');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgpackages = document.getElementById('imgpackages');
+          var modalImgpackages = document.getElementById('imgmodalpackages');
+          var captionTextpackages = document.getElementById('captionpackages');
+          imgpackages.onclick = function(){
+            modalpackages.style.display = 'block';
+            modalImgpackages.src = this.src;
+            captionTextpackages.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgpackages.onclick = function() {
+            modalpackages.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhelp = document.getElementById('modalhelp');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghelp = document.getElementById('imghelp');
+          var modalImghelp = document.getElementById('imgmodalhelp');
+          var captionTexthelp = document.getElementById('captionhelp');
+          imghelp.onclick = function(){
+            modalhelp.style.display = 'block';
+            modalImghelp.src = this.src;
+            captionTexthelp.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghelp.onclick = function() {
+            modalhelp.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfiles = document.getElementById('modalfiles');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfiles = document.getElementById('imgfiles');
+          var modalImgfiles = document.getElementById('imgmodalfiles');
+          var captionTextfiles = document.getElementById('captionfiles');
+          imgfiles.onclick = function(){
+            modalfiles.style.display = 'block';
+            modalImgfiles.src = this.src;
+            captionTextfiles.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfiles.onclick = function() {
+            modalfiles.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalpackages = document.getElementById('modalpackages');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgpackages = document.getElementById('imgpackages');
+          var modalImgpackages = document.getElementById('imgmodalpackages');
+          var captionTextpackages = document.getElementById('captionpackages');
+          imgpackages.onclick = function(){
+            modalpackages.style.display = 'block';
+            modalImgpackages.src = this.src;
+            captionTextpackages.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgpackages.onclick = function() {
+            modalpackages.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhelp = document.getElementById('modalhelp');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghelp = document.getElementById('imghelp');
+          var modalImghelp = document.getElementById('imgmodalhelp');
+          var captionTexthelp = document.getElementById('captionhelp');
+          imghelp.onclick = function(){
+            modalhelp.style.display = 'block';
+            modalImghelp.src = this.src;
+            captionTexthelp.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghelp.onclick = function() {
+            modalhelp.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfiles = document.getElementById('modalfiles');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfiles = document.getElementById('imgfiles');
+          var modalImgfiles = document.getElementById('imgmodalfiles');
+          var captionTextfiles = document.getElementById('captionfiles');
+          imgfiles.onclick = function(){
+            modalfiles.style.display = 'block';
+            modalImgfiles.src = this.src;
+            captionTextfiles.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfiles.onclick = function() {
+            modalfiles.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalpackages = document.getElementById('modalpackages');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgpackages = document.getElementById('imgpackages');
+          var modalImgpackages = document.getElementById('imgmodalpackages');
+          var captionTextpackages = document.getElementById('captionpackages');
+          imgpackages.onclick = function(){
+            modalpackages.style.display = 'block';
+            modalImgpackages.src = this.src;
+            captionTextpackages.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgpackages.onclick = function() {
+            modalpackages.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhelp = document.getElementById('modalhelp');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghelp = document.getElementById('imghelp');
+          var modalImghelp = document.getElementById('imgmodalhelp');
+          var captionTexthelp = document.getElementById('captionhelp');
+          imghelp.onclick = function(){
+            modalhelp.style.display = 'block';
+            modalImghelp.src = this.src;
+            captionTexthelp.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghelp.onclick = function() {
+            modalhelp.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfiles = document.getElementById('modalfiles');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfiles = document.getElementById('imgfiles');
+          var modalImgfiles = document.getElementById('imgmodalfiles');
+          var captionTextfiles = document.getElementById('captionfiles');
+          imgfiles.onclick = function(){
+            modalfiles.style.display = 'block';
+            modalImgfiles.src = this.src;
+            captionTextfiles.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfiles.onclick = function() {
+            modalfiles.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalpackages = document.getElementById('modalpackages');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgpackages = document.getElementById('imgpackages');
+          var modalImgpackages = document.getElementById('imgmodalpackages');
+          var captionTextpackages = document.getElementById('captionpackages');
+          imgpackages.onclick = function(){
+            modalpackages.style.display = 'block';
+            modalImgpackages.src = this.src;
+            captionTextpackages.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgpackages.onclick = function() {
+            modalpackages.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhelp = document.getElementById('modalhelp');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghelp = document.getElementById('imghelp');
+          var modalImghelp = document.getElementById('imgmodalhelp');
+          var captionTexthelp = document.getElementById('captionhelp');
+          imghelp.onclick = function(){
+            modalhelp.style.display = 'block';
+            modalImghelp.src = this.src;
+            captionTexthelp.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghelp.onclick = function() {
+            modalhelp.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfiles = document.getElementById('modalfiles');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfiles = document.getElementById('imgfiles');
+          var modalImgfiles = document.getElementById('imgmodalfiles');
+          var captionTextfiles = document.getElementById('captionfiles');
+          imgfiles.onclick = function(){
+            modalfiles.style.display = 'block';
+            modalImgfiles.src = this.src;
+            captionTextfiles.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfiles.onclick = function() {
+            modalfiles.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalpackages = document.getElementById('modalpackages');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgpackages = document.getElementById('imgpackages');
+          var modalImgpackages = document.getElementById('imgmodalpackages');
+          var captionTextpackages = document.getElementById('captionpackages');
+          imgpackages.onclick = function(){
+            modalpackages.style.display = 'block';
+            modalImgpackages.src = this.src;
+            captionTextpackages.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgpackages.onclick = function() {
+            modalpackages.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhelp = document.getElementById('modalhelp');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghelp = document.getElementById('imghelp');
+          var modalImghelp = document.getElementById('imgmodalhelp');
+          var captionTexthelp = document.getElementById('captionhelp');
+          imghelp.onclick = function(){
+            modalhelp.style.display = 'block';
+            modalImghelp.src = this.src;
+            captionTexthelp.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghelp.onclick = function() {
+            modalhelp.style.display = 'none';
+          }
+</script>
 <script>
         /* Get the modal*/
           var modalfiles = document.getElementById('modalfiles');
