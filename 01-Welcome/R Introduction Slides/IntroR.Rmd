@@ -1,7 +1,7 @@
 ---
-title: "DSC365: Introduction to Data Science"
-author: "Introduction to R"
-date: "January 15, 2026"
+title: "Introduction to R"
+subtitle: "DSC365: Introduction to Data Science"
+date: "August 20, 2026"
 output: 
   xaringan::moon_reader:
     lib_dir: libs
@@ -84,9 +84,9 @@ write("", file = "js-addins.html")
 class:inverse
 
 <br><br><br>
-## DSC365: Intro to Data Science
-### Introduction to R
-#### January 15, 2026
+## Introduction to R
+### DSC365: Intro to Data Science
+#### August 20, 2026
 
 ---
 ### Agenda
@@ -167,7 +167,8 @@ Calculates using your Order of Operations, so be careful with `()`
 
 A variable is like a container that hold something.
 
-We can create variables using the assignment operator `<-`
+We can create variables using the assignment operator `<-`<br/>
+(that's two characters: `<` then `-`)
 
 ```{r}
 x <- 5 
@@ -260,7 +261,7 @@ str(bulldogs)
 
 
 We will be installing the [tidyverse](https://www.tidyverse.org/) package.
-- Manipulates data structures (includes dplyr, tidyr, purr, tibble, etc packages)
+- Manipulates data structures (includes `dplyr`, `tidyr`, `purr`, `tibble`, etc. packages)
 
 **Method 1**
 ```{r, eval= FALSE}
@@ -313,11 +314,13 @@ do_this(to_this)
 - A **path** describes where a certain file or directory lives.
 
 ```{r}
-getwd()
+getwd()  # meaning "get working directory"
 ```
 
 - Organize your folders carefully, and name them meaningfully:
   - `/Users/akl95311/DSC365/lab1/` rather than `Desktop/stuff/`
+  
+- Later we will talk about good directory structures for data science projects
   
 ---
 ### Load Data
@@ -500,7 +503,7 @@ Stay up-to-date with R: [R Community Blog](https://rweekly.org)
 
 ```{r, echo=FALSE, fig.alt= "A cartoon depicting the different stages of learning how to code. You start off by thing you are fine, gradually get more frustrated until you want to have a meltdown, and then hopefully ends with solving your problem and loving to code."}
 
-knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/01-Welcome/images/debug.png")
+knitr::include_graphics("images/debug.png")
 
 ```
 
@@ -530,7 +533,7 @@ Here is a few strategies if your code does not work:
 
 ```{r, echo=FALSE, out.width="70%", fig.align='center', fig.alt="A cartoon in four phases of a person growing frustrated with their computer in phases one through three. Then in the final phase they realize their issue was they just spelled a variable wrong."}
 
-knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/01-Welcome/R Introduction Slides/images/spelling-error.png")
+knitr::include_graphics("images/spelling-error.png")
 
 ```
 

@@ -1,7 +1,8 @@
 ---
-title: "DSC365: Introduction to Data Science!"
-author: "Basic R and Quarto"
-date: "January 20, 2026"
+title: "Basic R and Quarto"
+subtitle: "DSC365: Intro to Data Science"
+author: "Alex Kunin"
+date: "August 20, 2026"
 output: 
   xaringan::moon_reader:
     lib_dir: libs
