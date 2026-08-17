@@ -23,10 +23,10 @@ This schedule is tentative and may change without warning. The official calendar
  6  | Sep 22 | [tidyr](Week%206/slides/tidyr-and-functions.html) | tidyr, creating functions, loops, and data classes | [in class document](Week%206/in-class-documents/tidyr-and-functions-student.qmd) |  |
  6  | Sep 24 | Finish MP1 Presentations, Ethics/AI | Data ethics, including AI | | |
  7  | Sep 29 | **Lab 4** | Lab 4 Work Day |  | **Due** during week 7 in Blueline |
- <!-- 7  | Oct 1 | [Statistical Foundations](Week%207/slides/statistical-foundations.html) | sampling distributions, bootstraping, and hypothesis tests | [in class document](Week%207/in-class-documents/statistical-foundations-student.qmd) |  |
+ 7  | Oct 1 | [Statistical Foundations](Week%207/slides/statistical-foundations.html) | sampling distributions, bootstraping, and hypothesis tests | [in class document](Week%207/in-class-documents/statistical-foundations-student.qmd) |  |
  8  | Oct 6 | [MLR](Week%207/slides/linear-models.html) | basics of linear regression models | [in class document](Week%207/in-class-documents/linear-models-student.qmd) |  |
  8  | Oct 8 | **Lab 5** | Lab 5 Work Day |  | **Due** during week 9 in Blueline |
- 8  | Oct 6 | [Prediction](Week%208/slides/cross-validation-and-prediction.html) | cross validation and predictions with regression models | [in class document](Week%208/in-class-documents/cross-validation-and-prediction-student.qmd) |  |
+ <!-- 8  | Oct 6 | [Prediction](Week%208/slides/cross-validation-and-prediction.html) | cross validation and predictions with regression models | [in class document](Week%208/in-class-documents/cross-validation-and-prediction-student.qmd) |  |
  9  | Oct 20 | [Trees](Week%209/slides/decision-trees-random-forests.html) | Introduction to Tree-Based Methods | [in class document](Week%209/tree-methods-student/.qmd) |  |
  9  | Oct 22 | **Lab 6** | Lab 6 Work Day |  | **Due** during week 10 in Blueline |
  10 | Oct 27 | [KNN](Week%2010/slides/knn-and-classification.html) | k-nearest neighbors | [in class document](Week%2010/KNN-student.qmd) |  |
