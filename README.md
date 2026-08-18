@@ -10,7 +10,7 @@ This schedule is tentative and may change without warning. The official calendar
 
  Week | Date | Slides | Description | Additional Files | Homework Assigned |
 ------|------|-------|-------------|------------------|-------------------|
- 1  | Aug 18 | [Welcome to DSC 365](01-Welcome/Welcome%20Slides/Intro-to-DSC365.html) | Class Introduction |  | Download R and RStudio **by the start of class on Thursday** |
+ 1  | Aug 18 | [Welcome to DSC 365](01-Welcome/Welcome%20Slides/Intro-to-DSC365.html) | Class Introduction |  | [Download R and RStudio](https://docs.posit.co/ide/user/#rstudio-ide-oss-downloads) **by the start of class on Thursday** |
  1  | Aug 20 | [Intro to R](01-Welcome/R%20Introduction%20Slides/IntroR.html) | R Basics | [R File](01-Welcome/R%20Introduction%20Slides/IntroR.R) |  |
  2  | Aug 25 | [Quarto](02-Quarto/slides/intro-to-quarto.html) | Introduction to interactive documents with Quarto | [in class document](02-Quarto/in-class-documents/DSC365-quarto-intro-student.qmd) |  |
  2  | Aug 27 | **Lab 1** | Lab 1 Work Day |  | **Due** during week 3 in Blueline |
