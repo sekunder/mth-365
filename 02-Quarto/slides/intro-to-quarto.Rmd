@@ -2,7 +2,7 @@
 title: "Basic R and Quarto"
 subtitle: "DSC365: Intro to Data Science"
 author: "Alex Kunin"
-date: "August 20, 2026"
+date: "August 25, 2026"
 output: 
   xaringan::moon_reader:
     lib_dir: libs
@@ -33,7 +33,7 @@ knit_hooks$set(output = function(x, options) {
 ## Announcements
 
 - Start Lab 1 in class on Thursday!
-  + Due **Tuesday January 27th, 2026 at 11:59 pm**
+  + Due **Next Tuesday by 11:59 pm**
   + There will be an in-class portion that you will work on in groups
   
   
@@ -53,7 +53,7 @@ knit_hooks$set(output = function(x, options) {
 <br>
 
 
-**Document**: DSC365-quarto-intro-student.qmd
+**Document**: [DSC365-quarto-intro-student.qmd](../in-class-documents/DSC365-quarto-intro-student.qmd)
 
 ---
 ### Scripts + Notebooks
@@ -142,7 +142,7 @@ Most of what we do today can be found in the [Quarto Website](https://quarto.org
 - Produces beautiful, seamless integration of statistical analysis with scientific writing
 
 ```{r, echo=FALSE, out.height="65%", out.width="90%", fig.align='center', fig.alt="The rendering process for how a .qmd file becomes a html or pdf document. First the R code is ran and the outputs are translated into markdown languange. Then the markdown language is translated into a html or pdf through Pandoc."}
-knitr::include_graphics("../../02-Quarto/slides/images/render-process.png")
+knitr::include_graphics("images/render-process.png")
 ```
 
 
@@ -177,25 +177,25 @@ File -> New File -> Quarto Document
 
 ```{r, echo=FALSE, out.height="65%", out.width="90%", fig.align='center', fig.alt = "Screenshot of the window that appears when you create a new quarto file. The first highlighted box is where you put your title. The second highlighted box indicates which output format you want your document to render to. The final highlighted box at the bottom will create a .qmd document with those two specifications."}
 
-knitr::include_graphics("../../02-Quarto/slides/images/quarto.jpg")
+knitr::include_graphics("images/quarto.jpg")
 ```
 
 ---
 ### Contents of a .qmd
 
-1. An (optional) YAML header surrounded by `---s`
+1. An (optional) `YAML` header surrounded by `---s`
 2. Code chunks beginning with ````{r}`
 3. Text mixed with simple text formatting (the markdown)
 
 ```{r, echo=FALSE, out.height="65%", out.width="90%", fig.align='center', fig.alt = "A Screenshot of a simple Quarto document. Labeled are the three pieces of content found in a qmd document."}
-knitr::include_graphics("../../02-Quarto/slides/images/quarto-document.png")
+knitr::include_graphics("images/quarto-document.png")
 ```
 
 ---
 ### Let's Render this document
 
 ```{r, echo=FALSE, fig.align='center', fig.alt="Screenshot of RStudio from after a Quarto document is rendered. The rendered document appears on the right within the Viewer Tab."}
-knitr::include_graphics("../../02-Quarto/slides/images/quarto-run.png")
+knitr::include_graphics("images/quarto-run.png")
 ```
 
 
@@ -203,10 +203,10 @@ knitr::include_graphics("../../02-Quarto/slides/images/quarto-run.png")
 ---
 ### YAML
 
-The stuff at the top of the .amd file (called YAML front matter) tells **quarto** what output format you want. 
+The stuff at the top of the `.qmd` file (called `YAML` front matter) tells **quarto** what output format you want. 
 
 ```{r, echo=FALSE, out.height="40%", out.width="60%", fig.align='center', fig.alt="Zoomed in screenshot of the YAML, which is located at the top of the Quarto document. The title and format of the output is requried, but the author and date are optional pieces."}
-knitr::include_graphics("../../02-Quarto/slides/images/yaml.png")
+knitr::include_graphics("images/yaml.png")
 ```
 
 <br>
@@ -216,11 +216,11 @@ In this case, when you click "Render", RStudio calls `quarto::quarto_render("doc
 ---
 ### What is a Code Chunk?
 
-In .qmd files, you can start/end a code chunk with three back-ticks. `quarto` knows that text is R code if it is included in a chunk.
+In .qmd files, you can start/end a code chunk with three back-ticks (on US keyboards, this is the key to the left of `1`). `quarto` knows that text is R code if it is included in a chunk.
 
 
 ```{r echo=FALSE, warning=FALSE, fig.alt="Zoomed in screenshot of a code chunk highlighting it's different components. In the upper right corner there is a green arrow, this is used to run a code chunk to preview results."}
-knitr::include_graphics("../../02-Quarto/slides/images/code-chunk.png")
+knitr::include_graphics("images/code-chunk.png")
 ```
 
 
@@ -234,7 +234,7 @@ When you render your .qmd file, Quarto will run each code chunk and embed the re
 Option 1:
 
 ```{r, echo=FALSE, out.height="70%", out.width="70%", fig.alt="To create a new code chunk, you can press the green squared with a plus sign, which is located to the top right of your editor window."}
-knitr::include_graphics("../../02-Quarto/slides/images/create-code-chunk.png")
+knitr::include_graphics("images/create-code-chunk.png")
 ```
 ].pull-right[
 Option 2:
@@ -249,15 +249,15 @@ Option 2:
 
 There are many options to give you greater control over what is shown in the compiled document (identified by `#|` at the beginning of the line).
 
-- eval=FALSE: don't run the code
+- `eval=FALSE`: don't run the code
 
-- echo=FALSE: don't show the code
+- `echo=FALSE`: don't show the code
 
-- warning=FALSE: don't add R's warnings to the pdf
+- `warning=FALSE`: don't add R's warnings to the pdf
 
-- message=FALSE: don't show messages from R in the pdf
+- `message=FALSE`: don't show messages from R in the pdf
 
-- cache=FALSE: re-run all of the code every time.
+- `cache=FALSE`: re-run all of the code every time.
 
 <br>
 
@@ -266,6 +266,7 @@ Let's look at these options in [the documentation](https://yihui.org/knitr/optio
 
 ---
 ### Markdown: Any Writing
+
 
 ```
 This is a really smart sentence you wrote. 
@@ -276,6 +277,7 @@ You also emphasize *important* words.
 
 You can also **bold** important words.
 ```
+
 This is a really smart sentence you wrote. 
 ### You can Bold your headers
 You also emphasize *important* words. $\\$
@@ -301,7 +303,7 @@ When you click **Render**:
 ### Visual Editor
 
 ```{r, echo=FALSE, fig.align='center', fig.alt="Screenshot of the Editor Window if you choose to use the visual editor. This will bring up options that look more like Word."}
-knitr::include_graphics("../../02-Quarto/slides/images/visual-editor.png")
+knitr::include_graphics("images/visual-editor.png")
 ```
 
 
