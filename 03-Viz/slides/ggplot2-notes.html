@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>DSC365: Introduction to Data Science</title>
+    <title>Data Viz with ggplot2</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Data Viz with ggplot2" />
-    <meta name="date" content="2026-01-27" />
-    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <meta name="author" content="DSC365: Introduction to Data Science" />
+    <meta name="date" content="2026-09-01" />
+    <script src="libs/header-attrs-2.29/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
   </head>
@@ -14,13 +14,13 @@
 class: center, middle, inverse, title-slide
 
 .title[
-# DSC365: Introduction to Data Science
+# Data Viz with ggplot2
 ]
 .author[
-### Data Viz with ggplot2
+### DSC365: Introduction to Data Science
 ]
 .date[
-### January 27, 2026
+### September 1, 2026
 ]
 
 ---
@@ -31,25 +31,27 @@ class: center, middle, inverse, title-slide
 
 ### Announcements
 
-- Start Lab 2 in class on Thursday!
-  + Due **Tuesday February 3rd, 2026 at 11:59 pm** 
+- Lab 1 due **tonight**
+
+- Start Lab 2 in class on Thursday
+  + Due **next tuesday** 
   
 - Will Discuss Mini-Project 1 on Thursday
-  + Due **Thursday February 12th, 2026 at 3:29 pm** (ie. before class starts)
+  + Due **two weeks later, before class starts**
 
 - Quiz #1
-  + Last 30 Minutes on Thursday February 5
+  + Last 30 Minutes next Thursday (September 10)
   + Quarto, ggplot2, dplyr 
 
 ---
 
-&lt;img src="../../03-Viz/slides/images/ggplot2.png" alt="Cartoon diplaying building a visualization like an artist paints a painting." width="2356" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/ggplot2.png" alt="Cartoon diplaying building a visualization like an artist paints a painting." width="2356" style="display: block; margin: auto;" /&gt;
 
 
 ---
 ### Why visualize?
 
-Our brain is good at processing large amounts of data quickly!
+Our brain is good at processing large amounts of visual information quickly! Long lists of numbers, not so much.
 
 &lt;br&gt;
 
@@ -58,7 +60,7 @@ Our brain is good at processing large amounts of data quickly!
 + Communicating Information
 
 
-&lt;img src="../../03-Viz/slides/images/sun-pic.png" alt="The Hertzsprung-Russell Diagram displaying the relationshing between the brightness and and color of starts and how this relationship also shows the lifecycle of the star." width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/sun-pic.png" alt="The Hertzsprung-Russell Diagram displaying the relationshing between the brightness and and color of starts and how this relationship also shows the lifecycle of the star." width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 class:primary
@@ -110,10 +112,10 @@ Based on The Grammar of Graphics where the components are independent, meaning w
 
 .pull-left[
 
-&lt;img src="../../03-Viz/slides/images/ggplot-hex.png" alt="Hex logo for ggplot2 package." width="40%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/ggplot-hex.png" alt="Hex logo for ggplot2 package." width="40%" style="display: block; margin: auto;" /&gt;
 ].pull-right[
 
-&lt;img src="../../03-Viz/slides/images/template.png" alt="Code template to create a plot using the ggplot function." width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/template.png" alt="Code template to create a plot using the ggplot function." width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -168,7 +170,7 @@ head(diamonds)
 ---
 ### Plot Plan
 
-&lt;img src="../../03-Viz/slides/images/plot-plan.png" alt="Visualization relating variables in a dataset to its correpsonding components on a plot." width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/plot-plan.png" alt="Visualization relating variables in a dataset to its correpsonding components on a plot." width="100%" style="display: block; margin: auto;" /&gt;
 
 ---
 ### We Begin with the Data

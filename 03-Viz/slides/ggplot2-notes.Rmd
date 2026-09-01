@@ -1,7 +1,7 @@
 ---
-title: "DSC365: Introduction to Data Science"
-author: "Data Viz with ggplot2"
-date: "January 27, 2026"
+title: "Data Viz with ggplot2"
+author: "DSC365: Introduction to Data Science"
+date: "September 1, 2026"
 output: 
   xaringan::moon_reader:
     lib_dir: libs
@@ -34,21 +34,23 @@ knit_hooks$set(output = function(x, options) {
 
 ### Announcements
 
-- Start Lab 2 in class on Thursday!
-  + Due **Tuesday February 3rd, 2026 at 11:59 pm** 
+- Lab 1 due **tonight**
+
+- Start Lab 2 in class on Thursday
+  + Due **next tuesday** 
   
 - Will Discuss Mini-Project 1 on Thursday
-  + Due **Thursday February 12th, 2026 at 3:29 pm** (ie. before class starts)
+  + Due **two weeks later, before class starts**
 
 - Quiz #1
-  + Last 30 Minutes on Thursday February 5
+  + Last 30 Minutes next Thursday (September 10)
   + Quarto, ggplot2, dplyr 
 
 ---
 
 ```{r, echo=FALSE, fig.align='center', fig.alt="Cartoon diplaying building a visualization like an artist paints a painting."}
 
-knitr::include_graphics("../../03-Viz/slides/images/ggplot2.png")
+knitr::include_graphics("images/ggplot2.png")
 
 ```
 
@@ -56,7 +58,7 @@ knitr::include_graphics("../../03-Viz/slides/images/ggplot2.png")
 ---
 ### Why visualize?
 
-Our brain is good at processing large amounts of data quickly!
+Our brain is good at processing large amounts of visual information quickly! Long lists of numbers, not so much.
 
 <br>
 
@@ -67,7 +69,7 @@ Our brain is good at processing large amounts of data quickly!
 
 ```{r, echo=FALSE, fig.align='center', out.width="70%", fig.alt="The Hertzsprung-Russell Diagram displaying the relationshing between the brightness and and color of starts and how this relationship also shows the lifecycle of the star."}
 
-knitr::include_graphics("../../03-Viz/slides/images/sun-pic.png")
+knitr::include_graphics("images/sun-pic.png")
 
 ```
 
@@ -171,14 +173,14 @@ Based on The Grammar of Graphics where the components are independent, meaning w
 
 ```{r, echo=FALSE, out.width="40%", fig.align = "center", fig.alt="Hex logo for ggplot2 package."}
 
-knitr::include_graphics("../../03-Viz/slides/images/ggplot-hex.png")
+knitr::include_graphics("images/ggplot-hex.png")
 
 ```
 ].pull-right[
 
 ```{r, echo=FALSE, out.width="100%", fig.align = "center", fig.alt="Code template to create a plot using the ggplot function."}
 
-knitr::include_graphics("../../03-Viz/slides/images/template.png")
+knitr::include_graphics("images/template.png")
 
 ```
 
@@ -224,7 +226,7 @@ head(diamonds)
 
 ```{r, echo=FALSE, out.width="100%", fig.align = "center", fig.alt="Visualization relating variables in a dataset to its correpsonding components on a plot."}
 
-knitr::include_graphics("../../03-Viz/slides/images/plot-plan.png")
+knitr::include_graphics("images/plot-plan.png")
 
 ```
 
