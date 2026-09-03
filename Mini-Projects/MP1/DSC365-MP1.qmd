@@ -1,7 +1,8 @@
 ---
 title: "Mini Project 1: Find a Data Set and Present"
-subtitle: "DSC 365: Introduction to Data Science"
-author: "Due February 12 at 3:29 pm in BlueLine (ie. before class starts)" 
+subtitle: "Due September 17 at 1:59pm in BlueLine (ie. before class starts)" 
+author: "DSC 365: Introduction to Data Science"
+date: "September 3, 2026"
 
 format: html
 ---
@@ -59,7 +60,7 @@ Perform EDA on your data to learn more about it (summary statistics, plots, etc.
 
 Once you have picked your data and have learned more about it, the next step is to tell people about it.
 
-You need to make slides for the presentation, with no more than 10 slides. **Please submit you slides in PDF/pptx to BlueLine 3:29pm on Thursday February 12th (ie. before class). The presentations will be during class on February 12 during lecture.**
+You need to make slides for the presentation, with no more than 10 slides. **Please submit you slides in to BlueLine by 1:59pm on Thursday September 17th (ie. before class). The presentations will be during class that day during lecture.**
 
 Here is a list of things you need to include in your presentation:
 
