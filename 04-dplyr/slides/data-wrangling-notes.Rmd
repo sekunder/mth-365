@@ -93,6 +93,10 @@ class:inverse
 ---
 ### Announcements
 
+- Comments on Lab 1:
+  + A *complete answer* consists of code, output, *and a written answer.* 
+  + Part of your job is to communicate what the `R` output means
+
 - Lab 2 due tonight
   + **make sure to upload html or pdf, *not* qmd!**
 
@@ -101,8 +105,7 @@ class:inverse
   
 - **Quiz #1**
   + Last 30 Minutes on Thursday
-  + Intro to R, Quarto, ggplot2, dplyr 
-  + no coding!
+  + Content: Intro to R, Quarto, ggplot2, dplyr -- no coding!
   
 - **Mini-Project 1**
   + Due **Thursday September 17, 2026 at 1:59 pm** (ie. *before* class starts)
