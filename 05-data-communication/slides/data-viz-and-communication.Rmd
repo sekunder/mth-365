@@ -95,6 +95,7 @@ class:inverse
 - Lab 3: Due tonight -- if you would like extra time (so you can finish MP 1), let me know
   
 - **Mini-Project 1**
+  + Please update the data sets page!
   + Due **Thursday September 17, 2026 at 1:59 pm (i.e. before class starts)**
   + Presentations during class that day
 
