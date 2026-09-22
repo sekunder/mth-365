@@ -1,7 +1,7 @@
 ---
 title: "DSC365: Introduction to Data Science"
 author: "tidyr and Function Writing"
-date: "February 17, 2026"
+date: "September 22, 2026"
 output: 
   xaringan::moon_reader:
     lib_dir: libs
@@ -33,13 +33,14 @@ knit_hooks$set(output = function(x, options) {
 
 ## Announcements
 
-**Lab 4**: Work day Tuesday February 24
+**Lab 4**: Work day *next* Tuesday, September 29
 
-- Due Tuesday March 3rd at 11:59 pm in Blueline
+- Due Tuesday October 6 at 11:59 pm in Blueline
 
-**Mini Project 2**
+**Mini Project 2:** do preliminary analysis and write a report
 
-- Due Thursday March 19th at 11:59 in Blueline
+- Assignment will be released on Thursday
+- Due October 22, the Thursday *after* Fall Break
 
 ---
 class:inverse
@@ -111,8 +112,11 @@ knitr::include_graphics("./images/kp-untidy.png")
 ---
 ### Example: Untidy Data
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
 library(reshape2)
+```
+
+```{r, echo = FALSE, warning=FALSE}
 data("french_fries")
 head(french_fries, n = 2)
 ```
@@ -248,6 +252,31 @@ df$d <- (df$d - min(df$d, na.rm = TRUE)) /
 ```
 
 ---
+### When Should You Write A Function?
+
+You should consider writing a function whenever you’ve copied and pasted a block of code more than twice
+
+For example, take a look at this code. What does it do? Notice any __mistakes__?
+
+```{r}
+df <- tibble::tibble(
+  a = rnorm(10),
+  b = rnorm(10),
+  c = rnorm(10),
+  d = rnorm(10)
+)
+
+df$a <- (df$a - min(df$a, na.rm = TRUE)) / 
+  (max(df$a, na.rm = TRUE) - min(df$a, na.rm = TRUE))
+df$b <- (df$b - min(df$b, na.rm = TRUE)) /
+  (max(df$b, na.rm = TRUE) - min(df$a, na.rm = TRUE))  #<<
+df$c <- (df$c - min(df$c, na.rm = TRUE)) / 
+  (max(df$c, na.rm = TRUE) - min(df$c, na.rm = TRUE))
+df$d <- (df$d - min(df$d, na.rm = TRUE)) / 
+  (max(df$d, na.rm = TRUE) - min(df$d, na.rm = TRUE))
+```
+
+---
 ### How do you Write a Function?
 
 How many inputs do we have?
@@ -276,6 +305,7 @@ function_name <- function(inputs separated by commas){
 ```
 
 By default they return the last value computed in the function
+  - To return a value "early", use `return()`
 
 ---
 ### Example:
@@ -312,6 +342,10 @@ rescale01(df$a)
 rescale01(df$b)
 ```
 
+> There are only two hard things in Computer Science: cache invalidation and naming things.
+>
+> -- Phil Karlton 
+
 ---
 ### Conditional Executuion
 
@@ -342,10 +376,11 @@ ifelse_example <- function(x){
   if(x > 0){
     "This value is positive"
   } else if (x == 0){
-    "This value is 0"} else{
-      "This value is negative"
-    }
+    "This value is 0"
+  } else{
+    "This value is negative"
   }
+}
 
 ifelse_example(3)
 ifelse_example(0)

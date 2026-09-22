@@ -352,7 +352,7 @@ c(1, "Hello")
 A survey asked respondents their name and number of cats. The instructions said to enter the number of cats as a numerical value.
 
 ```{r}
-cat_lovers <- read.csv("~/Documents/Classes/MTH365/mth-365-instructor/06-tidyr/data/cat_lovers.csv")
+cat_lovers <- read.csv("data/cat_lovers.csv")
 glimpse(cat_lovers)
 ```
 
@@ -390,13 +390,13 @@ cat_lovers[48:54, 1:2]
 
 ```
 
-**Problem**: number_of_cats is a characters, when we want it to be a number. 
+**Problem**: `number_of_cats` is a characters, when we want it to be a number. 
 
 ### Attempt 1: convert to numeric, where the response that couldn't be converted to a number become `NA`
 
 ```{r}
 cat_lovers <- cat_lovers %>%
-  mutate(number_of_cats = as.numeric(number_of_cats))
+  mutate(number_of_cats_new = as.numeric(number_of_cats))
 #things didn't know what to do with became missing values (NA)
 
 cat_lovers[48:54, 1:4]
