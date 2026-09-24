@@ -20,8 +20,8 @@ This schedule is tentative and may change without warning. The official calendar
  4  | Sep 10 | **Lab 3** | Lab 3 Work Day |  | **Due** during week 6 in Blueline |
  5  | Sep 15 | [Data Communication](05-data-communication/slides/data-viz-and-communication.html) | Graphical Perception | [in class document](05-data-communication/in-class-documents/data-communication-student.qmd) |  |
  5  | Sep 17 | **Present Mini Project 1** | In Class Presentations |  |  |
- 6  | Sep 22 | [tidyr](06-tidyr/slides/tidyr-and-functions.html) | tidyr, creating functions, loops, and data classes | [in class document](06-tidyr/in-class-documents/tidyr-and-functions-student.qmd) |  |
- 6  | Sep 24 | **Finish MP1 Presentations**, [Ethics/AI](07-ethics-and-ai/ethics-and-ai.html) | Data ethics, including AI | | |
+ 6  | Sep 22 | **Finish MP1 Presentations**, [tidyr](06-tidyr/slides/tidyr-and-functions.html) | tidyr, creating functions, loops, and data classes | [in class document](06-tidyr/in-class-documents/tidyr-and-functions-student.qmd) |  |
+ 6  | Sep 24 | [Ethics/AI](07-ethics-and-ai/ethics-and-ai.html) | Data ethics, including AI | | |
  7  | Sep 29 | **Lab 4** | Lab 4 Work Day |  | **Due** during week 7 in Blueline |
  7  | Oct 1 | [Statistical Foundations](08-statistical-foundations/slides/statistical-foundations/statistical-foundations.html) | sampling distributions, bootstraping, and hypothesis tests | <!--[in class document](07-ethics-and-ai/in-class-documents/statistical-foundations-student.qmd)--> |  |
  8  | Oct 6 | [Multiple Linear Regression (MLR)](08-statistical-foundations/slides/linear-models/linear-models.html) | basics of linear regression models | <!--[in class document](07-ethics-and-ai/in-class-documents/linear-models-student.qmd)--> |  |
