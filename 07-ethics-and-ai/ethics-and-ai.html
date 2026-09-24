@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>DSC365: Introduction to Data Science</title>
+    <title>Ethics and AI</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Ethics and AI" />
-    <meta name="date" content="2026-02-19" />
-    <script src="libs/header-attrs-2.30/header-attrs.js"></script>
+    <meta name="author" content="DSC365: Introduction to Data Science" />
+    <meta name="date" content="2026-09-24" />
+    <script src="libs/header-attrs-2.29/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
     <link rel="stylesheet" href="modal.css" type="text/css" />
@@ -23,9 +23,9 @@
 class:inverse
 
 &lt;br&gt;&lt;br&gt;&lt;br&gt;
-## DSC365: Introduction to Data Science
-### Ethics and AI
-#### February 19, 2026
+## Ethics and AI
+### DSC365: Introduction to Data Science
+#### September 24, 2026
 
 ---
 
@@ -38,29 +38,23 @@ One of the best selling "statistics" books is called *How to Lie with Statistics
   
 As data scientists, we can play a role in shape discourse, so what responsibilities do we have?
 
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
+**This is not an idle question: there are both professional and societal implications**
 
-[Source for Ethics Notes](https://mdsr-book.github.io/mdsr3e/08-ethics.html#sec-ethics-intro)
+&lt;!-- &lt;br&gt; --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+&lt;!-- &lt;br&gt; --&gt;
 
-???
+Recommended reading:
+- [*Modern Data Science with R,* Chapter 8](https://mdsr-book.github.io/mdsr3e/08-ethics.html#sec-ethics-intro)
+- *Weapons of Math Destruction* by Cathy O'Neil
 
-### Example:
+&lt;!-- [Source for Ethics Notes](https://mdsr-book.github.io/mdsr3e/08-ethics.html#sec-ethics-intro) --&gt;
 
-&lt;!-- Trigger the Modal --&gt;
-&lt;img id='imgbadbar' src='./images/bad-bar.png' alt='Bar Chart of Number of Covid-19 cases by country over time.' width='80%'&gt;
-&lt;!-- The Modal --&gt;
-&lt;div id='modalbadbar' class='modal'&gt;
-  &lt;!-- Modal Content (The Image) --&gt;
-  &lt;img class='modal-content' id='imgmodalbadbar'&gt;
-  &lt;!-- Modal Caption (Image Text) --&gt;
-  &lt;div id='captionbadbar' class='modal-caption'&gt;&lt;/div&gt;
-&lt;/div&gt;
+
 
 ---
 ### ASA Guidelines for Statistical Practice
@@ -104,12 +98,14 @@ Some highlights:
 ---
 ### Algorithmic Bias
 
-Algorithms are at the core of many data science models and are being used to automate decision-making in settings
+Algorithms are at the core of many data science models and are being used to automate decision-making in many settings
 
 Algorithmic bias occurs when algorithms make decisions that systematically disadvantage certain groups of people
 
 - Biased data -&gt; biased algorithms
   + Ex. Some groups of people may be underrepresented or systematically excluded from data science efforts
+  + "Straightforward" example: Using historical data to decide future housing loans
+  + More insidious: "proxy" variables
 
 --
   
@@ -151,16 +147,19 @@ Every time we use apps, websites, and devices, our data is being collected and u
   - Many Stories of protected data being made available on the internet with subsequent harm to those whose information is made accessible. 
   - Such releases may be due to misconfigured databases, malware, theft, or by posting on a public forum. 
 - How to prevent?
-  - Practice safe computing
-  - To regularly audit their systems, and to 
-  - Implement plans to address computer and data security. 
+  - Individually: Practice safe computing
+  &lt;!-- - To regularly audit their systems, and to  --&gt;
+  - Organizationally:
+    + Implement plans to address computer and data security
+    + regular audits of privacy and security
 
 
 ---
 ### Generative AI
 
 Generative AI is a type of artificial intelligence (AI) that learns from existing data to create new, original content such as text, images, audio, and video
-  - Large Language Models
+  - Most prominent: Large Language Models (such as ChatGPT, Claude, Gemini)
+  - Stable diffusion: Dall-E
 
 Generative AI helps automate manual tasks, generating synthetic data, and enabling new ways to interact with data
 
@@ -180,12 +179,20 @@ Generative AI helps automate manual tasks, generating synthetic data, and enabli
   
 
 ---
-### Some Guidelines
+### Some Guidelines to working with AI
 
 - Do not just copy-paste the prompt – for appropriate academic conduct, for your own learning, and for getting to better results faster
 - Engineer the prompt until the response starts to look like code you’re learning in the course
 - If the response is not correct, ask for a correction
 - Watch out for clear mistakes in the response
+
+--
+
+Remember that the map is not the territory.
+
+--
+
+Using GPS to get around makes you worse at navigating on your own, so what does using AI do to you?
 
 ---
 ### LLM Resources in R
@@ -199,35 +206,37 @@ Generative AI helps automate manual tasks, generating synthetic data, and enabli
 ---
 ### LLM Concerns
 
+- Training data
+- Alignment
 - Cost/equality of access
 - Environmental Concerns
 - Data Privacy
 - [A Dose of Skepticism](https://www.simonpcouch.com/blog/2025-11-26-bluffbench/)
 
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
+&lt;!-- &lt;br&gt; --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+&lt;!-- &lt;br&gt; --&gt;
 
 [From Hadley Wickhams Talk at USCOTS25](https://www.causeweb.org/cause/files/no-bullshit-llmspdf)
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
-  "highlightStyle": "github",
-  "highlightLines": true,
-  "countIncrementalSlides": true
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
@@ -325,6 +334,57 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
 
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
 <script>
         /* Get the modal*/
           var modalbadbar = document.getElementById('modalbadbar');
