@@ -45,11 +45,11 @@ Upcoming due dates:
 - Last 30 minutes of class Thursday March 5th 
 - Topics: Data Communication and Statistical Foundations/Linear Models
 
-
+[Source code for these slides](statistical-foundations.Rmd) (note: unless you are clever enough to get the image that is needed for line 365, you will need to go down there and delete the line with the `include_graphics` command. One clever way to get the image and source code for this is to simply clone the git repository where this is hosted...)
 
 ---
 ### Isn't this data science?
-[Source code for these slides](statistical-foundations.Rmd)
+
 
 - Statistics: 
 
