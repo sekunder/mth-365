@@ -1,7 +1,7 @@
 ---
-title: "DSC365: Introduction to Data Science"
-author: "Statistical Foundations"
-date: "February 26, 2026"
+title: "Statistical Foundations"
+author: "DSC365: Introduction to Data Science"
+date: "October 1, 2026"
 output: 
   xaringan::moon_reader:
     lib_dir: libs
@@ -35,22 +35,15 @@ knit_hooks$set(output = function(x, options) {
 
 ### Announcements
 
-**Lab 4**
-
-- Due Thursday March 5th at 11:59 pm in Blueline
+Upcoming due dates:
+  - **Lab 4:** *next* Thursday, October 8
+  - **Lab 5:** In-class work day October 8, due way later (October 27), because...
+  - [**Mini Project 2**](https://sekunder.github.io/mth-365/Mini-Projects/MP2/DSC365-MP2.html) is due the Thursday after Fall Break (October 22)
 
 **Quiz 2**
 
 - Last 30 minutes of class Thursday March 5th 
 - Topics: Data Communication and Statistical Foundations/Linear Models
-
-**Lab 5**: work day in class on Thursday March 5th
-
-- Due Tuesday March 24th at 11:59 pm in Blueline
-
-[**Mini Project 2**](https://alisonkleffner.github.io/mth-365/Mini-Projects/MP2/DSC365-MP2.html)
-
-- Due Thursday March 19th at 11:59 in Blueline
 
 
 
@@ -363,7 +356,7 @@ Lee Corso is a football analyst/broadcaster known for his “headgear” picks o
 
 ```{r, echo=FALSE, fig.align='center', out.width="35%", fig.alt = "Image of Lee Corse wearing a corn hat after he picked Nebraska to win."}
 
-knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/08-statistical-foundations/slides/images/corso.png")
+knitr::include_graphics("../images/corso.png")
 
 ```
 
