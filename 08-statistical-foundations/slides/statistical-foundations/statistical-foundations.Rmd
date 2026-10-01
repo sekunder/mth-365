@@ -260,7 +260,7 @@ ggplot(dat=Means, aes(x=mean)) +
 
 
 ---
-### Bootstraping
+### Bootstrapping
 
 In the last example, we had access to the population data and so we could find the sampling distribution by repeatedly sampling from the population. 
 
@@ -269,11 +269,11 @@ In the last example, we had access to the population data and so we could find t
 
 
 ---
-### Bootstraping
+### Bootstrapping
 
 
 ---
-### Bootstraping: Let's take a small sample (n=3)
+### Bootstrapping: Let's take a small sample (n=3)
 
 ```{r}
 f3 <- Chicago %>% sample_n(size=3) %>% dplyr::select(year,month,day)
