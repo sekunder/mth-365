@@ -1,7 +1,7 @@
 ---
-title: "DSC365: Introduction to Data Science"
-author: "Linear Models"
-date: "March 3, 2026"
+title: "Linear Models"
+author: "DSC365: Introduction to Data Science"
+date: "October 6, 2026"
 output: 
   xaringan::moon_reader:
     lib_dir: libs
@@ -34,24 +34,17 @@ knit_hooks$set(output = function(x, options) {
 
 ### Announcements
 
-**Lab 4**
-
-- Due Thursday March 5th at 11:59 pm in Blueline
+Upcoming due dates:
+  - **Lab 4:** *next* Thursday, October 8
+  - **Lab 5:** In-class work day October 8, due way later (October 27), because...
+  - [**Mini Project 2**](https://sekunder.github.io/mth-365/Mini-Projects/MP2/DSC365-MP2.html) is due the Thursday after Fall Break (October 22)
 
 **Quiz 2**
 
 - Last 30 minutes of class Thursday March 5th 
 - Topics: Data Communication and Statistical Foundations/Linear Models
 
-**Lab 5**: work day in class on Thursday March 5th
-
-- Due Tuesday March 24th at 11:59 pm in Blueline
-
-**Mini Project 2**
-
-- Due Thursday March 19th at 11:59 in Blueline
-
-
+[Source code for these slides](linear-models.Rmd) (note: unless you are clever enough to get the image that is needed for line 333, you will need to go down there and delete the line with the `include_graphics` command. One clever way to get the image and source code for this is to simply clone the git repository where this is hosted...)
 
 ---
 ### Language of Models
@@ -310,7 +303,7 @@ broom::tidy(s)
 
   - Addressing confounding is straightforward if these variables are measured (ex. can add them to model)
 
-???
+---
 
 ### Confounding Variables and Simpson's Paradox
 
@@ -320,7 +313,7 @@ Simpson's paradox is a phenomenon where a trend appears in several groups of dat
 
 ```{r, echo=FALSE, fig.align='center', out.height="90%", out.width="85%", fig.alt="Graphic depicting an example of simpsons paradox. It shows that the overall trend between height and basketball success is negative, which seems suspicious. However, when we add a third variable of age we see the reason for this trend as the data points for ages are clumped together."}
 
-knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/08-statistical-foundations/slides/images/simpson-paradox.png")
+knitr::include_graphics("../images/simpson-paradox.png")
 
 ```
 
@@ -389,7 +382,17 @@ The Adjusted $R^2$ does not automatically increase for additional variables
 ---
 ### Now we can create a linear model, but is it appropriate?
 
-Has 5 Assumptions that needs to be met:
+A linear model is based on **5 assumptions** that needs to be met:
+
+1.
+
+2.
+
+3.
+
+4.
+
+5.
 
 
 ---

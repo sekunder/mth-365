@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>DSC365: Introduction to Data Science</title>
+    <title>Linear Models</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Linear Models" />
-    <meta name="date" content="2026-03-03" />
-    <script src="libs/header-attrs-2.30/header-attrs.js"></script>
+    <meta name="author" content="DSC365: Introduction to Data Science" />
+    <meta name="date" content="2026-10-06" />
+    <script src="libs/header-attrs-2.29/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
   </head>
@@ -14,13 +14,13 @@
 class: center, middle, inverse, title-slide
 
 .title[
-# DSC365: Introduction to Data Science
+# Linear Models
 ]
 .author[
-### Linear Models
+### DSC365: Introduction to Data Science
 ]
 .date[
-### March 3, 2026
+### October 6, 2026
 ]
 
 ---
@@ -30,24 +30,17 @@ class: center, middle, inverse, title-slide
 
 ### Announcements
 
-**Lab 4**
-
-- Due Thursday March 5th at 11:59 pm in Blueline
+Upcoming due dates:
+  - **Lab 4:** *next* Thursday, October 8
+  - **Lab 5:** In-class work day October 8, due way later (October 27), because...
+  - [**Mini Project 2**](https://sekunder.github.io/mth-365/Mini-Projects/MP2/DSC365-MP2.html) is due the Thursday after Fall Break (October 22)
 
 **Quiz 2**
 
 - Last 30 minutes of class Thursday March 5th 
 - Topics: Data Communication and Statistical Foundations/Linear Models
 
-**Lab 5**: work day in class on Thursday March 5th
-
-- Due Tuesday March 24th at 11:59 pm in Blueline
-
-**Mini Project 2**
-
-- Due Thursday March 19th at 11:59 in Blueline
-
-
+[Source code for these slides](linear-models.Rmd) (note: unless you are clever enough to get the image that is needed for line 333, you will need to go down there and delete the line with the `include_graphics` command. One clever way to get the image and source code for this is to simply clone the git repository where this is hosted...)
 
 ---
 ### Language of Models
@@ -305,7 +298,7 @@ summary(model3)
 
   - Addressing confounding is straightforward if these variables are measured (ex. can add them to model)
 
-???
+---
 
 ### Confounding Variables and Simpson's Paradox
 
@@ -328,7 +321,7 @@ Chicago1000 %&gt;% ggplot(aes(x = hour, y = arr_delay)) +
   aes(color = carrier)
 ```
 
-&lt;img src="linear-models_files/figure-html/unnamed-chunk-12-1.png" alt="" style="display: block; margin: auto;" /&gt;
+&lt;img src="linear-models_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -407,7 +400,17 @@ The Adjusted `\(R^2\)` does not automatically increase for additional variables
 ---
 ### Now we can create a linear model, but is it appropriate?
 
-Has 5 Assumptions that needs to be met:
+A linear model is based on **5 assumptions** that needs to be met:
+
+1.
+
+2.
+
+3.
+
+4.
+
+5.
 
 
 ---
@@ -481,6 +484,13 @@ Let's look at the relationship between `air_time` and `distance`
 
 ``` r
 library(corrplot)
+```
+
+```
+## corrplot 0.95 loaded
+```
+
+``` r
 M &lt;- cor(Chicago1000[,c(15:16)])
 corrplot(M, method = "number", type = "upper")
 ```
@@ -519,9 +529,9 @@ When you have an outlier:
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
-  "highlightStyle": "github",
-  "highlightLines": true,
-  "countIncrementalSlides": false
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
