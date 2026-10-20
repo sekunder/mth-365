@@ -1,4 +1,4 @@
-# DSC 365 - Fall 2025
+# DSC 365 - Fall 2026
 
 This webpage includes links to the slides along with additional files needed for class. 
 
