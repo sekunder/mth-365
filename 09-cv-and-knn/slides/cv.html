@@ -231,20 +231,18 @@ DSC365: Introduction to Data Science
 <ul>
 <li>Due <em>next</em> Tuesday October 27 at 11:59 pm in Blueline</li>
 </ul>
-<p><strong>Quiz 3</strong>: in class Thursday March 26th</p>
+<p><strong>Quiz 3</strong>: in class next Thursday October 29</p>
 <ul>
 <li>Covers: Prediction/KNN/Tree-Based Methods</li>
 </ul>
 <p><a href="cv.qmd">Link to source code for these slides</a></p>
 </section>
 
-<section id="branches-of-machine-learning" class="title-slide slide level1 center">
+<section id="branches-of-machine-learning" class="title-slide slide level1 smaller center">
 <h1>Branches of Machine Learning</h1>
-<p><strong>Machine Learning</strong>:</p>
-<p><br> <br> <br></p>
-<p><strong>Supervised Learning</strong>:</p>
-<p><br> <br> <br> <br></p>
-<p><strong>Unsupervised Learning</strong>:</p>
+<p><strong>Machine Learning</strong>: a broad term, coined in the 1950s, describing a set of inter-related techniques for extracting info from data</p>
+<p><strong>Supervised Learning</strong>: Modeling a specific response from “labeled” data. That is, we have a set of input-output pairs.</p>
+<p><strong>Unsupervised Learning</strong>: Approach to finding patterns where there is no clear response variable.</p>
 </section>
 
 <section>
@@ -259,19 +257,23 @@ DSC365: Introduction to Data Science
 <li>Interpretation</li>
 <li>Prediction</li>
 </ol>
-<p>Calculating a prediction is easy:</p>
-<p><br> <br> <br></p>
+<p>Calculating a prediction is easy: Plug in your predictor variables into the formula defining the model to get the predicted response <span class="math inline">\(\hat{y}\)</span></p>
 <p>Getting a good prediction is hard:</p>
 </section>
 <section id="no-one-model-is-best" class="slide level2">
 <h2>No one model is “best”</h2>
 <p><em>“All models are wrong, but some are useful”</em></p>
 <ul>
-<li>Prediction Accuracy and Model Interpretability Trade-Off</li>
-</ul>
-<p><br> <br> <br></p>
+<li>Prediction Accuracy and Model Interpretability Trade-Off
 <ul>
-<li>Bias vs Variance Trade-Off</li>
+<li>simple models are easy to interpret (e.g.&nbsp;coefficients of a linear regression), but might not be accurate for more complex data.</li>
+<li>complicated models can be more accurate, but no one knows what any particular parameter does.</li>
+</ul></li>
+<li>Bias vs Variance Trade-Off
+<ul>
+<li>we generally want low bias, low variance.</li>
+<li>But mathematically, these are often mutually incompatible goals.</li>
+</ul></li>
 </ul>
 </section>
 <section id="bias-vs-variance" class="slide level2">
@@ -293,7 +295,11 @@ DSC365: Introduction to Data Science
 <li><p>Several steps to create a useful statistical model: parameter estimation, model selection, performance assessment, etc.</p>
 <ul>
 <li><p>Doing all of this on the entire data we have available can lead to overfitting</p></li>
-<li><p>To avoid overfitting, we split the data.</p></li>
+<li><p>To avoid overfitting, we split the data.</p>
+<ul>
+<li>split the data into TEST and TRAIN</li>
+<li>That is, we fit the model to the training data (TRAIN) and then measure the “quality” of the model on the testing data (TEST)</li>
+</ul></li>
 </ul></li>
 </ul>
 </section>
@@ -327,6 +333,7 @@ DSC365: Introduction to Data Science
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>model1 <span class="ot">=</span> <span class="fu">lm</span>(arr_delay <span class="sc">~</span> hour <span class="sc">+</span> dep_delay, <span class="at">data =</span> TRAIN)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>This finds the coefficients in the model <span class="math inline">\(y = \beta_0 + \beta_{hour} X_{hour} + \beta_{dep delay} X_{dep delay}\)</span></p>
 <ul>
 <li>Predict outcome on the Testing Set:</li>
 </ul>
@@ -338,24 +345,49 @@ DSC365: Introduction to Data Science
  -9.759234 -13.193375 -15.259597 -14.309398 -20.313551  -6.659900 </code></pre>
 </div>
 </div>
+<p>Plugs all of the TEST values of <code>hour</code> and <code>dep_delay</code> into the model above</p>
 </section></section>
 <section>
 <section id="model-evaluation" class="title-slide slide level1 center">
 <h1>Model evaluation</h1>
 
 </section>
-<section id="evaluate-performance-rmse" class="slide level2">
+<section id="is-that-right" class="slide level2">
+<h2>Is that right?</h2>
+<p>We can compare the predicted values to the actual values:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="fu">head</span>(TEST<span class="sc">$</span>dep_delay) <span class="co"># actual value</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  -2  -5  -7  -5 -12   1</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">head</span>(predictions) <span class="co"># predicted value</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         1          2          3          4          5          6 
+ -9.759234 -13.193375 -15.259597 -14.309398 -20.313551  -6.659900 </code></pre>
+</div>
+</div>
+</section>
+<section id="evaluate-performance-rmse" class="slide level2 scrollable">
 <h2>Evaluate Performance: RMSE</h2>
 <p>Root Mean Square Error (RMSE) - for numerical response</p>
 <p><span class="math display">\[ \text{RMSE} = \sqrt{\frac{\sum^{n}_{i=1}(y_i - \hat{y}_i)^2}{n}} \]</span></p>
 <p>RMSE for Test Set:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="fu">library</span>(Metrics)</span>
-<span id="cb6-2"><a href=""></a><span class="fu">rmse</span>(TEST<span class="sc">$</span>arr_delay, predictions)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="fu">library</span>(Metrics)</span>
+<span id="cb10-2"><a href=""></a><span class="fu">rmse</span>(TEST<span class="sc">$</span>arr_delay, predictions)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 15.85379</code></pre>
 </div>
 </div>
+<p>Penalizes large errors more heavily (because error is squared), so it’s sensitive to outliers.</p>
+<p>To give the number meaning, compare it to, say, the standard deviation in the arrival delays</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="fu">sd</span>(Chicago1000<span class="sc">$</span>arr_delay)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 47.10339</code></pre>
+</div>
+</div>
+<p>The RMSE (15.8) is smaller than the standard deviation of the response variable (47.1), which is a good sign</p>
 </section>
 <section id="evaluate-performance-mae" class="slide level2">
 <h2>Evaluate Performance: MAE</h2>
@@ -363,7 +395,7 @@ DSC365: Introduction to Data Science
 <p><span class="math display">\[\text{MAE} = \frac{1}{n} \sum^{n}_{i=1}|y_i - \hat{y}_i|\]</span></p>
 <p>MAE for Test Set:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">mae</span>(TEST<span class="sc">$</span>arr_delay, predictions)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a><span class="fu">mae</span>(TEST<span class="sc">$</span>arr_delay, predictions)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 12.03127</code></pre>
 </div>
@@ -372,21 +404,21 @@ DSC365: Introduction to Data Science
 <section id="model-comparison" class="slide level2">
 <h2>Model Comparison</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>model2 <span class="ot">=</span> <span class="fu">lm</span>(arr_delay <span class="sc">~</span> hour <span class="sc">+</span> dep_delay <span class="sc">+</span> distance, <span class="at">data =</span> TRAIN)</span>
-<span id="cb10-2"><a href=""></a>predictions_distance <span class="ot">&lt;-</span> <span class="fu">predict</span>(model2, TEST)</span>
-<span id="cb10-3"><a href=""></a></span>
-<span id="cb10-4"><a href=""></a>TEST <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(</span>
-<span id="cb10-5"><a href=""></a>  <span class="at">MSE1 =</span> <span class="fu">rmse</span>(arr_delay, predictions),</span>
-<span id="cb10-6"><a href=""></a>  <span class="at">MSE2 =</span> <span class="fu">rmse</span>(arr_delay, predictions_distance))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a>model2 <span class="ot">=</span> <span class="fu">lm</span>(arr_delay <span class="sc">~</span> hour <span class="sc">+</span> dep_delay <span class="sc">+</span> distance, <span class="at">data =</span> TRAIN)</span>
+<span id="cb16-2"><a href=""></a>predictions_distance <span class="ot">&lt;-</span> <span class="fu">predict</span>(model2, TEST)</span>
+<span id="cb16-3"><a href=""></a></span>
+<span id="cb16-4"><a href=""></a>TEST <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(</span>
+<span id="cb16-5"><a href=""></a>  <span class="at">MSE1 =</span> <span class="fu">rmse</span>(arr_delay, predictions),</span>
+<span id="cb16-6"><a href=""></a>  <span class="at">MSE2 =</span> <span class="fu">rmse</span>(arr_delay, predictions_distance))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 2
     MSE1   MSE2
    &lt;dbl&gt;  &lt;dbl&gt;
 1 15.854 15.844</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a>TEST <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(</span>
-<span id="cb12-2"><a href=""></a>  <span class="at">MAE1 =</span> <span class="fu">mae</span>(arr_delay, predictions),</span>
-<span id="cb12-3"><a href=""></a>  <span class="at">MAE2 =</span> <span class="fu">mae</span>(arr_delay, predictions_distance))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a>TEST <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(</span>
+<span id="cb18-2"><a href=""></a>  <span class="at">MAE1 =</span> <span class="fu">mae</span>(arr_delay, predictions),</span>
+<span id="cb18-3"><a href=""></a>  <span class="at">MAE2 =</span> <span class="fu">mae</span>(arr_delay, predictions_distance))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 2
     MAE1   MAE2
@@ -400,9 +432,13 @@ DSC365: Introduction to Data Science
 <h1>Cross Validation</h1>
 
 </section>
-<section id="problems-with-single-splits" class="slide level2">
+<section id="problems-with-single-splits" class="slide level2 scrollable">
 <h2>Problems with single splits</h2>
 <p>Potential Problem with a single split into training/testing: you evaluated the model only once and you are not sure your good result is by luck or not</p>
+<ul>
+<li>when the data set is small, the chances we were lucky is higher (i.e.&nbsp;for very large data sets, there’s usually less of a need for extensive cross-validation)</li>
+<li>Basically, we want to evaluate the model multiple times to be confident in the fit.</li>
+</ul>
 <p>We can easily do this using cross validation</p>
 <ul>
 <li>A resampling method that uses different portions of the data to test and train a model on different iterations</li>
@@ -423,12 +459,12 @@ DSC365: Introduction to Data Science
 <section id="k-fold-cross-validation-in-r" class="slide level2">
 <h2><span class="math inline">\(k\)</span>-fold Cross Validation in <code>R</code></h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a><span class="fu">library</span>(caret)</span>
-<span id="cb14-2"><a href=""></a>train_control <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"cv"</span>, <span class="at">number =</span> <span class="dv">5</span>)</span>
-<span id="cb14-3"><a href=""></a></span>
-<span id="cb14-4"><a href=""></a>model <span class="ot">&lt;-</span> <span class="fu">train</span>(arr_delay <span class="sc">~</span> hour <span class="sc">+</span> dep_delay, <span class="at">data =</span> Chicago1000, </span>
-<span id="cb14-5"><a href=""></a>               <span class="at">trControl =</span> train_control, <span class="at">method =</span> <span class="st">"lm"</span>)</span>
-<span id="cb14-6"><a href=""></a>model</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="fu">library</span>(caret)</span>
+<span id="cb20-2"><a href=""></a>train_control <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"cv"</span>, <span class="at">number =</span> <span class="dv">5</span>)</span>
+<span id="cb20-3"><a href=""></a></span>
+<span id="cb20-4"><a href=""></a>model <span class="ot">&lt;-</span> <span class="fu">train</span>(arr_delay <span class="sc">~</span> hour <span class="sc">+</span> dep_delay, <span class="at">data =</span> Chicago1000, </span>
+<span id="cb20-5"><a href=""></a>               <span class="at">trControl =</span> train_control, <span class="at">method =</span> <span class="st">"lm"</span>)</span>
+<span id="cb20-6"><a href=""></a>model</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear Regression 
 

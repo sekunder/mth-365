@@ -45,29 +45,24 @@ knit_hooks$set(output = function(x, options) {
 
 - Due _next_ Tuesday October 27 at 11:59 pm in Blueline
 
-**Quiz 3**: in class Thursday March 26th
+**Quiz 3**: in class next Thursday October 29
 
 - Covers: Prediction/KNN/Tree-Based Methods
 
 [Link to source code for these slides](cv.qmd)
 
 
-# Branches of Machine Learning
+# Branches of Machine Learning {.smaller}
 
 **Machine Learning**:
-
-<br>
-<br>
-<br>
+a broad term, coined in the 1950s, describing a set of inter-related techniques for extracting info from data
 
 **Supervised Learning**:
+Modeling a specific response from "labeled" data. That is, we have a set of input-output pairs.
 
-<br>
-<br>
-<br>
-<br>
 
 **Unsupervised Learning**:
+Approach to finding patterns where there is no clear response variable.
 
 
 # Models
@@ -81,12 +76,10 @@ There are two things we can do with fitting a model:
 
 
 Calculating a prediction is easy:
-
-<br>
-<br>
-<br>
+Plug in your predictor variables into the formula defining the model to get the predicted response $\hat{y}$
 
 Getting a good prediction is hard:
+
 
 
 
@@ -99,12 +92,12 @@ _"All models are wrong, but some are useful"_
 
 
 - Prediction Accuracy and Model Interpretability Trade-Off
-
-<br>
-<br>
-<br>
+  + simple models are easy to interpret (e.g. coefficients of a linear regression), but might not be accurate for more complex data.
+  + complicated models can be more accurate, but no one knows what any particular parameter does.
 
 - Bias vs Variance Trade-Off
+  + we generally want low bias, low variance.
+  + But mathematically, these are often mutually incompatible goals.
 
 
 ## Bias vs Variance
@@ -132,6 +125,9 @@ knitr::include_graphics("images/model-fit.png")
   - Doing all of this on the entire data we have available can lead to overfitting
   
   - To avoid overfitting, we split the data.
+  
+    + split the data into TEST and TRAIN
+    + That is, we fit the model to the training data (TRAIN) and then measure the "quality" of the model on the testing data (TEST)
 
 
 
@@ -168,7 +164,8 @@ TRAIN <- Chicago1000[-test_id,]
 ```{r}
 model1 = lm(arr_delay ~ hour + dep_delay, data = TRAIN)
 ```
-
+  
+  This finds the coefficients in the model $y = \beta_0 + \beta_{hour} X_{hour} + \beta_{dep delay} X_{dep delay}$
 
 + Predict outcome on the Testing Set:
 
@@ -176,9 +173,20 @@ model1 = lm(arr_delay ~ hour + dep_delay, data = TRAIN)
 predictions <- predict(model1, TEST)
 head(predictions)
 ```
+  
+  Plugs all of the TEST values of `hour` and `dep_delay` into the model above
 
 # Model evaluation
-## Evaluate Performance: RMSE
+
+## Is that right?
+We can compare the predicted values to the actual values:
+```{r}
+head(TEST$dep_delay) # actual value
+
+head(predictions) # predicted value
+```
+
+## Evaluate Performance: RMSE {.scrollable}
 
 Root Mean Square Error (RMSE) - for numerical response
 
@@ -195,6 +203,14 @@ library(Metrics)
 rmse(TEST$arr_delay, predictions)
 ```
 
+Penalizes large errors more heavily (because error is squared), so it's sensitive to outliers. 
+
+To give the number meaning, compare it to, say, the standard deviation in the arrival delays
+
+```{r}
+sd(Chicago1000$arr_delay)
+```
+The RMSE (15.8) is smaller than the standard deviation of the response variable (47.1), which is a good sign
 
 ## Evaluate Performance: MAE
 
@@ -232,9 +248,12 @@ TEST %>% summarize(
 
 
 # Cross Validation
-## Problems with single splits
+## Problems with single splits {.scrollable}
 
 Potential Problem with a single split into training/testing: you evaluated the model only once and you are not sure your good result is by luck or not
+  
+  - when the data set is small, the chances we were lucky is higher (i.e. for very large data sets, there's usually less of a need for extensive cross-validation)
+  - Basically, we want to evaluate the model multiple times to be confident in the fit.
 
 
 We can easily do this using cross validation 
