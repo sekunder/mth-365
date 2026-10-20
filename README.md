@@ -27,7 +27,7 @@ This schedule is tentative and may change without warning. The official calendar
  8    | Oct 6  | [Multiple Linear Regression (MLR)](08-statistical-foundations/slides/linear-models/linear-models.html) | basics of linear regression models | <!--[in class document](07-ethics-and-ai/in-class-documents/linear-models-student.qmd)--> |  |
  8    | Oct 8  | **Lab 5** | Lab 5 Work Day |  | **Due** during week 9 in Blueline |
  |    |        | **Fall Break** | No class October 11 - 18 |  | |
- 9    | Oct 20 | [CV](09-cv-and-knn/slides/cross-validation.html) | Cross validation  |  |  |
+ 9    | Oct 20 | [CV](09-cv-and-knn/slides/cross-validation.html) | Cross validation  | [source code for slides](09-cv-and-knn/slides/cv.qmd) |  |
  9    | Oct 22 | [KNN](09-cv-and-knn/slides/knn.html) | _k_-nearest neighbors |  |  |
  10   | Oct 27 | [Random Forests](10-tree-based-methods/slides/decision-trees-random-forests.html) | Decisions trees and random forests |  |  |
  10   | Oct 29 | **Lab 6** | Lab 6 work day |  |  |
