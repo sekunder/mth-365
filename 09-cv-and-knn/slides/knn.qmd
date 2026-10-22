@@ -1,0 +1,462 @@
+---
+title: "k-Nearest Neighbors (KNN)"
+author: "DSC365: Introduction to Data Science"
+date: October 22, 2026
+format:
+  revealjs:
+    echo: true
+    toc: true
+    toc-depth: 1
+    toc-title: Outline
+    slide-number: true
+    menu:
+      numbers: true
+---
+
+```{r echo=FALSE, message=FALSE, warning = FALSE}
+library(tidyverse)
+library(knitr)
+library(RColorBrewer)
+library(mosaic)
+library(infer)
+library(Metrics)
+
+
+hook_output = knit_hooks$get('output')
+knit_hooks$set(output = function(x, options) {
+  # this hook is used only when the linewidth option is not NULL
+  if (!is.null(n <- options$linewidth)) {
+    x = xfun::split_lines(x)
+    # any lines wider than n should be wrapped
+    if (any(nchar(x) > n)) x = strwrap(x, width = n)
+    x = paste(x, collapse = '\n')
+  }
+  hook_output(x, options)
+})
+
+```
+
+# Announcements {.unnumbered .unlisted}
+
+**Mini Project 2**
+
+- Due Tonight at 11:59 in Blueline
+
+**Lab 5** (Linear Models)
+
+- Due next Tuesday (October 27) at 11:59 pm in Blueline
+
+**Quiz 3**: in class next Thursday, October 29
+
+- Covers: Prediction/KNN/Tree-Based Methods
+
+[Source code for today's slides](knn.qmd) -- don't forget to comment out the `include_graphics` lines!
+
+# Classifiers
+
+## Classification vs. Regression
+
+A model predicts a response variable ($y$) from predictor variables ($x$)
+
+**Regression:**
+
+**Classification:**
+
+## "Lazy" learning
+
+__Lazy learning__: no assumptions necessary to classify data
+
+<br>
+<br>
+
+__Example__: Consider the plot below - describe the relationship between x and y.
+
+```{r, echo=FALSE, fig.align='center', fig.height=5, fig.width=9, fig.alt="Scatterplot of simulated data showing a moderately negative strenght relationship between x and y."}
+
+set.seed(365)
+x1 <- runif(min=0.1, max=0.5, n=20)
+x2 <- runif(min=0.3, max=0.7, n=20)
+x3 <- runif(min=0.5, max=0.9, n=20)
+y1 <- runif(min=0.5, max=0.7, n=20)
+y2 <- runif(min=0.4, max=0.6, n=20)
+y3 <- runif(min=0.2, max=0.5, n=20)
+x <- c(x1, x2, x3)
+y <- c(y1, y2, y3)
+group <- c(rep('A', 20), rep('B', 20), rep('C', 20))
+data <- as.data.frame(cbind(x, y, group))
+colnames(data) <- c('x', 'y', 'group')
+data$x <- as.numeric(data$x)
+data$y <- as.numeric(data$y)
+ggplot(data, aes(x=x, y=y))+geom_point(size = 3)
+```
+
+
+## "Lazy" learning
+
+What if the data points belonged to three different groups, like this? How should a new data point, $(0.2, 0.5)$ be classified? What about $(0.4, 0.2)$?
+
+```{r, echo=FALSE, fig.align='center', fig.height=6.5, fig.width=12, fig.alt="Same scatterplot as previusly slide, but now points are colored based on 3 different groups. Additionally two additional points that are not classified into a group are displayed on the plot."}
+
+new.pts <- data.frame(x = c(0.2, 0.4), y = c(0.5, 0.2), group=c('Point 1', 'Point 2'))
+data.new <- rbind(data, new.pts)
+ggplot(data.new, aes(x=x, y=y, group=group))+geom_point(size = 5, aes(col=group, pch=group))+scale_color_brewer(palette='Set1')
+```
+
+# $k$-Nearest Neighbors
+
+## Bayes Classifier {.smaller}
+
+A good classifier minimizes Testing Error (fraction of mis-classified observations)
+
++ Bayes Classifier produce the lowest possible test error rate [(proof)](https://www.ee.columbia.edu/~vittorio/BayesProof.pdf)
+ 
+Bayes Classifier assigns each observation to is most likely class using:
+
+$$P(Y = j|X = x_0)$$
+
+**Problems**: 
+
+## $k$-nearest neighbor (KNN) classifier: 
+
+
+A non-parametric supervised learning method that estimates the conditional probability.
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r, echo=FALSE, out.width="100%", fig.align='center', fig.alt="Depiction of how the choice of k can change classifications in KNN. When k=3, two of the three neighbors are green, so new point would also be green. However when k=7, four of the seven neighbors are red, so new point would now be classified as red."}
+knitr::include_graphics("./images/knn-pic.png")
+```
+:::
+
+::: {.column width="50%"}
+**Output:**
+
+-   
+
+-   
+
+-   
+:::
+
+::::
+
+
+
+## KNN classification algorithm
+
+1. Choose a value for $k$ (see note^[$k$ is a _tuning parameter_ or _hyperparameter_: It is a choice we make, rather than an inferred property of the population])
+
+2. 
+
+3. 
+
+4. 
+
+
+## `knn()` function
+
+__Example__: Let's classify our new points 
+
+```{r}
+library(class)
+```
+
+:::: {.columns}
+
+::: {.column width="50%"}
+$k=2$?
+
+```{r}
+knnMod1 = knn(train=data[,1:2], 
+          test = new.pts[,1:2], 
+          cl = data$group, 
+          k = 2, prob = TRUE)
+knnMod1
+```
+:::
+
+::: {.column width="50%"}
+$k=10$?
+
+```{r}
+knnMod2 = knn(train =data[,1:2], 
+          test = new.pts[,1:2], 
+          cl = data$group, 
+          k = 10, prob = TRUE)
+knnMod2
+```
+:::
+
+::::
+
+
+
+## Advantages and Disadvantages of KNN
+
+Advantages:
+
+1. 
+2. 
+
+Disdvantages:
+
+1. 
+2. 
+3. 
+4. 
+
+
+
+
+## Choice of $k$
+
+```{r, echo=FALSE, out.width="75%", fig.align='center', fig.alt="Two figures depicting how the choice of k effects the decision boundary. When k = 1, the decision boundary between the two colors is overly flexible and follows the noise in the data. When k = 100, the decisicion boundary between the two colors is almost linear, not separting the groups well."}
+
+knitr::include_graphics("./images/choose-k.png")
+```
+
+
+
+# Examples
+## Example: Credit Utilization {.smaller}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+Predict which utilization quantile a new customer falls into based on their application data (credit rating and age).
+:::
+
+::: {.column width="50%"}
+Name|Age|Credit Rating
+--|--|--
+Lacey|33|750
+Zach|47|400
+Ashlee|21|250
+:::
+
+::::
+
+
+
+```{r, echo = FALSE}
+library(ISLR)
+data(Credit)
+```
+
+```{r, echo=FALSE}
+Credit <- Credit %>% mutate(Utilization = Balance/Limit) %>% 
+  mutate(Quartile = ifelse(Utilization<0.01851, 'Q1', 
+                           ifelse(Utilization<0.09873, 'Q2',
+                           ifelse(Utilization<0.14325, 'Q3','Q4'))))
+
+```
+
+```{r, eval=FALSE, fig.align='center', fig.height=6.5, fig.width=11, echo=FALSE, fig.alt="Scatterplot of Age vs Credit Rating where each points is colored by the utlization quantile a customer falls into. New points to classify are represented by a different shape."}
+
+ggplot(Credit, aes(x=Age, y=Rating, group=Quartile)) + 
+  geom_point(aes(col=Quartile, pch=Quartile), size = 3) + 
+  scale_color_brewer(palette='Set1')
+```
+
+
+
+```{r, echo = FALSE}
+apps <- data.frame(Age = c(33, 47, 21), 
+                         Rating = c(750, 400, 250), 
+                         Quartile=c('New', 'New', 'New'))
+```
+
+
+```{r, echo = FALSE}
+old = Credit %>% dplyr::select(Age, Rating, Quartile)
+full = rbind(old, apps)
+full = full %>%
+  mutate(Quartile = fct_relevel(Quartile,
+                                "Q1", "Q2", "Q3", "Q4", "New"))
+#str(full$Quartile)
+
+```
+
+
+```{r, fig.align='center', fig.height=4, fig.width=10, echo = FALSE}
+ggplot(full, aes(x=Age, y=Rating, group=Quartile)) + 
+  geom_point(aes(col=Quartile, pch=Quartile), size = 4) + 
+  scale_color_brewer(palette='Set1')
+```
+
+
+## Example: Credit Utilization
+
+:::: {.columns}
+
+::: {.column width="50%"}
+$k=20$?
+
+```{r}
+knn20 = knn(train = old[,1:2],
+            test = apps[,1:2],
+            cl = old[,3], 
+            k = 20, prob = TRUE)
+knn20
+```
+:::
+
+::: {.column width="50%"}
+$k=100$?
+
+```{r}
+knn100 = knn(train = old[,1:2],
+            test = apps[,1:2],
+            cl = old[,3], 
+            k = 100, prob= TRUE)
+knn100
+```
+:::
+
+::::
+
+# Model Evaluation
+
+## Example: Credit utilization
+Is KNN an effective predictor of quartile using an applicant's age, credit rating, income, number of existing credit cards, and education level?
+
+## Example: Credit utilization (cont) {.scrollable}
+Randomly selected 100 observations for testing, assigned the other 300 to training set.
+
+```{r}
+set.seed(365)
+test_ID = sample(1:nrow(Credit), size = 100)
+TEST = Credit[test_ID,]
+TRAIN = Credit[-test_ID, ]
+
+#only select variables we want
+knn_train = TRAIN %>% dplyr::select(Age, Rating, Income, 
+                                    Cards, Education)
+knn_test = TEST %>% dplyr::select(Age, Rating, Income, 
+                                  Cards, Education) 
+
+knn50 = knn(train = knn_train, 
+            test = knn_test,
+            cl = TRAIN$Quartile, 
+            k = 50, prob = TRUE)
+knn50
+```
+
+
+
+## Evaluation: Classification Accuracy 
+
+Now, we'll set the testing data as "new data", and make predictions using the k-nearest neighbors from the training data.
+
+```{r}
+#Create Confusion Matrix - Base R
+t = table(knn50, TEST$Quartile)
+t
+
+sum(diag(t))/nrow(TEST) #Classification Accuracy
+```
+
+## Try it yourself!
+
+```{r}
+set.seed(365)
+test_ID = sample(1:nrow(Credit), size = 100)
+TEST = Credit[test_ID,]
+TRAIN = Credit[-test_ID, ]
+
+#only select variables we want
+knn_train = TRAIN %>% dplyr::select(Age, Rating, Income, 
+                                    Cards, Education)
+knn_test = TEST %>% dplyr::select(Age, Rating, Income, 
+                                  Cards, Education) 
+
+our_choice_of_k = 17
+
+knnk = knn(train = knn_train, 
+            test = knn_test,
+            cl = TRAIN$Quartile, 
+            k = our_choice_of_k, prob = TRUE)
+
+t = table(knnk, TEST$Quartile)
+sum(diag(t))/nrow(TEST)
+```
+
+# Caveats
+## Scaling Data
+
+```{r}
+knn_train_scale <- knn_train %>% scale()
+knn_test_scale <- knn_test %>% scale()
+
+knn50_scale = knn(train = knn_train_scale, 
+            test = knn_test_scale,
+            cl = TRAIN$Quartile, 
+            k = 50, prob = TRUE)
+
+
+t_scale = table(knn50_scale, TEST$Quartile)
+
+sum(diag(t_scale))/nrow(TEST) #Classification Accuracy
+
+```
+
+::: {.notes}
+1. Draw a circle with radius 1 centered at the point $(1,1)$ in the $x$-$y$ plane. Do the same for the points $(1,-1)$, $(-1,-1)$, and $(-1,1)$.
+2. Draw a circle, centered at the origin, that is lies between all four circles, and and is tangent to them. What is its radius?
+3. It'll be tricky, but try to imagine this same process with spheres in 3D space -- now with 8 of them, one at each corner of a cube. What is the radius of the sphere that lies nestled in the middle?
+4. What if you do this in 4 dimensions? 5? 6? What strange thing happens in 10 dimensions?
+:::
+
+# KNN for regression
+## KNN Regression algorithm
+
+KNN can also predict _quantitative_ responses - alternative to Linear Regression^[Worried your data doesn't satisfy the LINE assumptions? This may be a good option for mini project 3!]
+
+
+1. _Choose a value for $k$ (same as last time)_
+
+2. _find $k$ nearest neighbors (same as last time)_
+
+3. 
+
+## Example: Credit Utilization
+
+
+```{r}
+knn_train = TRAIN %>% dplyr::select(Age, Rating, Income, Cards, 
+                                    Education)
+knn_test = TEST %>% dplyr::select(Age, Rating, Income, Cards, 
+                                  Education) 
+
+knn50 = FNN::knn.reg(train = knn_train, 
+            test = knn_test,
+            y = TRAIN$Utilization, 
+            k = 50)
+
+head(knn50$pred, n = 5)
+
+Metrics::rmse(TEST$Utilization, knn50$pred)
+
+```
+
+::: {.notes}
+Is this good? Compare with (1) spread of response variable itself, (2) RMSE from other methods (e.g. linear regression)
+:::
+
+## Linear Regression vs KNN Regression
+
+<!-- **In General**:  -->
+
+**Parametric vs. nonparametric methods:**  
+ -  
+ 
+**Linearity:**  
+ - 
+ 
+**Curse of Dimensionality:**  
+ - 
+
+::: {.notes}
+In situations where the relationship is nonlinear, KNN regression may perform better than Linear Regression
+::: 
