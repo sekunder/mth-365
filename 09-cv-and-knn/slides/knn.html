@@ -115,6 +115,7 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
+      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -246,13 +247,15 @@ DSC365: Introduction to Data Science
 <section id="classification-vs.-regression" class="slide level2">
 <h2>Classification vs.&nbsp;Regression</h2>
 <p>A model predicts a response variable (<span class="math inline">\(y\)</span>) from predictor variables (<span class="math inline">\(x\)</span>)</p>
-<p><strong>Regression:</strong></p>
-<p><strong>Classification:</strong></p>
+<p><strong>Regression:</strong> <span class="math inline">\(y\)</span> is numeric</p>
+<p><strong>Classification:</strong> <span class="math inline">\(y\)</span> is categorical</p>
 </section>
 <section id="lazy-learning" class="slide level2">
 <h2>“Lazy” learning</h2>
 <p><strong>Lazy learning</strong>: no assumptions necessary to classify data</p>
-<p><br> <br></p>
+<ul>
+<li>predicting outcomes without specifying a model</li>
+</ul>
 <p><strong>Example</strong>: Consider the plot below - describe the relationship between x and y.</p>
 
 <img data-src="knn_files/figure-revealjs/unnamed-chunk-2-1.png" class="quarto-figure quarto-figure-center r-stretch" alt="Scatterplot of simulated data showing a moderately negative strenght relationship between x and y." width="864"></section>
@@ -275,6 +278,10 @@ DSC365: Introduction to Data Science
 <p>Bayes Classifier assigns each observation to is most likely class using:</p>
 <p><span class="math display">\[P(Y = j|X = x_0)\]</span></p>
 <p><strong>Problems</strong>:</p>
+<ul>
+<li><p>We don’t know the conditional probability distribution, so we have to estimate it</p></li>
+<li><p>(also, even if we did know the distribution, it could lead to overfitting)</p></li>
+</ul>
 </section>
 <section id="k-nearest-neighbor-knn-classifier" class="slide level2">
 <h2><span class="math inline">\(k\)</span>-nearest neighbor (KNN) classifier:</h2>
@@ -291,21 +298,23 @@ DSC365: Introduction to Data Science
 </div>
 </div>
 </div><div class="column" style="width:50%;">
-<p><strong>Output:</strong></p>
+<p><strong>Output:</strong> group membership of new point</p>
 <ul>
-<li></li>
-<li></li>
-<li></li>
+<li><p>if k = 3 -&gt; A, if k = 7 -&gt; B. Sensitive to <span class="math inline">\(k\)</span>!</p></li>
+<li><p>membership is most common among the closest <span class="math inline">\(k\)</span> training points</p></li>
+<li><p>Theoretically, if we choose <span class="math inline">\(k\)</span> well, it becomes close to a Bayes classifier.</p></li>
 </ul>
 </div></div>
 </section>
-<section id="knn-classification-algorithm" class="slide level2">
+<section id="knn-classification-algorithm" class="slide level2 scrollable">
 <h2>KNN classification algorithm</h2>
+<p><strong>Input/set up:</strong> Training data is labeled</p>
+<p><strong>Algorithm:</strong> Given a new data point, these steps output its membership:</p>
 <ol type="1">
 <li><p>Choose a value for <span class="math inline">\(k\)</span> (see note<sup>1</sup>)</p></li>
-<li></li>
-<li></li>
-<li></li>
+<li><p>find the <span class="math inline">\(k\)</span> nearest neighbors to that point (from the training data)</p></li>
+<li><p>From among those <span class="math inline">\(k\)</span>, count the # in each category</p></li>
+<li><p>Assign new point based on plurality vote (i.e.&nbsp;the highest number)</p></li>
 </ol>
 <aside><ol class="aside-footnotes"><li id="fn1"><p><span class="math inline">\(k\)</span> is a <em>tuning parameter</em> or <em>hyperparameter</em>: It is a choice we make, rather than an inferred property of the population</p></li></ol></aside></section>
 <section id="knn-function" class="slide level2">
@@ -347,25 +356,26 @@ Levels: A B C</code></pre>
 </div>
 </div></div>
 </section>
-<section id="advantages-and-disadvantages-of-knn" class="slide level2">
+<section id="advantages-and-disadvantages-of-knn" class="slide level2 scrollable">
 <h2>Advantages and Disadvantages of KNN</h2>
 <p>Advantages:</p>
 <ol type="1">
-<li></li>
-<li></li>
+<li>It’s easy! (especially in <code>R</code>!)</li>
+<li>You don’t have to check any assumptions about the data</li>
 </ol>
 <p>Disdvantages:</p>
 <ol type="1">
-<li></li>
-<li></li>
-<li></li>
-<li></li>
+<li>Hard to decide <span class="math inline">\(k\)</span> (typically, you’ll need to try several different values)</li>
+<li>Need <span class="math inline">\(n\)</span> (number of observations) to be large relative to <span class="math inline">\(p\)</span> (number of predictors)</li>
+<li>The geometry of the data affects the quality of fit (i.e.&nbsp;if the data is clustered, KNN does better)</li>
+<li>Because it uses distance, it only works with numeric predictors (unless we encode qualitative variables as dummy variables like in Linear Regression, which comes with its own geometry issues)</li>
 </ol>
 </section>
-<section id="choice-of-k" class="slide level2">
+<section id="choice-of-k" class="slide level2 smaller">
 <h2>Choice of <span class="math inline">\(k\)</span></h2>
 
-<img data-src="./images/choose-k.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%" alt="Two figures depicting how the choice of k effects the decision boundary. When k = 1, the decision boundary between the two colors is overly flexible and follows the noise in the data. When k = 100, the decisicion boundary between the two colors is almost linear, not separting the groups well."></section></section>
+<img data-src="./images/choose-k.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%" alt="Two figures depicting how the choice of k effects the decision boundary. When k = 1, the decision boundary between the two colors is overly flexible and follows the noise in the data. When k = 100, the decisicion boundary between the two colors is almost linear, not separting the groups well."><p>(in this example), <span class="math inline">\(k = 1\)</span> leads to low bias (the boundary is close to the dashed purple line, which is the true boundary between classes), but high variance. On the other hand, <span class="math inline">\(k = 100\)</span> leads to high bias (the boundary is far from the true boundary), but lower variance.</p>
+</section></section>
 <section>
 <section id="examples" class="title-slide slide level1 center">
 <h1>Examples</h1>
@@ -450,7 +460,7 @@ Levels: Q1 Q2 Q3 Q4</code></pre>
 <h2>Example: Credit utilization</h2>
 <p>Is KNN an effective predictor of quartile using an applicant’s age, credit rating, income, number of existing credit cards, and education level?</p>
 </section>
-<section id="example-credit-utilization-cont" class="slide level2 scrollable">
+<section id="example-credit-utilization-cont" class="slide level2">
 <h2>Example: Credit utilization (cont)</h2>
 <p>Randomly selected 100 observations for testing, assigned the other 300 to training set.</p>
 <div class="cell">
@@ -541,7 +551,7 @@ knn50 Q1 Q2 Q3 Q4
 <h1>Caveats</h1>
 
 </section>
-<section id="scaling-data" class="slide level2">
+<section id="scaling-data" class="slide level2 scrollable">
 <h2>Scaling Data</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a>knn_train_scale <span class="ot">&lt;-</span> knn_train <span class="sc">%&gt;%</span> <span class="fu">scale</span>()</span>
@@ -584,14 +594,15 @@ knn50 Q1 Q2 Q3 Q4
 <h1>KNN for regression</h1>
 
 </section>
-<section id="knn-regression-algorithm" class="slide level2">
+<section id="knn-regression-algorithm" class="slide level2 scrollable">
 <h2>KNN Regression algorithm</h2>
 <p>KNN can also predict <em>quantitative</em> responses - alternative to Linear Regression<sup>1</sup></p>
 <ol type="1">
 <li><p><em>Choose a value for <span class="math inline">\(k\)</span> (same as last time)</em></p></li>
 <li><p><em>find <span class="math inline">\(k\)</span> nearest neighbors (same as last time)</em></p></li>
-<li></li>
+<li><p>Response value for new point is average of the response values for the <span class="math inline">\(k\)</span> nearest points (that is, <span class="math inline">\(f(x_0) = \frac1k \sum_{j=1}^k f(q_j))\)</span>, where the <span class="math inline">\(q_1,q_2,\dots,q_k\)</span> are the <span class="math inline">\(k\)</span> nearest training points)</p></li>
 </ol>
+<p><em>Notes:</em> Small <span class="math inline">\(k\)</span> will perfectly interpolate the data, while large <span class="math inline">\(k\)</span> will smooth the data</p>
 <aside><ol class="aside-footnotes"><li id="fn2"><p>Worried your data doesn’t satisfy the LINE assumptions? This may be a good option for mini project 3!</p></li></ol></aside></section>
 <section id="example-credit-utilization-3" class="slide level2">
 <h2>Example: Credit Utilization</h2>
@@ -629,15 +640,15 @@ knn50 Q1 Q2 Q3 Q4
           display:block!important;
       }</style></aside>
 </section>
-<section id="linear-regression-vs-knn-regression" class="slide level2">
+<section id="linear-regression-vs-knn-regression" class="slide level2 scrollable">
 <h2>Linear Regression vs KNN Regression</h2>
 <!-- **In General**:  -->
 <p><strong>Parametric vs.&nbsp;nonparametric methods:</strong><br>
--</p>
+- If your model is correct (e.g.&nbsp;you are using linear regression to model a relationship that truly is linear), parameteric methods will outperform nonparametric every time.</p>
 <p><strong>Linearity:</strong><br>
--</p>
+- Many relationships in data are actually nonlinear, so KNN regression may outperform Linear Regression (e.g.&nbsp;the RMSE from KNN might be lower than from LR)</p>
 <p><strong>Curse of Dimensionality:</strong><br>
--</p>
+- Each observation is represented as a point in <span class="math inline">\(p\)</span>-dimensional space (where <span class="math inline">\(p\)</span> is the number of predictors). High-dimensional geometry is <em>weird</em><sup>1</sup>, and in particular, when <span class="math inline">\(p\)</span> is large, individual points will tend to be farther apart. As such, even if your data is nonlinear, Linear Regression may do better than KNN when <span class="math inline">\(p\)</span> is large.</p>
 <aside class="notes">
 <p>In situations where the relationship is nonlinear, KNN regression may perform better than Linear Regression</p>
 <style type="text/css">
@@ -652,7 +663,7 @@ knn50 Q1 Q2 Q3 Q4
           display:block!important;
       }</style></aside>
 
-</section></section>
+<aside><ol class="aside-footnotes"><li id="fn3"><p>see the speaker notes on the Scaling Data slide</p></li></ol></aside></section></section>
 
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">

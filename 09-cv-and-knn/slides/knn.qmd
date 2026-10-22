@@ -11,6 +11,7 @@ format:
     slide-number: true
     menu:
       numbers: true
+    scrollable: true
 ---
 
 ```{r echo=FALSE, message=FALSE, warning = FALSE}
@@ -58,16 +59,15 @@ knit_hooks$set(output = function(x, options) {
 
 A model predicts a response variable ($y$) from predictor variables ($x$)
 
-**Regression:**
+**Regression:** $y$ is numeric
 
-**Classification:**
+**Classification:** $y$ is categorical
 
 ## "Lazy" learning
 
 __Lazy learning__: no assumptions necessary to classify data
 
-<br>
-<br>
+ - predicting outcomes without specifying a model
 
 __Example__: Consider the plot below - describe the relationship between x and y.
 
@@ -116,6 +116,11 @@ $$P(Y = j|X = x_0)$$
 
 **Problems**: 
 
+ - We don't know the conditional probability distribution, so we have to estimate it
+ 
+ - (also, even if we did know the distribution, it could lead to overfitting)
+ 
+
 ## $k$-nearest neighbor (KNN) classifier: 
 
 
@@ -130,28 +135,32 @@ knitr::include_graphics("./images/knn-pic.png")
 :::
 
 ::: {.column width="50%"}
-**Output:**
+**Output:** group membership of new point
 
--   
+- if k = 3 -> A, if k = 7 -> B. Sensitive to $k$!
 
--   
+- membership is most common among the closest $k$ training points
 
--   
+- Theoretically, if we choose $k$ well, it becomes close to a Bayes classifier.
 :::
 
 ::::
 
 
 
-## KNN classification algorithm
+## KNN classification algorithm 
+
+**Input/set up:** Training data is labeled
+
+**Algorithm:** Given a new data point, these steps output its membership:
 
 1. Choose a value for $k$ (see note^[$k$ is a _tuning parameter_ or _hyperparameter_: It is a choice we make, rather than an inferred property of the population])
 
-2. 
+2. find the $k$ nearest neighbors to that point (from the training data)
 
-3. 
+3. From among those $k$, count the # in each category
 
-4. 
+4. Assign new point based on plurality vote (i.e. the highest number)
 
 
 ## `knn()` function
@@ -192,30 +201,30 @@ knnMod2
 
 
 
-## Advantages and Disadvantages of KNN
+## Advantages and Disadvantages of KNN 
 
 Advantages:
 
-1. 
-2. 
+1. It's easy! (especially in `R`!)
+2. You don't have to check any assumptions about the data
 
 Disdvantages:
 
-1. 
-2. 
-3. 
-4. 
+1. Hard to decide $k$ (typically, you'll need to try several different values)
+2. Need $n$ (number of observations) to be large relative to $p$ (number of predictors)
+3. The geometry of the data affects the quality of fit (i.e. if the data is clustered, KNN does better)
+4. Because it uses distance, it only works with numeric predictors (unless we encode qualitative variables as dummy variables like in Linear Regression, which comes with its own geometry issues)
 
 
 
 
-## Choice of $k$
+## Choice of $k$ {.smaller}
 
 ```{r, echo=FALSE, out.width="75%", fig.align='center', fig.alt="Two figures depicting how the choice of k effects the decision boundary. When k = 1, the decision boundary between the two colors is overly flexible and follows the noise in the data. When k = 100, the decisicion boundary between the two colors is almost linear, not separting the groups well."}
 
 knitr::include_graphics("./images/choose-k.png")
 ```
-
+(in this example), $k = 1$ leads to low bias (the boundary is close to the dashed purple line, which is the true boundary between classes), but high variance. On the other hand, $k = 100$ leads to high bias (the boundary is far from the true boundary), but lower variance.
 
 
 # Examples
@@ -321,7 +330,7 @@ knn100
 ## Example: Credit utilization
 Is KNN an effective predictor of quartile using an applicant's age, credit rating, income, number of existing credit cards, and education level?
 
-## Example: Credit utilization (cont) {.scrollable}
+## Example: Credit utilization (cont) 
 Randomly selected 100 observations for testing, assigned the other 300 to training set.
 
 ```{r}
@@ -409,7 +418,7 @@ sum(diag(t_scale))/nrow(TEST) #Classification Accuracy
 :::
 
 # KNN for regression
-## KNN Regression algorithm
+## KNN Regression algorithm 
 
 KNN can also predict _quantitative_ responses - alternative to Linear Regression^[Worried your data doesn't satisfy the LINE assumptions? This may be a good option for mini project 3!]
 
@@ -418,7 +427,9 @@ KNN can also predict _quantitative_ responses - alternative to Linear Regression
 
 2. _find $k$ nearest neighbors (same as last time)_
 
-3. 
+3. Response value for new point is average of the response values for the $k$ nearest points (that is, $f(x_0) = \frac1k \sum_{j=1}^k f(q_j))$, where the $q_1,q_2,\dots,q_k$ are the $k$ nearest training points)
+
+*Notes:* Small $k$ will perfectly interpolate the data, while large $k$ will smooth the data
 
 ## Example: Credit Utilization
 
@@ -449,13 +460,13 @@ Is this good? Compare with (1) spread of response variable itself, (2) RMSE from
 <!-- **In General**:  -->
 
 **Parametric vs. nonparametric methods:**  
- -  
+ -  If your model is correct (e.g. you are using linear regression to model a relationship that truly is linear), parameteric methods will outperform nonparametric every time.
  
 **Linearity:**  
- - 
+ - Many relationships in data are actually nonlinear, so KNN regression may outperform Linear Regression (e.g. the RMSE from KNN might be lower than from LR)
  
 **Curse of Dimensionality:**  
- - 
+ - Each observation is represented as a point in $p$-dimensional space (where $p$ is the number of predictors). High-dimensional geometry is *weird*^[see the speaker notes on the Scaling Data slide], and in particular, when $p$ is large, individual points will tend to be farther apart. As such, even if your data is nonlinear, Linear Regression may do better than KNN when $p$ is large.
 
 ::: {.notes}
 In situations where the relationship is nonlinear, KNN regression may perform better than Linear Regression
