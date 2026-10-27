@@ -49,6 +49,9 @@ knit_hooks$set(output = function(x, options) {
 - Covers: Prediction/KNN/Tree-Based Methods
 - If we don't get to it in class today, it won't be on the quiz, but you might need it for the lab.
 
+[Link so source code](decision-trees.qmd)  
+[Link to pdf](decision-trees.pdf)
+
 # Tree-based machine learning methods
 ## Tree-Based Methods
 
