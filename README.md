@@ -28,7 +28,7 @@ This schedule is tentative and may change without warning. The official calendar
  8    | Oct 8  | **Lab 5** | Lab 5 Work Day |  | **Due** during week 9 in Blueline |
  |    |        | **Fall Break** | No class October 11 - 18 |  | |
  9    | Oct 20 | [CV](09-cv-and-knn/slides/cv.html) | Cross validation  | [source code for slides](09-cv-and-knn/slides/cv.qmd) |  |
- 9    | Oct 22 | [KNN](09-cv-and-knn/slides/knn.html) | _k_-nearest neighbors |  |  |
+ 9    | Oct 22 | [KNN](09-cv-and-knn/slides/knn.html) | _k_-nearest neighbors for classification and regression | [source code for slides](09-cv-and-knn/slides/knn.qmd) |  |
  10   | Oct 27 | [Random Forests](10-tree-based-methods/slides/decision-trees-random-forests.html) | Decisions trees and random forests |  |  |
  10   | Oct 29 | **Lab 6** | Lab 6 work day |  |  |
  

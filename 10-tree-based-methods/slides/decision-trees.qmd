@@ -1,0 +1,458 @@
+---
+author: "DSC365: Introduction to Data Science"
+title: "Decision Trees and Random Forests"
+date: October 27, 2026
+format:
+  revealjs:
+    echo: true
+    toc: true
+    toc-depth: 1
+    toc-title: Outline
+    slide-number: true
+    menu:
+      numbers: true
+    scrollable: true
+---
+
+```{r echo=FALSE, message=FALSE, warning = FALSE}
+library(tidyverse)
+library(knitr)
+library(mosaic)
+library(infer)
+library(caret)
+
+
+hook_output = knit_hooks$get('output')
+knit_hooks$set(output = function(x, options) {
+  # this hook is used only when the linewidth option is not NULL
+  if (!is.null(n <- options$linewidth)) {
+    x = xfun::split_lines(x)
+    # any lines wider than n should be wrapped
+    if (any(nchar(x) > n)) x = strwrap(x, width = n)
+    x = paste(x, collapse = '\n')
+  }
+  hook_output(x, options)
+})
+
+```
+
+
+# Announcements {.unlisted .unnumbered}
+
+
+**Lab 5** (Linear Models)
+
+- Due Tonight at 11:59 pm in Blueline
+
+**Quiz 3**: in class on Thursday (October )
+
+- Covers: Prediction/KNN/Tree-Based Methods
+
+# Tree-based machine learning methods
+## Tree-Based Methods
+
+- Can be used for both regression and classification
+  + Regression models $\longrightarrow$  quantitative response variable
+
+  + Classification models $\longrightarrow$ categorical response 
+
+
+- These involve stratifying or segmenting the predictor space into a number of simple regions
+
+
+# Example Classification Scenario
+## Example: Marijuana legalization
+
+The General Social Survey is a wide-ranging survey conducted biannually to measure cultural shifts in American society. We can use the GSS to get an idea of how popular opinion has changed. 
+
+**Goal**: Use Age to predict people’s opinion of marijuana legalization.
+
+
+```{r, echo = FALSE}
+GSS <- read.csv("GSS2016.csv")
+
+table(GSS$GRASS)
+```
+
+::: {.notes}
+Data Cleanings Steps (see `decision-trees-random-forests.R`)
+- Only going to look at one year, 2016, and remove "Not applicable" from our response
+- Want just two groups for responses: Legal and Not legal
+- Change variables to proper type (numeric - will have coercion)
+:::
+
+
+## Let's Clean Our Data! Yay!
+
+Data: [GSS2016.csv](GSS2016.csv)  
+Data cleaning: [`decision-trees-random-forests.R`](decision-trees-random-forests.R)
+
+- Let's only look at one year, say 2016, and remove "Not applicable from our response"
+- Want just two groups for responses: Legal and Not legal
+- Change variables to proper type
+
+```{r}
+#| code-line-numbers: "1-3|4-5|6"
+GSS <- GSS %>%
+  filter(YEAR==2016) %>%
+  filter(GRASS != 'Not applicable')
+GSS <- GSS %>%
+  mutate(LEGAL = ifelse(GRASS=='Legal', 'Legal', 'Not legal'))
+GSS$AGE <- as.numeric(GSS$AGE)
+```
+
+
+## Testing data v. Training data
+
+```{r}
+set.seed(4)
+test_id <- sample(1:nrow(GSS), size=round(0.2*nrow(GSS)))
+TEST <- GSS[test_id,]
+TRAIN <- GSS[-test_id,]
+```
+
+How many people in the training data set support marijuana legalization?
+
+```{r}
+TRAIN %>% group_by(LEGAL) %>% summarize(n=n())
+```
+
+
+
+# Decision Trees: Classification
+## What is a decision tree
+
+Decision trees: A tree-like model of decisions and their possible consequences
+
+- Has flowchart-like structure in which each...
+
+```{r, echo=FALSE, fig.align='left',out.width="75%", fig.alt="Overview of the flowchart structure of a decision tree. The tree begins at a root decision node. Based on the test outcome of this decision node, this leads to other outcomes. These tests keep happening until we reach a terminal node of the decision tree which provides the predicted outcome."}
+
+knitr::include_graphics("./images/decision-tree.png")
+
+```
+
+
+## How Decision Trees classify
+
+
+
+How to decide to split?
+
+- As the number of predictors increases, so does the number of possible trees.
+  + Optimal decision trees do not exist (Hyafil & Rivest, 1976)
+  + So several competing methods for building decision trees
+
+
+## How Decision Trees classify (cont)
+
+Recursive Partitioning: Split infinite # of times until reach stopping criterion.
+
+Split:
+
+- Gini Index (default): $$G = \sum_{k=1}^{K} \hat{p}_{mk}(1-\hat{p}_{mk})$$ where $\hat{p}_{mk}$ is the proportion of training observations in $m^{th}$ region from $k^{th}$ class.
+    
+Stop:
+
+- Complexity parameter
+
+  
+
+## Fitting A Decision Tree (Classification)
+
+```{r}
+#install.packages('rpart')
+library(rpart)
+rpart(LEGAL~AGE, data=TRAIN, na.action = na.pass)
+```
+
+
+## Visualizing a Decision Tree (Classification)
+
+```{r, message=FALSE, fig.height=8, fig.width=10, eval = FALSE}
+
+#install.packages("rattle")
+library(rattle)
+tree <- rpart(LEGAL~AGE, data=TRAIN, na.action = na.pass)
+fancyRpartPlot(tree)
+```
+
+
+```{r, echo = FALSE}
+tree <- rpart(LEGAL~AGE, data=TRAIN, na.action = na.pass)
+
+```
+
+```{r, echo=FALSE, fig.align='center',out.width="75%", fig.alt="Decision tree for GSS data with just Age as an explanatory variable. There is a split at Age = 69, where those younger than 69 are classified as Legal, and those 69 and older are classified as Not Legal"}
+
+knitr::include_graphics("./images/tree1.png")
+
+```
+
+<!-- ## Visualizing using ggplot -->
+
+<!-- ```{r, warning=FALSE, fig.height=6, fig.width=8, fig.align='center'} -->
+<!-- TRAIN %>% ggplot(aes(x=LEGAL, y=AGE)) + -->
+<!-- geom_boxplot(aes(col=LEGAL)) + -->
+<!--   geom_hline(yintercept=69, col='black')  -->
+<!-- ``` -->
+
+# Evaluation
+## Evaluating a decision tree
+
+- Confusion Matrix
+- Classification Accuracy
+
+
+## Evaluating a decision tree: Confusion Matrix
+
+```{r}
+TRAIN <- TRAIN %>%
+  mutate(Legal_Tree = predict(tree, type='class'))
+
+confusion_train <- tally(Legal_Tree~LEGAL, data=TRAIN)
+confusion_train
+```
+
+```{r}
+TEST <- TEST %>%
+  mutate(Legal_Tree = predict(tree, type='class', newdata = TEST))
+
+confusion_test <- tally(Legal_Tree~LEGAL, data=TEST)
+confusion_test
+```
+
+
+## Evaluating a decision tree: Classification Accuracy
+
+Training Accuracy:
+
+```{r}
+sum(diag(confusion_train))/nrow(TRAIN)
+```
+
+Testing Accuracy:
+
+```{r}
+sum(diag(confusion_test))/nrow(TEST)
+```
+
+
+
+## Tuning Parameter: Complexity parameter
+
+Using recursive partitioning can overfit the training data - Prune Tree 
+
+```{r, message=FALSE}
+printcp(tree)
+```
+
+- Changing complexity parameter:
+
+```{r, eval = FALSE}
+#| code-line-numbers: "2"
+rpart(LEGAL~AGE, data=TRAIN, na.action = na.pass,
+      control = rpart.control(cp = 0.05))
+```
+
+
+# Decision Trees for Regression
+## Decision Trees (Regression)
+
+
+
+
+How to decide to split?
+
+- Find regions $(R_j)$ that minimizes the residual sum of squares $$RSS = \sum^{J}_{j=1}\sum_{i \in R_j}(y_i - \hat{y}_{R_j})^2$$
+  - Stops when you reach some criterion (cp)
+
+
+
+## Fitting A Decision Tree (Regression)
+
+Let's suppose we want to use people’s political view (POLVIEWS) and marital status (MARITAL) to estimate people’s age.
+
+```{r, eval = FALSE}
+tree2 <- rpart(AGE~POLVIEWS+MARITAL, data=TRAIN)
+fancyRpartPlot(tree2)
+```
+
+```{r, echo = FALSE}
+tree2 <- rpart(AGE~POLVIEWS + MARITAL, data=TRAIN)
+```
+
+```{r, echo=FALSE, fig.align='center',out.width="75%", fig.alt="A regression decision tree with an initial split for Marital status. For those who were never married or separated have a predicted age of 32. For those who are married or divorced, they have a predicted age of 52. Anyone in a different category has a predicted age of 69."}
+
+knitr::include_graphics("./images/tree2.png")
+
+```
+
+
+## Prediction using Decision Tree
+
+We can still use the predict function to predict our regression decision tree outputs. 
+```{r}
+#| code-line-numbers: "1-3|1"
+TEST <- TEST %>% filter(MARITAL != "No answer") 
+
+predict(tree2, TEST , method = "anova") %>% head()
+```
+
+
+**Be Careful**: Can only predict using categorical variables located in the Training Set
+
+# Comparison with other methods
+## Trees Versus Linear Models
+
+- If the relationship between the features and the response is well approximated by
+a linear model: 
+  + Linear regression 
+  
+<br>
+<br>
+
+- If instead there is a highly nonlinear and complex relationship between the features and the response as indicated by model: 
+  + Decision trees
+
+
+
+
+## Advantages and Disadvantages of Decision Trees
+
+**Advantages**
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+**Disadvantages** 
+  
+# Random Forests
+## Random Forests
+
+A random forest is collection of decision trees that are aggregated by majority rule
+
+  
+<br>
+<br>
+<br>
+<br>
+
+When to use random forest:
+
+
+
+
+## Building a Random Forest
+
+In building a random forest, each time a split in a tree is considered, a random sample of *m* predictors is chosen as split candidates from the full set of *p* predictors. 
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+Hence, at each split in the tree, the algorithm is not even allowed to consider a majority of the available predictors. Why is this a good thing?
+
+
+## Random Forests 
+
+**Example**: Which variables are most important for predicting views on marijuana legalization?
+
+
+```{r, message=FALSE}
+#install.packages('randomForest')
+library(randomForest)
+
+forest_grass <- randomForest(as.factor(LEGAL)~NEWSFROM+HAPPY+RELIG+COURTS+
+                             ENERGY+EDUC+ENVIR+POLVIEWS+PARTYID+REGION+
+                             INCOME+SEX+DEGREE+AGE+MARITAL+BALLOT,data=TRAIN,
+                             na.action = na.omit, ntree=201, mtry=4)
+
+forest_grass
+```
+
+
+## Random Forests: Prediction
+
+```{r}
+TEST <- TEST %>%
+  mutate(Legal_RF = predict(forest_grass, type='class', 
+                            newdata = TEST)) 
+
+TEST$Legal_RF[1:5]
+
+confusion_test <- tally(Legal_RF~LEGAL, data=TEST)
+sum(diag(confusion_test))/nrow(TEST)
+```
+
+
+## Variable Importance
+
+Since each tree in a random forest uses a different set of variables, we want to keep track of which variables seem to be the most consistently influential. 
+
+.tiny[
+```{r}
+randomForest::importance(forest_grass) %>% as.data.frame() %>% 
+  rownames_to_column() %>% arrange(desc(MeanDecreaseGini))
+```
+]
+
+
+<!-- ??? -->
+
+<!-- ### Decision Tree with Selected Importance -->
+
+<!-- ```{r, eval = FALSE} -->
+<!-- tree4 <- rpart(LEGAL~AGE+REGION+POLVIEWS, data=TRAIN) -->
+<!-- fancyRpartPlot(tree4) -->
+<!-- ``` -->
+
+<!-- ```{r, echo = FALSE} -->
+<!-- tree4 <- rpart(LEGAL~AGE+PARTYID, data=TRAIN) -->
+<!-- ``` -->
+
+<!-- ```{r, echo=FALSE, fig.align='center'} -->
+
+<!-- knitr::include_graphics("./images/tree4.png") -->
+
+<!-- ``` -->
+
+
+# Summary 
+## Modeling Data {.smaller}
+
+- [**Linear model**](../../08-statistical-foundations/slides/linear-models/linear-models.html)
+  + The basic model for *regression* only
+  + easy interpretation, but strict assumptions
+  + Use [cross-validation (CV)](../../09-cv-and-knn/slides/cv.html) to ensure quality of model
+  <!-- + thus hard to get a better prediction -->
+
+- [**KNN:**](../../09-cv-and-knn/slides/knn.html)
+  + Can be applied to *regression* and *classification*
+  + fast, no assumptions, can add data anytime.
+  + large number of variables can lower quality
+  + use CV to decide $k$
+
+- **Decision tree:**
+  + Can be applied to *regression* and *classification.*
+  + good data visualization 
+  + high variance
+
+- **Random Forest:**
+  + a collection of tree models; can be applied to *regression*^[This is uncommon, though] and *classification.*
+  + Hard to interpret, but can output variable importance
+    + Can be useful for *variable selection*
+  + outperforms linear model when variables are no linearly independent
+
+
