@@ -12,7 +12,9 @@ format:
     menu:
       numbers: true
     scrollable: true
-    chalkboard: true
+    chalkboard:
+      src: ./chalkboard.json
+      theme: whiteboard
 ---
 
 ```{r echo=FALSE, message=FALSE, warning = FALSE}
