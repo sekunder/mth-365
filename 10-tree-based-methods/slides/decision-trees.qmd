@@ -47,14 +47,15 @@ knit_hooks$set(output = function(x, options) {
 **Quiz 3**: in class on Thursday (October )
 
 - Covers: Prediction/KNN/Tree-Based Methods
+- If we don't get to it in class today, it won't be on the quiz, but you might need it for the lab.
 
 # Tree-based machine learning methods
 ## Tree-Based Methods
 
 - Can be used for both regression and classification
-  + Regression models $\longrightarrow$  quantitative response variable
+  + *Regression* models $\longrightarrow$  *quantitative* response variable
 
-  + Classification models $\longrightarrow$ categorical response 
+  + *Classification* models $\longrightarrow$ *categorical* response 
 
 
 - These involve stratifying or segmenting the predictor space into a number of simple regions
@@ -144,17 +145,13 @@ How to decide to split?
   + So several competing methods for building decision trees
 
 
-## How Decision Trees classify (cont)
+## How Decision Trees classify (cont) {.smaller}
 
 Recursive Partitioning: Split infinite # of times until reach stopping criterion.
 
-Split:
-
-- Gini Index (default): $$G = \sum_{k=1}^{K} \hat{p}_{mk}(1-\hat{p}_{mk})$$ where $\hat{p}_{mk}$ is the proportion of training observations in $m^{th}$ region from $k^{th}$ class.
+**Split:** Gini Index (default): $$G = \sum_{k=1}^{K} \hat{p}_{mk}(1-\hat{p}_{mk})$$ where $\hat{p}_{mk}$ is the proportion of training observations in $m^{th}$ region from $k^{th}$ class.
     
-Stop:
-
-- Complexity parameter
+**Stop:** Complexity parameter
 
   
 
@@ -274,7 +271,7 @@ How to decide to split?
 Let's suppose we want to use people’s political view (POLVIEWS) and marital status (MARITAL) to estimate people’s age.
 
 ```{r, eval = FALSE}
-tree2 <- rpart(AGE~POLVIEWS+MARITAL, data=TRAIN)
+tree2 <- rpart(AGE ~ POLVIEWS + MARITAL, data=TRAIN)
 fancyRpartPlot(tree2)
 ```
 
@@ -299,8 +296,10 @@ TEST <- TEST %>% filter(MARITAL != "No answer")
 predict(tree2, TEST , method = "anova") %>% head()
 ```
 
+<br/>
+<br/>
 
-**Be Careful**: Can only predict using categorical variables located in the Training Set
+**Caution**: Can only predict using categorical variables located in the Training Set
 
 # Comparison with other methods
 ## Trees Versus Linear Models
@@ -322,10 +321,6 @@ a linear model:
 
 **Advantages**
 
-<br>
-<br>
-<br>
-<br>
 <br>
 <br>
 <br>
@@ -356,22 +351,20 @@ In building a random forest, each time a split in a tree is considered, a random
 <br>
 <br>
 <br>
-<br>
-<br>
-<br>
-<br>
 
 
 Hence, at each split in the tree, the algorithm is not even allowed to consider a majority of the available predictors. Why is this a good thing?
 
+# Example: Identifying Important Variables
+## Fit random forest
 
-## Random Forests 
+**Goal**: Which variables are most important for predicting views on marijuana legalization?
 
-**Example**: Which variables are most important for predicting views on marijuana legalization?
-
+```{r, echo=FALSE}
+#install.packages('randomForest')
+```
 
 ```{r, message=FALSE}
-#install.packages('randomForest')
 library(randomForest)
 
 forest_grass <- randomForest(as.factor(LEGAL)~NEWSFROM+HAPPY+RELIG+COURTS+
@@ -383,7 +376,7 @@ forest_grass
 ```
 
 
-## Random Forests: Prediction
+## Test predictions
 
 ```{r}
 TEST <- TEST %>%
@@ -401,12 +394,10 @@ sum(diag(confusion_test))/nrow(TEST)
 
 Since each tree in a random forest uses a different set of variables, we want to keep track of which variables seem to be the most consistently influential. 
 
-.tiny[
 ```{r}
 randomForest::importance(forest_grass) %>% as.data.frame() %>% 
   rownames_to_column() %>% arrange(desc(MeanDecreaseGini))
 ```
-]
 
 
 <!-- ??? -->
