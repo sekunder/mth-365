@@ -12,6 +12,7 @@ format:
     menu:
       numbers: true
     scrollable: true
+    chalkboard: true
 ---
 
 ```{r echo=FALSE, message=FALSE, warning = FALSE}
