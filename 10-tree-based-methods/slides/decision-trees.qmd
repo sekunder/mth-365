@@ -335,32 +335,31 @@ a linear model:
 # Random Forests
 ## Random Forests
 
-A random forest is collection of decision trees that are aggregated by majority rule
-
-  
-<br>
-<br>
-<br>
-<br>
+A random forest is collection of decision trees^[A collection of trees is called a forest.] that are aggregated by majority rule
 
 When to use random forest:
 
+  - large number of variables, no idea which are important
+  - potential collinearity in predictors
 
 
 
-## Building a Random Forest
 
-In building a random forest, each time a split in a tree is considered, a random sample of *m* predictors is chosen as split candidates from the full set of *p* predictors. 
+## Building a Random Forest {.scrollable .smaller}
 
-<br>
-<br>
-<br>
+In building a random forest, each time a split in a tree is considered, a random sample of $m$ predictors is chosen as split candidates from the full set of $p$ predictors. 
+  
+  - each time a split is considered, a fresh set of $m$ random predictors are selected
+  - Only one of the $m$ variables is selected for the split
+  - $m$ is a *tuning parameter*. Typically use $m \approx \sqrt{p}$,
 
 
 Hence, at each split in the tree, the algorithm is not even allowed to consider a majority of the available predictors. Why is this a good thing?
 
+  - Roughly speaking, randomness is a method of search: You are searching the space of all possible trees for the "best" or "most explanatory." So randomly picking variables can help you discover the most important/most explanatory predictors.
+
 # Example: Identifying Important Variables
-## Fit random forest
+## Fit random forest {.scrollable .smaller}
 
 **Goal**: Which variables are most important for predicting views on marijuana legalization?
 
@@ -368,17 +367,44 @@ Hence, at each split in the tree, the algorithm is not even allowed to consider 
 #install.packages('randomForest')
 ```
 
-```{r, message=FALSE}
-library(randomForest)
+The code below will fit a model to predict `LEGAL` using all the other variables.
 
-forest_grass <- randomForest(as.factor(LEGAL)~NEWSFROM+HAPPY+RELIG+COURTS+
-                             ENERGY+EDUC+ENVIR+POLVIEWS+PARTYID+REGION+
-                             INCOME+SEX+DEGREE+AGE+MARITAL+BALLOT,data=TRAIN,
-                             na.action = na.omit, ntree=201, mtry=4)
+```{r, message=FALSE, eval=FALSE}
+#| code-line-numbers: "4-6"
+library(randomForest)
+forest_grass <- randomForest(as.factor(LEGAL)~NEWSFROM+HAPPY+RELIG+COURTS+ENERGY+EDUC+ENVIR+POLVIEWS+PARTYID+REGION+INCOME+SEX+DEGREE+AGE+MARITAL+BALLOT,
+                             data=TRAIN,
+                             na.action = na.omit,
+                             ntree=201,
+                             mtry=4)
 
 forest_grass
 ```
 
+ - `na,action = na.omit` ignores observations with missing data
+ - `ntree = 201` is the number of trees in the forest (odd so there won't be ties)
+ - `mtry = 4` the number $m$ of variables to use at each split (note: there's a total of $p = 16$ predictors, and $m = 4 = \sqrt{p} = \sqrt{16}$)
+
+## Fit random forest (cont) {.unlisted .scrollable .smaller}
+
+Here's the actual output. Explanation below the output
+
+```{r, message=FALSE}
+library(randomForest)
+forest_grass <- randomForest(as.factor(LEGAL)~NEWSFROM+HAPPY+RELIG+COURTS+ENERGY+EDUC+ENVIR+POLVIEWS+PARTYID+REGION+INCOME+SEX+DEGREE+AGE+MARITAL+BALLOT,
+                             data=TRAIN,
+                             na.action = na.omit,
+                             ntree=201,
+                             mtry=4)
+
+forest_grass
+```
+
+Interpreting the output:
+
+> `OOB estimate of  error rate: 33.96%`
+
+For each tree, some of the data is held out (as testing data). This error rate is the average, over those trees, of the test error.
 
 ## Test predictions
 
@@ -393,16 +419,30 @@ confusion_test <- tally(Legal_RF~LEGAL, data=TEST)
 sum(diag(confusion_test))/nrow(TEST)
 ```
 
+Classification accuracy above 50% is better than random guessing, but still worse than a decision tree just using `AGE`
 
-## Variable Importance
+## Variable Importance {.scrollable}
 
 Since each tree in a random forest uses a different set of variables, we want to keep track of which variables seem to be the most consistently influential. 
 
-```{r}
-randomForest::importance(forest_grass) %>% as.data.frame() %>% 
-  rownames_to_column() %>% arrange(desc(MeanDecreaseGini))
-```
+:::: {.columns}
 
+::: {.column width="50%"}
+```{r}
+randomForest::importance(forest_grass) %>%
+  as.data.frame() %>% 
+  rownames_to_column() %>%
+  arrange(desc(MeanDecreaseGini))
+```
+:::
+
+::: {.column width="50%"}
+- Table shows how much the Gini index decreases when a variable is included
+
+- From previous slides, we want to _minimize_ Gini index, so the largest _decrease_ corresponds to the _most useful_ variables
+:::
+
+::::
 
 <!-- ??? -->
 
@@ -425,7 +465,7 @@ randomForest::importance(forest_grass) %>% as.data.frame() %>%
 
 
 # Summary 
-## Modeling Data {.smaller}
+## Modeling Data {.smaller .scrollable}
 
 - [**Linear model**](../../08-statistical-foundations/slides/linear-models/linear-models.html)
   + The basic model for *regression* only
@@ -445,9 +485,18 @@ randomForest::importance(forest_grass) %>% as.data.frame() %>%
   + high variance
 
 - **Random Forest:**
-  + a collection of tree models; can be applied to *regression*^[This is uncommon, though] and *classification.*
+  + a collection of tree models; can be applied to *regression* and *classification.*
   + Hard to interpret, but can output variable importance
     + Can be useful for *variable selection*
   + outperforms linear model when variables are no linearly independent
 
+## Variable Selection {.scrollable}
 
+Ultimately, a model is a way to convert input variables into output predictions. Which variables should you use?
+
+**Variable Selection** is a hard problem
+
+ - Variable importance (from a few slides ago) is one way
+ - the $R^2$ value from a [linear regression](../../08-statistical-foundations/slides/linear-models/linear-models.html) is another
+ 
+A few more methods will come up over the remainder of the semester, but there is no single best way to do it.

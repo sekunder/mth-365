@@ -550,33 +550,63 @@ n= 1565
 </section>
 <section id="random-forests-1" class="slide level2">
 <h2>Random Forests</h2>
-<p>A random forest is collection of decision trees that are aggregated by majority rule</p>
-<p><br> <br> <br> <br></p>
+<p>A random forest is collection of decision trees<sup>1</sup> that are aggregated by majority rule</p>
 <p>When to use random forest:</p>
-</section>
-<section id="building-a-random-forest" class="slide level2">
+<ul>
+<li>large number of variables, no idea which are important</li>
+<li>potential collinearity in predictors</li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>A collection of trees is called a forest.</p></li></ol></aside></section>
+<section id="building-a-random-forest" class="slide level2 scrollable smaller">
 <h2>Building a Random Forest</h2>
-<p>In building a random forest, each time a split in a tree is considered, a random sample of <em>m</em> predictors is chosen as split candidates from the full set of <em>p</em> predictors.</p>
-<p><br> <br> <br></p>
+<p>In building a random forest, each time a split in a tree is considered, a random sample of <span class="math inline">\(m\)</span> predictors is chosen as split candidates from the full set of <span class="math inline">\(p\)</span> predictors.</p>
+<ul>
+<li>each time a split is considered, a fresh set of <span class="math inline">\(m\)</span> random predictors are selected</li>
+<li>Only one of the <span class="math inline">\(m\)</span> variables is selected for the split</li>
+<li><span class="math inline">\(m\)</span> is a <em>tuning parameter</em>. Typically use <span class="math inline">\(m \approx \sqrt{p}\)</span>,</li>
+</ul>
 <p>Hence, at each split in the tree, the algorithm is not even allowed to consider a majority of the available predictors. Why is this a good thing?</p>
+<ul>
+<li>Roughly speaking, randomness is a method of search: You are searching the space of all possible trees for the “best” or “most explanatory.” So randomly picking variables can help you discover the most important/most explanatory predictors.</li>
+</ul>
 </section></section>
 <section>
 <section id="example-identifying-important-variables" class="title-slide slide level1 center">
 <h1>Example: Identifying Important Variables</h1>
 
 </section>
-<section id="fit-random-forest" class="slide level2">
+<section id="fit-random-forest" class="slide level2 scrollable smaller">
 <h2>Fit random forest</h2>
 <p><strong>Goal</strong>: Which variables are most important for predicting views on marijuana legalization?</p>
+<p>The code below will fit a model to predict <code>LEGAL</code> using all the other variables.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a><span class="fu">library</span>(randomForest)</span>
-<span id="cb23-2"><a href=""></a></span>
-<span id="cb23-3"><a href=""></a>forest_grass <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(<span class="fu">as.factor</span>(LEGAL)<span class="sc">~</span>NEWSFROM<span class="sc">+</span>HAPPY<span class="sc">+</span>RELIG<span class="sc">+</span>COURTS<span class="sc">+</span></span>
-<span id="cb23-4"><a href=""></a>                             ENERGY<span class="sc">+</span>EDUC<span class="sc">+</span>ENVIR<span class="sc">+</span>POLVIEWS<span class="sc">+</span>PARTYID<span class="sc">+</span>REGION<span class="sc">+</span></span>
-<span id="cb23-5"><a href=""></a>                             INCOME<span class="sc">+</span>SEX<span class="sc">+</span>DEGREE<span class="sc">+</span>AGE<span class="sc">+</span>MARITAL<span class="sc">+</span>BALLOT,<span class="at">data=</span>TRAIN,</span>
-<span id="cb23-6"><a href=""></a>                             <span class="at">na.action =</span> na.omit, <span class="at">ntree=</span><span class="dv">201</span>, <span class="at">mtry=</span><span class="dv">4</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23" data-code-line-numbers="4-6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a><span class="fu">library</span>(randomForest)</span>
+<span id="cb23-2"><a href=""></a>forest_grass <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(<span class="fu">as.factor</span>(LEGAL)<span class="sc">~</span>NEWSFROM<span class="sc">+</span>HAPPY<span class="sc">+</span>RELIG<span class="sc">+</span>COURTS<span class="sc">+</span>ENERGY<span class="sc">+</span>EDUC<span class="sc">+</span>ENVIR<span class="sc">+</span>POLVIEWS<span class="sc">+</span>PARTYID<span class="sc">+</span>REGION<span class="sc">+</span>INCOME<span class="sc">+</span>SEX<span class="sc">+</span>DEGREE<span class="sc">+</span>AGE<span class="sc">+</span>MARITAL<span class="sc">+</span>BALLOT,</span>
+<span id="cb23-3"><a href=""></a>                             <span class="at">data=</span>TRAIN,</span>
+<span id="cb23-4"><a href=""></a>                             <span class="at">na.action =</span> na.omit,</span>
+<span id="cb23-5"><a href=""></a>                             <span class="at">ntree=</span><span class="dv">201</span>,</span>
+<span id="cb23-6"><a href=""></a>                             <span class="at">mtry=</span><span class="dv">4</span>)</span>
 <span id="cb23-7"><a href=""></a></span>
 <span id="cb23-8"><a href=""></a>forest_grass</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li><code>na,action = na.omit</code> ignores observations with missing data</li>
+<li><code>ntree = 201</code> is the number of trees in the forest (odd so there won’t be ties)</li>
+<li><code>mtry = 4</code> the number <span class="math inline">\(m\)</span> of variables to use at each split (note: there’s a total of <span class="math inline">\(p = 16\)</span> predictors, and <span class="math inline">\(m = 4 = \sqrt{p} = \sqrt{16}\)</span>)</li>
+</ul>
+</section>
+<section id="fit-random-forest-cont" class="slide level2 unlisted scrollable smaller">
+<h2>Fit random forest (cont)</h2>
+<p>Here’s the actual output. Explanation below the output</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a><span class="fu">library</span>(randomForest)</span>
+<span id="cb24-2"><a href=""></a>forest_grass <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(<span class="fu">as.factor</span>(LEGAL)<span class="sc">~</span>NEWSFROM<span class="sc">+</span>HAPPY<span class="sc">+</span>RELIG<span class="sc">+</span>COURTS<span class="sc">+</span>ENERGY<span class="sc">+</span>EDUC<span class="sc">+</span>ENVIR<span class="sc">+</span>POLVIEWS<span class="sc">+</span>PARTYID<span class="sc">+</span>REGION<span class="sc">+</span>INCOME<span class="sc">+</span>SEX<span class="sc">+</span>DEGREE<span class="sc">+</span>AGE<span class="sc">+</span>MARITAL<span class="sc">+</span>BALLOT,</span>
+<span id="cb24-3"><a href=""></a>                             <span class="at">data=</span>TRAIN,</span>
+<span id="cb24-4"><a href=""></a>                             <span class="at">na.action =</span> na.omit,</span>
+<span id="cb24-5"><a href=""></a>                             <span class="at">ntree=</span><span class="dv">201</span>,</span>
+<span id="cb24-6"><a href=""></a>                             <span class="at">mtry=</span><span class="dv">4</span>)</span>
+<span id="cb24-7"><a href=""></a></span>
+<span id="cb24-8"><a href=""></a>forest_grass</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -592,33 +622,43 @@ Legal       704       202   0.2229581
 Not legal   325       321   0.5030960</code></pre>
 </div>
 </div>
+<p>Interpreting the output:</p>
+<blockquote>
+<p><code>OOB estimate of  error rate: 33.96%</code></p>
+</blockquote>
+<p>For each tree, some of the data is held out (as testing data). This error rate is the average, over those trees, of the test error.</p>
 </section>
 <section id="test-predictions" class="slide level2">
 <h2>Test predictions</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a>TEST <span class="ot">&lt;-</span> TEST <span class="sc">%&gt;%</span></span>
-<span id="cb25-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">Legal_RF =</span> <span class="fu">predict</span>(forest_grass, <span class="at">type=</span><span class="st">'class'</span>, </span>
-<span id="cb25-3"><a href=""></a>                            <span class="at">newdata =</span> TEST)) </span>
-<span id="cb25-4"><a href=""></a></span>
-<span id="cb25-5"><a href=""></a>TEST<span class="sc">$</span>Legal_RF[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a>TEST <span class="ot">&lt;-</span> TEST <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">Legal_RF =</span> <span class="fu">predict</span>(forest_grass, <span class="at">type=</span><span class="st">'class'</span>, </span>
+<span id="cb26-3"><a href=""></a>                            <span class="at">newdata =</span> TEST)) </span>
+<span id="cb26-4"><a href=""></a></span>
+<span id="cb26-5"><a href=""></a>TEST<span class="sc">$</span>Legal_RF[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        1         2         3         4         5 
 Not legal     Legal     Legal     Legal     Legal 
 Levels: Legal Not legal</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a>confusion_test <span class="ot">&lt;-</span> <span class="fu">tally</span>(Legal_RF<span class="sc">~</span>LEGAL, <span class="at">data=</span>TEST)</span>
-<span id="cb27-2"><a href=""></a><span class="fu">sum</span>(<span class="fu">diag</span>(confusion_test))<span class="sc">/</span><span class="fu">nrow</span>(TEST)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a>confusion_test <span class="ot">&lt;-</span> <span class="fu">tally</span>(Legal_RF<span class="sc">~</span>LEGAL, <span class="at">data=</span>TEST)</span>
+<span id="cb28-2"><a href=""></a><span class="fu">sum</span>(<span class="fu">diag</span>(confusion_test))<span class="sc">/</span><span class="fu">nrow</span>(TEST)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.5717949</code></pre>
 </div>
 </div>
+<p>Classification accuracy above 50% is better than random guessing, but still worse than a decision tree just using <code>AGE</code></p>
 </section>
-<section id="variable-importance" class="slide level2">
+<section id="variable-importance" class="slide level2 scrollable">
 <h2>Variable Importance</h2>
 <p>Since each tree in a random forest uses a different set of variables, we want to keep track of which variables seem to be the most consistently influential.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a>randomForest<span class="sc">::</span><span class="fu">importance</span>(forest_grass) <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb29-2"><a href=""></a>  <span class="fu">rownames_to_column</span>() <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(MeanDecreaseGini))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a>randomForest<span class="sc">::</span><span class="fu">importance</span>(forest_grass) <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href=""></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb30-3"><a href=""></a>  <span class="fu">rownames_to_column</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb30-4"><a href=""></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(MeanDecreaseGini))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    rowname MeanDecreaseGini
 1       AGE        128.51054
@@ -639,6 +679,12 @@ Levels: Legal Not legal</code></pre>
 16   BALLOT         20.41207</code></pre>
 </div>
 </div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><p>Table shows how much the Gini index decreases when a variable is included</p></li>
+<li><p>From previous slides, we want to <em>minimize</em> Gini index, so the largest <em>decrease</em> corresponds to the <em>most useful</em> variables</p></li>
+</ul>
+</div></div>
 <!-- ??? -->
 <!-- ### Decision Tree with Selected Importance -->
 <!-- ```{r, eval = FALSE} -->
@@ -657,7 +703,7 @@ Levels: Legal Not legal</code></pre>
 <h1>Summary</h1>
 
 </section>
-<section id="modeling-data" class="slide level2 smaller">
+<section id="modeling-data" class="slide level2 smaller scrollable">
 <h2>Modeling Data</h2>
 <ul>
 <li><a href="../../08-statistical-foundations/slides/linear-models/linear-models.html"><strong>Linear model</strong></a>
@@ -681,7 +727,7 @@ Levels: Legal Not legal</code></pre>
 </ul></li>
 <li><strong>Random Forest:</strong>
 <ul>
-<li>a collection of tree models; can be applied to <em>regression</em><sup>1</sup> and <em>classification.</em></li>
+<li>a collection of tree models; can be applied to <em>regression</em> and <em>classification.</em></li>
 <li>Hard to interpret, but can output variable importance
 <ul>
 <li>Can be useful for <em>variable selection</em></li>
@@ -689,8 +735,18 @@ Levels: Legal Not legal</code></pre>
 <li>outperforms linear model when variables are no linearly independent</li>
 </ul></li>
 </ul>
+</section>
+<section id="variable-selection" class="slide level2 scrollable">
+<h2>Variable Selection</h2>
+<p>Ultimately, a model is a way to convert input variables into output predictions. Which variables should you use?</p>
+<p><strong>Variable Selection</strong> is a hard problem</p>
+<ul>
+<li>Variable importance (from a few slides ago) is one way</li>
+<li>the <span class="math inline">\(R^2\)</span> value from a <a href="../../08-statistical-foundations/slides/linear-models/linear-models.html">linear regression</a> is another</li>
+</ul>
+<p>A few more methods will come up over the remainder of the semester, but there is no single best way to do it.</p>
 
-<aside><ol class="aside-footnotes"><li id="fn1"><p>This is uncommon, though</p></li></ol></aside></section></section>
+</section></section>
 
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
