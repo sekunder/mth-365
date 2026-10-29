@@ -11,10 +11,8 @@ format:
     slide-number: true
     menu:
       numbers: true
-    scrollable: true
     chalkboard:
-      src: ./chalkboard.json
-      theme: whiteboard
+      src: chalkboard-fall2026.json
 ---
 
 ```{r echo=FALSE, message=FALSE, warning = FALSE}
