@@ -31,7 +31,7 @@ This schedule is tentative and may change without warning. The official calendar
  9    | Oct 22 | [KNN](09-cv-and-knn/slides/knn.html) | _k_-nearest neighbors for classification and regression | [source code for slides](09-cv-and-knn/slides/knn.qmd) |  |
  10   | Oct 27 | [Random Forests](10-tree-based-methods/slides/decision-trees.html) | Decisions trees and random forests | [(qmd)](10-tree-based-methods/slides/decision-trees.qmd) [(pdf)](10-tree-based-methods/slides/decision-trees.pdf) |  |
  10   | Oct 29 | **Lab 6** | Lab 6 work day |  | **Due** during Week 12 in Blueline |
- 11   | Nov 3  | [Clustering](11-clustering/slides/clustering.html) | Clustering methods |  |  |
+ 11   | Nov 3  | [Clustering](11-clustering/slides/clustering.html) | Clustering methods | [(qmd)](11-clustering/slides/clustering.qmd) [(pdf)](11-clustering/slides/clustering.pdf) |  |
  11   | Nov 5  | PCA | Principal Component Analysis |  |  |
  12   | Nov 10 | Text data |  |  |  |
  12   | Nov 12 | **Lab 7** | Lab 7 work day |  |  |

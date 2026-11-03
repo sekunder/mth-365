@@ -61,6 +61,9 @@ presentation_theme = theme(
 
 Suggested reading: [Modern Data Science with R, Chapter 12](https://mdsr-book.github.io/mdsr3e/12-learningII.html)
 
+[Link to slide `.qmd` source](clustering.qmd)  
+[Link to slide pdf](clustering.pdf)
+
 # Unsupervised Learning Methods
 ## Supervised vs. unsupervised
 
@@ -164,10 +167,6 @@ $$\text{minimize} \left(\sum^K_{j=1}W(C_j)\right)$$
 2). Iterate until the clusters stop changing. 
   
   
-<br>
-<br>
-<br>
-<br>
 <br>
 <br>
 <br>
@@ -301,11 +300,6 @@ This might sound counterintuitive (why do we want everything grouped together). 
 
     
 
-<br>
-<br>
-<br>
-<br>
-<br>
 <br>
 <br>
 <br>
