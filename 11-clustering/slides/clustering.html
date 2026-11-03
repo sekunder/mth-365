@@ -482,8 +482,8 @@ $ region           &lt;fct&gt; Southern Europe, Northern Africa, Middle Africa, 
 <span id="annotated-cell-5-6"><a href="#annotated-cell-5-6"></a></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="2">2</button><span id="annotated-cell-5-7" class="code-annotation-target"><a href="#annotated-cell-5-7"></a>gap_dist <span class="ot">&lt;-</span> <span class="fu">dist</span>(gap_fle[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span>
 <span id="annotated-cell-5-8"><a href="#annotated-cell-5-8"></a></span>
-<span id="annotated-cell-5-9"><a href="#annotated-cell-5-9"></a>gap_dist_matrix <span class="ot">&lt;-</span> gap_dist <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>()</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="3">3</button><span id="annotated-cell-5-10" class="code-annotation-target"><a href="#annotated-cell-5-10"></a>gap_dist_matrix[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="3">3</button><span id="annotated-cell-5-9" class="code-annotation-target"><a href="#annotated-cell-5-9"></a>gap_dist_matrix <span class="ot">&lt;-</span> gap_dist <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>()</span>
+<span id="annotated-cell-5-10"><a href="#annotated-cell-5-10"></a>gap_dist_matrix[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
@@ -492,11 +492,11 @@ $ region           &lt;fct&gt; Southern Europe, Northern Africa, Middle Africa, 
 </dd>
 <dt data-target-cell="annotated-cell-5" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="7,9" data-code-annotation="2">By default, this uses Euclidean distance</span>
+<span data-code-cell="annotated-cell-5" data-code-lines="7" data-code-annotation="2">By default, this uses Euclidean distance</span>
 </dd>
 <dt data-target-cell="annotated-cell-5" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="10" data-code-annotation="3">This is just to display part of the distance matrix – strictly speaking, this is not necessary for the functions we’re using</span>
+<span data-code-cell="annotated-cell-5" data-code-lines="9,10" data-code-annotation="3">This is just to display part of the distance matrix – strictly speaking, this is not necessary for the functions we’re using</span>
 </dd>
 </dl>
 </div>
@@ -587,9 +587,32 @@ Bahamas                       2.7059933 2.8129877 2.0319449 0.000000</code></pre
 <h1>Clustering in practice</h1>
 
 </section>
-<section id="practical-issues" class="slide level2">
+<section id="practical-issues" class="slide level2 scrollable">
 <h2>Practical issues</h2>
-</section>
+<ol type="1">
+<li><strong>Try several combinations of options</strong></li>
+</ol>
+<ul>
+<li>Different values of <span class="math inline">\(K\)</span> (for <span class="math inline">\(K\)</span>-means)</li>
+<li>different dissimilarity/linkage functions</li>
+<li>where to cut the dendrogram</li>
+<li>More important than making the <em>right</em> choice<sup>1</sup> is documenting <em>why</em> you made the choice you did.</li>
+</ul>
+<ol start="2" type="1">
+<li><strong>There’s no consensus “best” method fod validating clusters</strong></li>
+</ol>
+<ul>
+<li>Is the method finding true signal, or just fitting the noise?</li>
+<li>There are some methods that can give meaningful <span class="math inline">\(p\)</span>-values, but it’s difficult in general</li>
+</ul>
+<ol start="3" type="1">
+<li><strong>Clustering methods force every observation into a single cluster.</strong></li>
+</ol>
+<ul>
+<li>Doesn’t allow for outliers to <em>not</em> belong to any group</li>
+<li>Doesn’t allow for multiple membership - methods which allow this are called <em>mixture models</em></li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>There is almost never a “right” choice” in this context</p></li></ol></aside></section>
 <section id="standardizing-inputs" class="slide level2">
 <h2>Standardizing Inputs</h2>
 <aside class="notes">
@@ -611,7 +634,7 @@ Bahamas                       2.7059933 2.8129877 2.0319449 0.000000</code></pre
 <p>Results can be affected by variables with different scales (see also KNN notes)</p>
 <p>Scaling data can mitigate this issue</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-8"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="1">1</button><span id="annotated-cell-8-1" class="code-annotation-target"><a href="#annotated-cell-8-1"></a>data_scale <span class="ot">=</span> gapminder_2015 <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-8" data-code-line-numbers="5,6"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="1">1</button><span id="annotated-cell-8-1" class="code-annotation-target"><a href="#annotated-cell-8-1"></a>data_scale <span class="ot">=</span> gapminder_2015 <span class="sc">%&gt;%</span></span>
 <span id="annotated-cell-8-2"><a href="#annotated-cell-8-2"></a>  <span class="fu">filter</span>(continent <span class="sc">==</span> <span class="st">"Americas"</span>) <span class="sc">%&gt;%</span></span>
 <span id="annotated-cell-8-3"><a href="#annotated-cell-8-3"></a>  <span class="fu">filter</span>(infant_mortality <span class="sc">!=</span> <span class="st">'NA'</span>) <span class="sc">%&gt;%</span></span>
 <span id="annotated-cell-8-4"><a href="#annotated-cell-8-4"></a>  <span class="fu">select</span>(infant_mortality, life_expectancy) <span class="sc">%&gt;%</span></span>
@@ -672,6 +695,8 @@ Bahamas                       2.7059933 2.8129877 2.0319449 0.000000</code></pre
 </ul>
 
 </section>
+
+
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
@@ -709,7 +734,7 @@ Bahamas                       2.7059933 2.8129877 2.0319449 0.000000</code></pre
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true,"numbers":true},
-'chalkboard': {"buttons":true},
+'chalkboard': {"buttons":true,"src":"chalkboard-clustering-fall2026.json"},
 'smaller': false,
  
         // Display controls in the bottom right corner

@@ -13,7 +13,8 @@ format:
     slide-number: true
     menu:
       numbers: true
-    chalkboard: true
+    chalkboard:
+      src: chalkboard-clustering-fall2026.json
     code-annotations: hover
 ---
 
@@ -329,7 +330,7 @@ rownames(gap_fle) <- gap_fle$country
 
 gap_dist <- dist(gap_fle[,1:2]) # <2>
 
-gap_dist_matrix <- gap_dist %>% as.matrix() # <2>
+gap_dist_matrix <- gap_dist %>% as.matrix() # <3>
 gap_dist_matrix[1:4, 1:4]                   # <3>
 ```
 1. Select just the data we want
@@ -394,9 +395,19 @@ gap_clusters %>%
 
 
 # Clustering in practice
-## Practical issues
+## Practical issues {.scrollable}
 
----
+1. **Try several combinations of options**
+  - Different values of $K$ (for $K$-means)
+  - different dissimilarity/linkage functions
+  - where to cut the dendrogram
+  - More important than making the *right* choice^[There is almost never a "right" choice" in this context] is documenting *why* you made the choice you did.
+2. **There's no consensus "best" method fod validating clusters**
+  - Is the method finding true signal, or just fitting the noise?
+  - There are some methods that can give meaningful $p$-values, but it's difficult in general
+3. **Clustering methods force every observation into a single cluster.**
+  - Doesn't allow for outliers to *not* belong to any group
+  - Doesn't allow for multiple membership - methods which allow this are called *mixture models*
 
 
 ## Standardizing Inputs
@@ -412,6 +423,7 @@ Results can be affected by variables with different scales (see also KNN notes)
 Scaling data can mitigate this issue
 
 ```{r}
+#| code-line-numbers: "5,6"
 data_scale = gapminder_2015 %>% # <1>
   filter(continent == "Americas") %>% # <1>
   filter(infant_mortality != 'NA') %>% # <1>
