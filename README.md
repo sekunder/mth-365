@@ -30,17 +30,16 @@ This schedule is tentative and may change without warning. The official calendar
  9    | Oct 20 | [CV](09-cv-and-knn/slides/cv.html) | Cross validation  | [source code for slides](09-cv-and-knn/slides/cv.qmd) |  |
  9    | Oct 22 | [KNN](09-cv-and-knn/slides/knn.html) | _k_-nearest neighbors for classification and regression | [source code for slides](09-cv-and-knn/slides/knn.qmd) |  |
  10   | Oct 27 | [Random Forests](10-tree-based-methods/slides/decision-trees.html) | Decisions trees and random forests | [(qmd)](10-tree-based-methods/slides/decision-trees.qmd) [(pdf)](10-tree-based-methods/slides/decision-trees.pdf) |  |
- 10   | Oct 29 | **Lab 6** | Lab 6 work day |  |  |
- 
- Remaining semester schedule TBD
- <!-- 11   | Nov 3  | Clustering | Clustering methods |  |  |
+ 10   | Oct 29 | **Lab 6** | Lab 6 work day |  | **Due** during Week 12 in Blueline |
+ 11   | Nov 3  | [Clustering](11-clustering/slides/clustering.html) | Clustering methods |  |  |
  11   | Nov 5  | PCA | Principal Component Analysis |  |  |
- 12   | Nov 10 | Web scraping | reading data from web pages |  |  |
+ 12   | Nov 10 | Text data |  |  |  |
  12   | Nov 12 | **Lab 7** | Lab 7 work day |  |  |
  13   | Nov 17 | Spatial Data | Working with geographic data |  |  |
- 13   | Nov 19 | Text data |  |  |  |
+ 13   | Nov 19 | Web scraping | reading data from web pages |  |  |
  14   | Nov 24 | **Lab 8** | Lab work day |  |  |
  14   | Nov 26 | **Thanksgiving** | No class |  |  |
  15   | Dec 1  | **MP4 Presentations** | Present MP 4 |  |  |
  15   | Dec 3  | **Lab 9** | Wrap up MP4 presentations, Lab 9 workday |  |  |
-**Final** | **Dec 9**  | **1:00 pm** | Final exam will be in-person | bring your computer |  | -->
+ 
+**Final** | **Dec 9**  | **1:00 pm** | Final exam will be in-person | bring your computer |  |
