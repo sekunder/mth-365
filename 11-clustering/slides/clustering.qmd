@@ -1,0 +1,546 @@
+---
+title: "Cluster Analysis"
+author: "DSC365: Introduction to Data Science"
+date: "November 3, 2026"
+format:
+  revealjs:
+    width: 1200
+    height: 900
+    echo: true
+    toc: true
+    toc-depth: 1
+    toc-title: Outline
+    slide-number: true
+    menu:
+      numbers: true
+    chalkboard: true
+    code-annotations: hover
+---
+
+```{r echo=FALSE, message=FALSE, warning = FALSE}
+library(tidyverse)
+library(knitr)
+library(RColorBrewer)
+library(mosaic)
+library(infer)
+library(Metrics)
+
+
+hook_output = knit_hooks$get('output')
+knit_hooks$set(output = function(x, options) {
+  # this hook is used only when the linewidth option is not NULL
+  if (!is.null(n <- options$linewidth)) {
+    x = xfun::split_lines(x)
+    # any lines wider than n should be wrapped
+    if (any(nchar(x) > n)) x = strwrap(x, width = n)
+    x = paste(x, collapse = '\n')
+  }
+  hook_output(x, options)
+})
+
+presentation_theme = theme(
+  axis.title = element_text(size=22),
+  axis.text = element_text(size=17),
+  legend.title = element_text(size=22),
+  legend.text = element_text(size=17)
+  )
+```
+
+# IT IS ELECTION DAY. VOTE. {.unlisted .unnumbered}
+
+# Announcements {.unlisted .unnumbered}
+
+**Lab 6** 
+
+- Due Tuesday November 10 at 11:59 pm in Blueline
+
+**Mini Project 3**
+
+- Due Thursday November 12 by 2:00pm in Blueline (peer review during class)
+
+
+Suggested reading: [Modern Data Science with R, Chapter 12](https://mdsr-book.github.io/mdsr3e/12-learningII.html)
+
+# Unsupervised Learning Methods
+## Supervised vs. unsupervised
+
+**Supervised learning** has *labeled* training data
+
+**Unsupervised learning**
+
+## Clustering vs. Principal Components
+
+
+1). *Today:* Clustering 
+
+<br/>
+<br/>
+<br/>
+
+
+2). *Thursday:* Principal Components
+
+## Cluster Analysis
+
+
+
+---
+
+
+## Running example: `gapminder`
+
+<!-- **Data:** We're going to work with the `gapminder` data set. Since each country is repeated by year, we're going focus on `2015` since it is the most recent year with the most variables included -->
+**Goal:** 
+
+**Data:** Focus on year 2015
+
+```{r}
+#| code-line-numbers: "3"
+library(dslabs)
+gapminder_2015 <- gapminder %>%
+  filter(year == 2015)
+glimpse(gapminder_2015)
+```
+
+## Clustering Techniques
+### Hierarchical vs. Non-hierarchical
+
+<!-- There are a ton of clustering methods! Going to focus on the two most common: -->
+
+1). *Hierarchical* Clustering: 
+
+  - Example Method:
+
+
+2). *Non-Hierarchical* Clustering: 
+  
+  - Example Method:
+
+::: {.notes}
+There are lots and lot of clustering methods. The main distinction we make is "hierarhical" vs. "non-hierarchical", and we'll give one example of each. Another dichotomy you might hear about is "lumpers" vs. "splitters". That is, broadly speaking, are looking to *group together similar things* or *separate apart different things*.
+:::
+
+# $K$-Means Clustering
+
+## Hierarchical Method: $K$-Means Clustering
+
+**Overview:** partitions the data into a **pre-specified number,** $K$, of non-overlapping clusters
+<!-- and rearranges the cluster memberships according to some optimization criteria.  -->
+
+
+**Properties:**
+  
+  1.   
+  2.   
+
+
+
+## $K$-Means Clustering: Algorithm
+
+**Idea**: Good clustering means within cluster variation is as small as possible
+
+$$\text{minimize} \left(\sum^K_{j=1}W(C_j)\right)$$
+
+ - $C_1,\dots, C_K$:
+ 
+ - $W(C_j)$:
+
+## $K$-Means Clustering: Algorithm (2/4) {.unlised .unnumbered}
+
+**Problem:** very difficult minimization problem as almost $K^n$ ways to partition $n$ observations into $K$ clusters.  
+
+**Solution(s):** 
+
+## $K$-Means Clustering: Algorithm (2/4) {.unlisted .unnumbered}
+
+**Steps:**
+
+1). Initial Cluster Assignment:
+
+<br>
+<br>
+<br>
+
+2). Iterate until the clusters stop changing. 
+  
+  
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+[Animation](https://blog.dailydoseofds.com/p/an-animated-guide-to-kmeans-algorithm)
+
+
+## K-Means Clustering: Algorithm (4/4) {.unlisted .unnumbered}
+
+With these steps will reach a **local optimum**:
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+**How do you choose k**?
+
+- No definitive answer. Somewhat subjective.
+- [Some methods](https://www.datanovia.com/learn/machine-learning/clustering/optimal-clusters)
+
+## Example: `gapminder`
+
+::: {.incremental}
+The data is already "categorized" by continent and region. Clustering allows us to find other, possibly unconsidered, similarities between points.
+
+Let's start with a two-variable clustering (`fertility` and `life_expectancy`) on countries in the Americas.
+:::
+
+```{r}
+#| code-line-numbers: "3-4|2|6-9"
+gap_fle <- gapminder_2015 %>%
+  filter(continent == "Americas") %>%
+  filter(fertility != 'NA') %>%
+  select(fertility, life_expectancy)
+
+k <- 4  # define number of clusters
+
+set.seed(4)
+kmeans_clusters <- kmeans(gap_fle, centers = k, nstart = 10)
+```
+
+## Example: gapminder (2/3) {.unlisted .unnumbered}
+
+What does this look like?
+
+```{r, fig.align='center'}
+#| fig-alt: "Scatterplot of Fertility vs Life expectancy where shape of each observation is related to their cluster assignment. The overall relationship is moderately negative, with the four clusters grouping observations from top to bottom."
+#| code-line-numbers: "1-7|1,4"
+
+kmeans_clusters$cluster <- as.factor(kmeans_clusters$cluster)
+
+ggplot(gap_fle, aes(x=fertility, y=life_expectancy)) + 
+  geom_point(aes(color=kmeans_clusters$cluster, pch=kmeans_clusters$cluster), size = 4) +
+  labs(y = "Life Expectancy", x = "Fertility",
+       color = "Cluster", shape = "Cluster") +
+  presentation_theme
+```
+
+::: {.notes}
+`presentation_theme` is defined at the beginning of the presentation
+
+`pch` sets the shape of the markers
+:::
+
+## Example: gapminder (3/3) {.unlisted .unnumbered}
+
+What if we choose fewer clusters?
+
+```{r, fig.align='center'}
+#| fig-alt: "Same scatterplot of Fertility vs Life expectancy as the last slide, but now there are only three clusters. The bottom cluster remains the same, but the top three clusters combine into two."
+#| code-line-numbers: "1"
+
+k <- 3
+kmeans_clusters <- kmeans(gap_fle, centers=k, nstart = 10)
+kmeans_clusters$cluster <- as.factor(kmeans_clusters$cluster)
+
+ggplot(gap_fle, aes(x=fertility, y=life_expectancy)) + 
+  geom_point(aes(color=kmeans_clusters$cluster, pch=kmeans_clusters$cluster), size = 4) +
+  labs(y = "Life Expectancy", x = "Fertility",
+       color = "Cluster", shape = "Cluster") +
+  presentation_theme
+```
+
+# Agglomerative Clustering
+## Hierarchical Method: Agglomerative Clustering
+
+- Doesn't require pre-specified number of clusters
+- Tree-based representation of observations called a **dendrogram**
+- **Agglomerative** (bottom-up) clustering: start from leaves and combine clusters up to trunk.
+- Cut the tree to obtain a specific number of clusters
+
+## Hierarchical Clustering: Algorithm
+
+**Steps:**
+
+1). Define a **dissimilarity measure** between each pair of observations (usually Euclidean Distance).  
+
+<br>
+
+2). Iterative:
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+3). Repeat until all observations are fused together into a single cluster.
+
+::: {.notes}
+This might sound counterintuitive (why do we want everything grouped together). The point is to look at the dendrogram and decide how many clusters make sense.
+:::
+
+## Hierarchical Clustering: Algorithm
+
+<!-- **Problem:** How to define dissimilarity if one (or both clusters) contains multiple observations -->
+- **Dissimilarity** is difference between two *observations*
+
+- **Linkage** defines dissimilarity between two *groups* of observations
+
+    
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+Output will depend on both *linkage method* and *dissimilarity measure*
+
+## Example: `gapminder`
+
+**Step 1).** Define a dissimilarity measure
+
+  - Two variables: `fertility` and `life_expectancy`
+  - calculate "distance" for every pair of countries
+  - display as *distance matrix*
+
+```{r}
+#| code-line-numbers: "1-10|7|9-10"
+gap_fle <- gapminder_2015 %>%
+  filter(continent == "Americas") %>% # <1>
+  select(fertility, life_expectancy, country) # <1>
+
+rownames(gap_fle) <- gap_fle$country
+
+gap_dist <- dist(gap_fle[,1:2]) # <2>
+
+gap_dist_matrix <- gap_dist %>% as.matrix() # <2>
+gap_dist_matrix[1:4, 1:4]                   # <3>
+```
+1. Select just the data we want
+2. By default, this uses Euclidean distance
+3. This is just to display part of the distance matrix -- strictly speaking, this is not necessary for the functions we're using
+
+## Example: `gapminder` (2/2)
+
+**Steps 2 and 3).** Cluster observations based on the similarity measure and linkage method
+  - Plot dendrogram
+
+```{r, fig.align='center', fig.height=5}
+#| fig-alt: "Dendrogram for hierarchical cluster of countries using just fertility and life expectancy."
+
+clusters <- hclust(
+  gap_dist, # <1>
+  method = "complete") #<2>
+
+plot(clusters, hang = -1, cex = 0.75)
+```
+1. Computed on previous slide
+2. linkage method is set to "complete"
+
+## Reading a Dendrogram:
+
+```{r, fig.width=12, fig.height=6, fig.align='center', echo = FALSE, fig.alt="Dendrogram for hierarchical cluster of countries using just fertility and life expectancy. Same dendrogram of previous slide."}
+plot(clusters, hang = -1, cex = 0.5)
+```
+
+::: {.notes}
+- As we move up the tree, some leaves begin to fuse into branches
+  - The earlier in the tree these fusions occur the more similar.
+- If we look at the point where two observations fuse first, the height of this fusion (measured on the vertical axis), indicates how different they are. 
+- **Note:** clusters obtained by cutting a dendrogram are nested within clusters obtained by cutting the dendrogram at a greater height
+- You can't draw conclusions based on proximity on the *horizontal* axis -- look at locations on the *vertical* axis.
+:::
+
+## Specifying the number of clusters
+
+<!-- If you just want cut the dendrogram to obtain only a certain number of clusters, can use the `cutree` function. Generally based on eye test for a sensible number. -->
+Obtain a specific number of clusters by "cutting" the dendrogram using the `cutree` function
+
+```{r}
+clus4 = cutree(clusters, 4) # <1>
+
+gap_clusters <- cbind(gap_fle, clus4) # <2>
+```
+1. Cuts the dendrogram to obtain 4 clusters
+2. Combines output from (1) with the data so we can assign each country to a cluster.
+
+Visualize with ggplot `gap_clusters %>% ggplot(...)` (full code not shown)
+
+```{r, warning = FALSE, fig.width=13, fig.height=5, fig.align='center', echo = FALSE, fig.alt="Same scatterplot of Fertility vs Life expectancy as previous, but with only four clusters from hierarchcial clustering. The cluster pattern is similar to k-means with four clusters"}
+
+
+gap_clusters %>% 
+  ggplot(aes(x = fertility, y = life_expectancy, color = as.factor(clus4), label=country)) + 
+  geom_point(size = 3) + geom_text(hjust=0, vjust=0, size = 5) +
+  labs(y = "Life Expectancy", x = "Fertility",
+       color = "Cluster") + presentation_theme
+```
+
+
+# Clustering in practice
+## Practical issues
+
+---
+
+
+## Standardizing Inputs
+
+::: {.notes}
+Sometimes, the results of the clustering are more dependent on the variation in variables in the data set, as Euclidean distance calculations uses non-standardized variables (assumes variables are identical).
+
+- Generally, the variables with a bigger unit scale will contribute more to the Euclidean distance, leading to a biased estimate of clusters
+:::
+
+Results can be affected by variables with different scales (see also KNN notes)
+
+Scaling data can mitigate this issue
+
+```{r}
+data_scale = gapminder_2015 %>% # <1>
+  filter(continent == "Americas") %>% # <1>
+  filter(infant_mortality != 'NA') %>% # <1>
+  select(infant_mortality, life_expectancy) %>% # <1>
+  scale() %>% # <2>
+  as.data.frame() # <3>
+```
+1. Same data as previous running examples
+2. Scale the data to standardize variables
+3. Output can now be used for any clustering method
+
+<!-- ??? -->
+
+<!-- ```{r} -->
+<!-- k <- 5 -->
+
+<!-- set.seed(4) -->
+<!-- kmeans_clusters <- kmeans(data_scale, centers=k, nstart=10) -->
+
+
+<!-- kmeans_clusters$cluster <- as.factor(kmeans_clusters$cluster) -->
+
+<!-- ggplot(data_scale, aes(x=infant_mortality, y=life_expectancy)) + geom_point() +  -->
+<!--   aes(color=kmeans_clusters$cluster, pch=kmeans_clusters$cluster) + -->
+<!--   labs(y = "Life Expectancy", x = "Infant Mortality", -->
+<!--        color = "Cluster", shape = "Cluster") -->
+<!-- ``` -->
+
+# Summary
+
+**Hierarchical clustering**: 
+
+- No need to decide the cluster number before the clustering
+- Reproducible result 
+- Computationally slow
+
+**k-means clustering**: 
+
+- Need to decide the cluster number first 
+- Randomness may lead to different result
+- Computationally fast
+
+
+# Try It Yourself {visibility="uncounted" .unlisted .unnumbered}
+
+Now let's add a third variable: `infant_mortality`. Do:
+
+- K-Means clustering (try with different $k$ values). Make a data visualization with `fertility` and `life_expectancy`.
+
+- Hierarchical clustering. Decide on the number of clusters that seems appropriate. Make a data visualization with `fertility` and `life_expectancy` and compare to your k-means output.
+
+- Decide if standardizing your inputs is necessary. If so redo the two steps above and compare your results.
+
+```{r, eval=FALSE, echo=FALSE}
+## K-Means
+
+k <- 4
+
+three_vars <- gapminder_2015 %>%
+  filter(continent == "Americas") %>%
+  filter(infant_mortality != 'NA') %>%
+  select(infant_mortality, life_expectancy, fertility)
+
+kmeans_clusters <- kmeans(three_vars, centers=k, nstart = 10)
+
+kmeans_clusters$cluster <- as.factor(kmeans_clusters$cluster)
+
+ggplot(three_vars, aes(x=fertility, y=life_expectancy)) +
+  geom_point() + aes(color=kmeans_clusters$cluster, pch=kmeans_clusters$cluster) +
+  labs(y = "Life Expectancy", x = "Fertility",
+       color = "Cluster", shape = "Cluster") + presentation_theme
+
+
+## Hierarchical
+
+gap_americas2 <- gapminder_2015 %>%
+filter(continent=='Americas') %>%
+select(country, infant_mortality, life_expectancy, fertility)
+
+rownames(gap_americas2) <- gap_americas2$country
+gap_dist <- dist(gap_americas2)
+clusters <- hclust(gap_dist)
+
+plot(clusters, hang = -1, cex = 0.5)
+
+
+#Standardizing inputs
+
+data_scale = gapminder_2015 %>%
+  filter(continent == "Americas") %>%
+  filter(infant_mortality != 'NA') %>%
+  select(infant_mortality, life_expectancy, fertility) %>%
+  scale() %>% as.data.frame()
+
+#Hierarchical
+
+gap_americas2 <- gapminder_2015 %>%
+  filter(continent == "Americas") %>%
+  filter(infant_mortality != 'NA') %>%
+  select(infant_mortality, life_expectancy, fertility, country)
+
+rownames(data_scale) <- gap_americas2$country
+
+gap_dist <- dist(data_scale)
+
+clusters <- hclust(gap_dist)
+
+plot(clusters, hang = -1, cex = 0.5)
+
+#K-Means
+
+k <- 5
+
+set.seed(4)
+kmeans_clusters <- kmeans(data_scale[,-4], centers=k, nstart=10)
+
+
+kmeans_clusters$cluster <- as.factor(kmeans_clusters$cluster)
+
+ggplot(data_scale, aes(x=fertility, y=life_expectancy)) + geom_point() + 
+  aes(color=kmeans_clusters$cluster, pch=kmeans_clusters$cluster) +
+  labs(y = "Life Expectancy", x = "Fertility",
+       color = "Cluster", shape = "Cluster") + presentation_theme
+```
+
+
