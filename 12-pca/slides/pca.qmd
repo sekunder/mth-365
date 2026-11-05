@@ -1,0 +1,306 @@
+---
+title: "Principal Component Analysis (PCA)"
+author: "DSC365: Introduction to Data Science"
+date: "November 5, 2026"
+format:
+  revealjs:
+    width: 1200
+    height: 900
+    echo: true
+    toc: true
+    toc-depth: 1
+    toc-title: Outline
+    slide-number: true
+    menu:
+      numbers: true
+    chalkboard: true
+    code-annotations: hover
+---
+
+
+```{r echo=FALSE, message=FALSE, warning = FALSE}
+library(tidyverse)
+library(knitr)
+library(RColorBrewer)
+library(mosaic)
+library(infer)
+library(Metrics)
+
+
+hook_output = knit_hooks$get('output')
+knit_hooks$set(output = function(x, options) {
+  # this hook is used only when the linewidth option is not NULL
+  if (!is.null(n <- options$linewidth)) {
+    x = xfun::split_lines(x)
+    # any lines wider than n should be wrapped
+    if (any(nchar(x) > n)) x = strwrap(x, width = n)
+    x = paste(x, collapse = '\n')
+  }
+  hook_output(x, options)
+})
+
+```
+
+# Announcements {.unlisted .unnumbered .smaller}
+
+**Lab 6** 
+
+- Due Tuesday November 10 at 11:59 pm in Blueline
+
+**Mini Project 3**
+
+- [Instructions posted here](https://sekunder.github.io/mth-365/Mini-Projects/MP3/DSC365-MP3.html)
+- Due ~~Thursday November 12~~ **Tuesday, November 17** by 2:00pm in Blueline (peer review during class)
+
+**DSC 465: Machine Learning** will *not* be offered in the 2027-2028 school year. It will be offered in **Spring 2027** (next semester) and the next time will be **Fall 2028**
+
+
+
+[Modern Data Science with R, Chapter 12](https://mdsr-book.github.io/mdsr3e/12-learningII.html)
+
+[Interactive Walk Through](https://bryanhanson.github.io/LearnPCA/articles/Vig_05_Visualizing_PCA_3D.html)
+
+[What is Principal Component Analysis?](https://liorpachter.wordpress.com/2014/05/26/what-is-principal-component-analysis/)
+
+These slides: [(qmd)](pca.qmd) [(pdf)](pca.pdf) [(data - happyplanet2016.xlsx)](happyplanet2016.xlsx)
+
+
+# Principal Component Analysis (PCA)
+## PCA on one foot {.center}
+
+Project onto the directions of greatest variance
+
+## Principal Component Analysis (PCA): Why?
+
+Sometimes a data set has a lot of variables.
+
+- Some of these variables carry *lots* of information. 
+- Others carry *little to no* information.
+
+PCA can help **reduce the dimensionality** of data by summarizing most of the variation into fewer dimensions, called *components*. 
+
+## Principal Component Analysis (PCA): What?
+
+**PCA**:
+
+::: {.notes}
+Strictly speaking, the word "analysis" here means the full process of actually identifying the principal components. This is different from 
+:::
+
+# Don't Panic But It's Time For Linear Algebra
+
+## Outlining the idea 
+
+- Our data has $p$ *features*, $X_1,\dots,X_p$
+- A *linear combination* of features is a new variable $Z = \phi_1X_1 + \phi_2X_2 + \cdots + \phi_pX_p$ (each $\phi_j$ is just a number)
+- Notice that $Z$ is a new numerical variable, so we can compute its variance. Different choice of $\phi_j$s will give different variance
+- **Key idea**: we can find $\phi_j$s (under some constraints) to *maximize variance* of $Z$
+  - that is the *first principal component*
+
+## Picture Time!
+
+---
+
+## PCA: How?
+
+1).
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+2). 
+
+
+## PCA: How? (2/3)
+
+3. Find Principal Components. Features are $X_1, \dots X_p$.
+
+  - *First Principal Component*: $Z_1 = \phi_{11}X_1 + \phi_{21}X_2 + \cdots + \phi_{p1}X_p$
+    - Choose $\phi_{j1}$s to maximize variance of $Z_1$
+    - Normalized: $\sum^p_{j=1} \phi^2_{j1} = 1$
+    - optimization problem: $\text{maximize}_{\phi_{11}, \dots \phi_{p1}}(\frac{1}{n}\sum^{n}_{i=1}(\sum^{p}_{j=1}\phi_{j1}x_{ij})^2)$
+    - the $\phi_{jk}$s are called *loadings*
+    
+<!-- of a set of features $X_1, \dots X_p$ is a normalized linear combination of the features: $Z_1 = \phi_{11}X_1 + \phi_{21}X_2 + \cdots + \phi_{p1}X_p$ that has the largest variance. -->
+  
+
+
+  + *Second Principal Component*: maximal variance out of all linear combinations that are *uncorrelated* (that is, *orthogonal*) with $Z_1$
+  
+  + $k$th principal component maximizes variance while orthogonal to first $k-1$ components.
+      
+## PCA: How? (3/3)
+
+4). Select the number of components that capture most of the variation
+
+  
+  
+  
+# Example
+## Example: Data
+
+The Happy Planet Index is a measure of a country’s ecological and societal “well-being”.
+
+```{r}
+#| code-line-numbers: "2"
+library(readxl)
+happyplanet2016 <- read_excel("happyplanet2016.xlsx") # <1>
+glimpse(happyplanet2016)
+```
+1. See announcements slide for data
+
+Can we distill this down to a few important variables or ideas?
+
+
+## Example: Fitting PCA
+
+The Happy Planet Index is calculated using a weighted average of these variables. It wouldn’t make sense to try to find linear combinations with a variable that’s already a linear combination, so we remove it. 
+
+How are the other variables related?
+
+
+```{r}
+happyplanet2 <- na.omit(happyplanet2016[,-8]) # <1>
+
+#scale and find covariance matrix as part of function
+happy_pca <- prcomp(x=happyplanet2[,3:10], #<2>
+                    center=TRUE, scale=TRUE)  #<2>
+
+summary(happy_pca) #proportion of variance explained
+```
+1. Drop column 8, as well as `na` values
+2. Shift the data so it's mean 0 and then standardize
+
+
+## Fitting PCA: Loadings
+
+```{r, eval=FALSE}
+happy_pca$rotation #loadings
+```
+```{r, echo=FALSE}
+happy_pca$rotation[,1:4]
+```
+
+```{r, echo=FALSE}
+happy_pca$rotation[,5:8]
+```
+
+
+## Fitting PCA: Number of Components
+
+How many components should we choose?
+
+```{r, message=FALSE, fig.align='center', fig.height=5, fig.alt = "Scree plot for the principal components of the Happy Planet Data. The first PC explain roughly 60 percent of the variation, with the second PC around 17 percent. At this point the elbow flattens, so only need the first two PCs"}
+#install.packages("factoextra")
+library(factoextra)
+fviz_eig(happy_pca, main = "Scree plot: Happy Planet Index")
+```
+
+
+# Visualizing
+
+## Biplot
+
+<!-- Can also create a bi-plot - provides visualization of PCA outputs -->
+A **biplot** shows the relationships between the components by projecting to plane spanned by two principal components (by default, first two)
+
++ Perpendicular vectors:  
+  <br/>
++ Two variables in the same direction:  
+  <br/>
++ Two variables in the opposite direction:
+
+
+## Biplot (2/2)
+
+```{r, eval = FALSE}
+fviz_pca_var(happy_pca, col.var = "contrib")
+```
+
+```{r, echo = FALSE, fig.align='center', fig.height=10, fig.width=16, fig.alt = "Biplot of the first two PCs for the Happy Planet Data"}
+fviz_pca_var(happy_pca, col.var = "contrib", labelsize = 8) +
+  theme(axis.title = element_text(size = 25, face = "bold"))
+```
+
+
+
+## `ggbiplot`
+
+Package available on GitHub -- see installation instructions on last slide.
+```{r, message=FALSE, echo=FALSE}
+library(devtools)
+#install_github("vqv/ggbiplot")
+library(ggbiplot)
+```
+
+```{r, eval = FALSE, fig.align='center', fig.height=8, fig.width=16}
+ggbiplot(happy_pca, groups=happyplanet2$Region, ellipse=TRUE) #<1>
+```
+1. Jump to the last slide for installation instructions for the `ggbiplot` package.
+
+```{r, fig.align='center', echo=FALSE, fig.height=8, fig.alt = "Biplot of the first two PCs for the Happy Planet Data. Now additionally the observations are on the plot given their relation to PC1 and PC2. The points are then colored by Regions to see if regions are related to how observations hang on the first two PCs"}
+ggbiplot(happy_pca, groups=happyplanet2$Region, ellipse=TRUE, labels.size = 15) +
+  theme(axis.title = element_text(size = 15, face = "bold"))
+```
+
+
+## `ggbiplot` (2/2)
+
+Can also visualize other PCs besides the first two.
+
+```{r, fig.align='center', fig.height=8, fig.width=19, eval = FALSE}
+#| code-line-numbers: "2"
+ggbiplot(happy_pca, groups=happyplanet2$Region, ellipse=TRUE, 
+         choices=c(3,4))
+```
+
+```{r, fig.align='center', fig.height=8, echo = FALSE, fig.alt = "Biplot of the third and fourth PCs for the Happy Planet Data. Now additionally the observations are on the plot given their relation to PC3 and PC4. The points are then colored by Regions to see if regions are related to how observations hang on the first two PCs"}
+
+ggbiplot(happy_pca, groups=happyplanet2$Region, ellipse=TRUE, 
+         choices=c(3,4), labels.size = 10) +
+  theme(axis.title = element_text(size = 25, face = "bold"))
+```
+
+
+
+
+# Summary
+
+Advantages:
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+Disadvantages:
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+# Try It Yourself {visibility="uncounted" .unlisted .unnumbered}
+
+Try the PCA with the gapminder data. Use all four variables (`infant_mortality`, `life_expectancy`, `fertility` and `popualtion`) try to make a data visualization to show the relations between the variables.
+
+```{r}
+
+```
+
+# Danger Zone {visibility="uncounted" .unlisted .unnumbered}
+
+::: {.callout-warning}
+Only do this if you trust the github repo. Doing this with random packages you find online is a *very* bad idea.
+:::
+
+If a package you might want to use  is on GitHub and you know the user’s Git repository: install the package using the `install_github` function in the `devtools` library.
+
+```{r, message=FALSE, eval=FALSE}
+library(devtools)
+install_github("vqv/ggbiplot")
+library(ggbiplot)
+```
