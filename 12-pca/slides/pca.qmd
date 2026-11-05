@@ -41,7 +41,7 @@ knit_hooks$set(output = function(x, options) {
 
 ```
 
-# Announcements {.unlisted .unnumbered .smaller}
+# Announcements {.unlisted .unnumbered .smaller .scrollable}
 
 **Lab 6** 
 
@@ -54,7 +54,7 @@ knit_hooks$set(output = function(x, options) {
 
 **DSC 465: Machine Learning** will *not* be offered in the 2027-2028 school year. It will be offered in **Spring 2027** (next semester) and the next time will be **Fall 2028**
 
-
+**Upcoming Talk about Sports Analytics** next Friday at 7pm in Hixson-Lied G04. See flyer on Blueline for more details.
 
 [Modern Data Science with R, Chapter 12](https://mdsr-book.github.io/mdsr3e/12-learningII.html)
 
@@ -294,7 +294,7 @@ Try the PCA with the gapminder data. Use all four variables (`infant_mortality`,
 # Danger Zone {visibility="uncounted" .unlisted .unnumbered}
 
 ::: {.callout-warning}
-Only do this if you trust the github repo. Doing this with random packages you find online is a *very* bad idea.
+Only do this if you trust the github repo. Doing this with random packages you find online is generally a bad idea.
 :::
 
 If a package you might want to use  is on GitHub and you know the user’s Git repository: install the package using the `install_github` function in the `devtools` library.
