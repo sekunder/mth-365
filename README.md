@@ -34,8 +34,8 @@ This schedule is tentative and may change without warning. The official calendar
  11   | Nov 3  | [Clustering](11-clustering/slides/clustering.html) | Clustering methods | [(qmd)](11-clustering/slides/clustering.qmd) [(pdf)](11-clustering/slides/clustering.pdf) |  |
  11   | Nov 5  | PCA | Principal Component Analysis |  |  |
  12   | Nov 10 | Text data |  |  |  |
- 12   | Nov 12 | **Lab 7** | Lab 7 work day |  |  |
- 13   | Nov 17 | Spatial Data | Working with geographic data |  |  |
+ 12   | Nov 12 | Spatial Data | Working with geographic data |  |  |
+ 13   | Nov 17 | **MP3 Peer Review** | Peer review of Mini-Project 3 |  | Lab 7 due after Thanksgiving |
  13   | Nov 19 | Web scraping | reading data from web pages |  |  |
  14   | Nov 24 | **Lab 8** | Lab work day |  |  |
  14   | Nov 26 | **Thanksgiving** | No class |  |  |

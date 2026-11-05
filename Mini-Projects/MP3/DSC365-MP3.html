@@ -2,14 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Report due April 9th at 3:30 pm and Reflection due April 9th at 11:59pm">
+<meta name="author" content="Report due Before class on Tuesday, November 17">
 
 <title>Mini Project 3: Deep Dive</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -27,15 +30,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="DSC365-MP3_files/libs/clipboard/clipboard.min.js"></script>
 <script src="DSC365-MP3_files/libs/quarto-html/quarto.js" type="module"></script>
 <script src="DSC365-MP3_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="DSC365-MP3_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="DSC365-MP3_files/libs/quarto-html/popper.min.js"></script>
 <script src="DSC365-MP3_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="DSC365-MP3_files/libs/quarto-html/anchor.min.js"></script>
 <link href="DSC365-MP3_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="DSC365-MP3_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="DSC365-MP3_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="DSC365-MP3_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="DSC365-MP3_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="DSC365-MP3_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="DSC365-MP3_files/libs/bootstrap/bootstrap-138a6193a3bd40baf1e627da441a4734.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -59,7 +61,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Report due April 9th at 3:30 pm and Reflection due April 9th at 11:59pm </p>
+             <p>Report due Before class on Tuesday, November 17 </p>
           </div>
   </div>
     
@@ -82,39 +84,121 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Think about how to improve your model to better answer the research question (focus on prediction)</strong></p>
+<p><strong>Think about how to improve your model to better answer the research question, with a focus on prediction</strong></p>
 <p>In Mini Project 2, you have performed a preliminary analysis on your data with a focus on interpretation. Please review the feedback before you move to the next step. If you want to change the data, please let the instructor know.</p>
 </div>
 </div>
 <hr>
-<p>Now you have a data set and a basic understanding of the data, so the next step is to try more models to see if this is an improvement. You need to modify your current report about your findings. <strong>You will need to submit two things for MP3. First, submit your report in HTML or PDF to Blueline by April 9th at 3:30 pm (before class). The report should not exceed 10 pages, including the plots. This will only be graded based on completion and will be used during class on April 9 for peer review. Second, submit a reflection on your peer review in Word/PDF to Blueline by April 9th at 11:59pm. More instructions below.</strong></p>
-<hr>
-<p>Here is a list of things you may be able to include in your report for MP3 (besides the ones included in mini-project 2):</p>
+<p>Now you have a data set and a basic understanding of the data, so the next step is to try more models to see if this is an improvement. You need to modify your current report about your findings. <strong>You will need to submit two things for MP3.</strong></p>
 <ol type="1">
-<li>Check your response variable. Is it a normally distributed variable? If not, include the histogram/density plot of the log transformation of the response variable and use the log transformation to fit the model.</li>
-<li>Check the missing values. Is there any missing value in your data? Is there are reason for the missing? What have you done for the missing values?</li>
-<li>Adjust your categorical variables if necessary. For example, a categorical variable may have 10 levels, think about a way to combine some levels so that the total number of levels is less than 5.</li>
-<li>Include more than 6 variables into a random forest model and report the ones that are important.</li>
-<li>For the important variables chosen from the random forest: fit a linear model and a decision tree model. Report the RMSE for both of them. Which is better? Interpret the better model and use it to help answer your research question. Any concerns about your final model?</li>
-<li>Do not include any R code in the report.</li>
-<li>You do not need to keep your linear model from MP2. Starting analysis of data over with finding importance of variables with random forest and then fitting a linear model/decision tree.</li>
+<li>Submit your <strong>report</strong> in HTML or PDF to Blueline before class on Tuesdsay, November 17. The report should not exceed 10 pages, including the plots. This will only be graded based on completion and will be used during class that day for peer review.</li>
+<li>Second, submit a <strong>reflection</strong> on your peer review in Word/PDF to Blueline by the end of the next day.</li>
 </ol>
 <hr>
-<p>We are going to conduct a peer review on your report and everyone is expected to submit reflection on the peer review.</p>
+<section id="report" class="level1">
+<h1>Report</h1>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Required
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There’s only one explicit requirement for MP3: <strong>Include more than 6 variables into a random forest model and report the ones that are important.</strong> For the important variables, fit a linear model and a decision tree model. Report the RMSE for both of them. Be sure to address these questions in your report:</p>
+<ul>
+<li>Which is better?</li>
+<li>Interpret the better model and use it to help answer your research question.</li>
+<li>Any concerns about your final model?</li>
+</ul>
+<p>You do not need to keep your linear model from MP2. That is, you could start the analysis portion of your report with the random forest described above.</p>
+</div>
+</div>
+<!-- Here is a list of things you may be able to include in your report for MP3 (besides the ones included in mini-project 2): -->
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Options
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Here are things you could consider doing/adding to your report:</p>
 <ol type="1">
-<li>Add to MP2 the pieces outlined above, and submit your updated report by class time on April 9th (points for completion).</li>
-<li>During class on April 9, in groups of 3-4, read your other group members projects and score it according to the provided rubric. Each group member should receive their finished rubric at the end of the class period.</li>
+<li><strong>Check your response variable.</strong> Is it normally distributed? If not, try transforming it and re-run your modeling with the transformed variable. <!-- include the histogram/density plot of the log transformation of the response variable and use the log transformation to fit the model. --></li>
+<li><strong>Check the missing values.</strong> Are there any missing values in your data? Is there are reason for the missing values? What have you done to account for them?</li>
+<li><strong>Adjust your categorical variables.</strong> Prediction often gets worse the more levels a categorical variable has. Can you find sensible ways to combine levels that brings you down to 5 or less? <!-- For example, a categorical variable may have 10 levels,, think about a way to combine some levels so that the total number of levels is less than 5. --></li>
+</ol>
+</div>
+</div>
+<p>We’re hitting the open-ended portion of things: you’ve got a toolbox (data wrangling skills, modeling skills) and a question to answer with data. Have fun with it!</p>
+<hr>
+</section>
+<section id="reflection" class="level1">
+<h1>Reflection</h1>
+<p>We are going to conduct a peer review on your report and everyone is expected to submit reflection on the review they get from their peers.</p>
+<ol type="1">
+<li>Modify your MP2 report (by adding and/or replacing things, as described above), and upload <em>before</em> the start of class on November 17th.</li>
+<li>During class that day, in groups of 3-4, read your other group members’ projects and score them according to the provided rubric (to be shared later). Each group member should receive their finished rubrics at the end of the class period.</li>
 <li>Discuss pieces of your review with your group.</li>
 <li>Submit a reflection on the peer review to the BlueLine Assignment.</li>
 </ol>
-<p>Here is the information you need to include in your reflection:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>What you’re turning in
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a few paragraphs (no more than a page) reflecting on the review and the review process. Be sure to address the following:</p>
 <ol type="1">
 <li>After reading all the projects you chose and reading your feedback, is there anything you have not considered/included in your project, but you would want to consider/include now?</li>
-<li>Is there any part (including writing) that you think you are doing better than your peers’ analysis?</li>
-<li>List a couple of things you may want to update on your report (It is OK if you don’t want to change any or your work, just explain why.)</li>
+<li>Was there any part of your peers’ feedback that was surprising to you? Why do you think there might be a mismatch between their assessment and yours?</li>
+<li>List some changes you want to make and why (or, that you don’t want to make changes, and why).</li>
 </ol>
 <p>Your reflection should not exceed 1 page. Any format (PDF/Word) is acceptable.</p>
-<p>The total points possible is 50. Grade will be based on your reflection (graded by instructor) and turning in your MP3 report by the due date (and changes have been made from MP2).</p>
+</div>
+</div>
+</section>
+<section id="grading" class="level1">
+<h1>Grading</h1>
+<p>This will be graded out of 50, broken down something like this:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>5 points</td>
+<td>Turning the report in on time</td>
+</tr>
+<tr class="even">
+<td>5 points</td>
+<td>Including the required component (random forest, see above)</td>
+</tr>
+<tr class="odd">
+<td>5 points</td>
+<td>Completing the rubrics for your peers</td>
+</tr>
+<tr class="even">
+<td>35 points</td>
+<td>Reflection</td>
+</tr>
+<tr class="odd">
+<td><strong>50 points</strong></td>
+<td><strong>Total</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
 
 </main>
 <!-- /main column -->
