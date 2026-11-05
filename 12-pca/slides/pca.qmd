@@ -13,7 +13,8 @@ format:
     slide-number: true
     menu:
       numbers: true
-    chalkboard: true
+    chalkboard:
+      src: chalkboard-fa2026-pca.json
     code-annotations: hover
 ---
 
