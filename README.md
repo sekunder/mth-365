@@ -33,9 +33,9 @@ This schedule is tentative and may change without warning. The official calendar
  10   | Oct 29 | **Lab 6** | Lab 6 work day |  | **Due** during Week 12 in Blueline |
  11   | Nov 3  | [Clustering](11-clustering/slides/clustering.html) | Clustering methods | [(qmd)](11-clustering/slides/clustering.qmd) [(pdf)](11-clustering/slides/clustering.pdf) |  |
  11   | Nov 5  | [PCA](12-pca/slides/pca.html) | Principal Component Analysis | [(qmd)](12-pca/slides/pca.qmd) [(pdf)](12-pca/slides/pca.pdf) [(data)](12-pca/slides/happyplanet2016.xlsx) |  |
- 12   | Nov 10 | Text data |  |  |  |
- 12   | Nov 12 | Spatial Data | Working with geographic data |  |  |
- 13   | Nov 17 | **MP3 Peer Review** | Peer review of [Mini-Project 3](Mini-Projects/MP3/DSC365-MP3.html) |  | **Lab 7** due after Thanksgiving |
+ 12   | Nov 10 | [Text data](13-Text-Data/slides/text-data.html) | working with an analyzing text data | [(qmd)](13-Text-Data/slides/text-data.qmd) [(pdf)](13-Text-Data/slides/text-data.pdf) (data links on Announcements slide) |  |
+ 12   | Nov 12 | Spatial Data | Working with geographic data |  | **Lab 7** due right before Thanksgiving |
+ 13   | Nov 17 | **MP3 Peer Review** | Peer review of [Mini-Project 3](Mini-Projects/MP3/DSC365-MP3.html) |  |  |
  13   | Nov 19 | Web scraping | reading data from web pages |  |  |
  14   | Nov 24 | **Lab 8** | Lab work day |  |  |
  14   | Nov 26 | **Thanksgiving** | No class |  |  |
