@@ -1,8 +1,11 @@
 ---
-title: "DSC365: Introduction to Data Science"
-author: "Spatial Data"
-date: "April 14, 2026"
-format: html
+title: "Spatial Data"
+author: "DSC365: Introduction to Data Science"
+date: "November 12, 2026"
+format:
+  html:
+    toc: true
+    eval: false
 ---
 
 ```{r setup, include=FALSE}
@@ -193,7 +196,8 @@ Plot education levels by county in Nebraska: less than a high school degree.
 
 ### Try Yourself!
 
-One variable we might be interested in is the margin: difference between percentage of those graduating with a High School only degree between 2013 and 2000. Try to make a new variable called Margin which represents the difference between those graduating from High School only, and then make a plot.
+One thing we might be interested in is the *margin*, the change in a variable between two time points. 
+Try to make a new variable called Margin which represents the difference between the percentage of those graduating from High School only between 2000 and 2013, and then make a plot.
 
 
 ```{r}
