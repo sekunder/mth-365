@@ -1,7 +1,7 @@
 ---
-title: "DSC365: Introduction to Data Science"
-author: "Web-Scraping"
-date: "April 23, 2026"
+title: "Web-Scraping"
+author: "DSC365: Introduction to Data Science"
+date: "November 19, 2026"
 format: html
 ---
 
@@ -11,10 +11,10 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, cache = TRU
 
 ## Resources
 
-- "Web Scraping in R: rvest Tutorial": https://www.datacamp.com/community/tutorials/r-web-scraping-rvest
-- "rvest: easy web scraping with R": https://blog.rstudio.com/2014/11/24/rvest-easy-web-scraping-with-r/
-- "Web scraping tutorial in R": https://towardsdatascience.com/web-scraping-tutorial-in-r-5e71fd107f32
-- From the person that helped write the package: https://r4ds.hadley.nz/webscraping.html
+- "Web Scraping in R: rvest Tutorial": [https://www.datacamp.com/community/tutorials/r-web-scraping-rvest](https://www.datacamp.com/community/tutorials/r-web-scraping-rvest)
+- "rvest: easy web scraping with R": [https://blog.rstudio.com/2014/11/24/rvest-easy-web-scraping-with-r/](https://blog.rstudio.com/2014/11/24/rvest-easy-web-scraping-with-r/)
+- "Web scraping tutorial in R": [https://towardsdatascience.com/web-scraping-tutorial-in-r-5e71fd107f32](https://towardsdatascience.com/web-scraping-tutorial-in-r-5e71fd107f32)
+- From the person that helped write the package: [https://r4ds.hadley.nz/webscraping.html](https://r4ds.hadley.nz/webscraping.html)
 
 ## Web scraping?
 
@@ -71,7 +71,8 @@ paths_allowed("https://x.com")
 Another way to do that is just append “/robots.txt” to the end of the URL of the website you are targeting, which will also tell you whether the website is allowed to be scraped. 
 
 **General Principle:** If the data is public, non-personal, and factual, you're likely to be ok. 
-  + Connected to the sites' terms and conditions, personally identificaible information, and copyright
+
+  + Connected to the sites' terms and conditions, personally identifiable information, and copyright
   + If the data isn’t public, non-personal, or factual *or* you’re scraping the data specifically to make money with it, you’ll need to talk to a lawyer
 
 
@@ -138,12 +139,12 @@ library(rvest)
 
 Let's start with a simple example
 
-1. Open: https://rvest.tidyverse.org/articles/starwars.html
+1. Open: https://rvest.tidyverse.org/articles/starwars.html and look at the layout. Inspect the html with your browser's inspector and/or SelectorGadget.
 
 2. Tell R what web-site we want to scrape
 
 ```{r}
-html <- read_html("https://rvest.tidyverse.org/articles/starwars.html")
+
 ```
 
 3. Our goal is to turn this data into a 7 row data frame with variables title, year, director, and plot summary
@@ -151,39 +152,13 @@ html <- read_html("https://rvest.tidyverse.org/articles/starwars.html")
 **Method 1**: Get Elements Individually
 
 ```{r}
-title <- html %>% html_nodes("#main h2") %>% html_text2()
-director <-  html %>% html_nodes(".director") %>% html_text2()
-plot_summary <- html %>% html_nodes(".crawl") %>% html_text2()
 
-star_wars <- tibble(
-  title = title,
-  director = director,
-  plot_summary = plot_summary
-)
 ```
 
 
 **Method 2**: Pull Entire Section at once.
 
 ```{r}
-section <- html %>% html_elements("section")
-
-star_wars2<- tibble(
-  title = section %>% 
-    html_element("h2") %>% 
-    html_text2(),
-  released = section %>% 
-    html_element("p") %>% 
-    html_text2() %>% 
-    str_remove("Released: ") %>%
-    parse_date(),
-  director = section %>% 
-    html_element(".director") %>% 
-    html_text2(),
-  intro = section %>% 
-    html_element(".crawl") %>% 
-    html_text2()
-)
 
 ```
 
@@ -198,20 +173,7 @@ star_wars2<- tibble(
   + Player's first year in MLB (`1stYr`)
 
 ```{r}
-url <- "https://www.baseball-reference.com/teams/KCR/2026-roster.shtml"
-html <- read_html(url)
 
-name <- html %>% html_nodes("#the40man a") %>% html_text()
-position <- html %>% html_nodes("#the40man .right:nth-child(5)") %>% html_text()
-age <- html %>% html_nodes("#the40man .right:nth-child(8)") %>% html_text()
-first_year <- html %>% html_nodes("#the40man .right:nth-child(14)") %>% html_text()
-
-royals_2026 <- tibble(
-  name = name,
-  age = age,
-  position = position,
-  first_year = first_year
-)
 ```
 
 
@@ -219,7 +181,7 @@ royals_2026 <- tibble(
 
 1. Data not always able to be scraped
 
-```{r}
+```{r eval=FALSE}
 url <- "https://www.nhl.com/hurricanes/roster"
 html <- read_html(url)
 html %>% html_nodes("") %>% html_text()
@@ -234,13 +196,7 @@ html %>% html_nodes("") %>% html_text()
 If you’re lucky, your data will be already stored in an HTML table, and it’ll be a matter of just reading it from that table
 
 ```{r}
-url <- "https://www.baseball-reference.com/teams/KCR/2026-roster.shtml"
-html <- read_html(url)
 
-
-html %>%
-  html_element("table") %>%
-  html_table()
 ```
 
 ## Your Turn 

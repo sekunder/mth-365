@@ -1,0 +1,296 @@
+---
+title: "Web Scraping"
+author: "DSC365: Introduction to Data Science"
+date: 2026-11-19
+format:
+  revealjs:
+    width: 1200
+    height: 900
+    echo: true
+    toc: true
+    toc-depth: 1
+    toc-title: Outline
+    slide-number: true
+    menu:
+      numbers: true
+    chalkboard: true
+    code-annotations: hover
+---
+
+# Announcements {.unlisted .unnumbered .smaller .scrollable}
+
+**Lab 7** 
+
+- Due Tuesday November 24 at 11:59 pm in Blueline
+
+**Lab 8**
+
+- start in class next Tuesday, due after Thanksgiving
+- shorter lab to practice web scraping and text analysis
+
+**Quiz 4**
+
+- in class next Tuesday
+- covers PCA, clustering, and text data
+
+**Mini Project 4**
+
+- [Instructions posted here](https://sekunder.github.io/mth-365/Mini-Projects/MP4/DSC365-MP4.html)
+- **Presentations** in class Tuesday, December 1 (and, if needed, continuing on December 3)
+- **Report** due Friday, December 4 at 11:59pm.
+
+
+These slides:
+[(qmd slides)](web-scraping-slides.qmd)
+[(qmd document)](../web-scraping-student.qmd)
+
+# Resources
+
+- "Web Scraping in R: rvest Tutorial": https://www.datacamp.com/community/tutorials/r-web-scraping-rvest
+- "rvest: easy web scraping with R": https://blog.rstudio.com/2014/11/24/rvest-easy-web-scraping-with-r/
+- "Web scraping tutorial in R": https://towardsdatascience.com/web-scraping-tutorial-in-r-5e71fd107f32
+- From the person that helped write the package: https://r4ds.hadley.nz/webscraping.html
+
+# Webscraping
+## What is webscraping?
+
+__Web scraping__ is the process of extracting information from websites automatically and transforming it into a structured data set.
+
+- There's TONS of data freely available online, but...
+- ...the data is provided in an unstructured format: you can always copy & paste, but it's time-consuming and prone to errors.
+
+```{r packages, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+## What is webscraping? 
+
+- Extract data from websites 
+    + Tables
+    + Links to other websites
+    + Text
+    
+Two different scenarios:
+
+1. Screen scraping 
+2. Web APIs (application programming interface) - use when possible but out of the scope of this class.
+
+
+## Why webscrape? 
+
+- Because copy-paste is awful 
+- Because it's fast
+- Because you can automate it
+
+## Before scraping, do some googling!
+
+- If resource is well-known (e.g. Twitter, Fitbit, etc.), there is *probably* an existing R package for it.
+- [ropensci](https://ropensci.org/) has a [ton of R packages](https://ropensci.org/packages/) providing easy-to-use interfaces to open data.
+- The [Web Technologies and Services CRAN Task View](http://cran.r-project.org/web/views/WebTechnologies.html) is a great overview of various tools for working with data that lives on the web in R.
+
+## Scraping ethics and legalities {.scrollable}
+
+Check to make sure you're allowed! Weather.com allows users to access the data...
+
+```{r warning=FALSE}
+# install.packages("robotstxt")
+library(robotstxt)
+paths_allowed("https://weather.com")
+```
+
+... while other sites like Twitter (now) don't.
+
+```{r warning=FALSE}
+paths_allowed("https://x.com")
+```
+
+Another way to do that is just append “/robots.txt” to the end of the URL of the website you are targeting, which will also tell you whether the website is allowed to be scraped. 
+
+**General Principle:** If the data is public, non-personal, and factual, you're likely to be ok.  
+
+  - Connected to the sites' terms and conditions, personally identificaible information, and copyright
+  - If the data isn’t public, non-personal, or factual *or* you’re scraping the data specifically to make money with it, you’ll need to talk to a lawyer
+
+
+## A web of *messy* data!
+
+- Recall the concept of [tidy data](http://vita.had.co.nz/papers/tidy-data.pdf).
+- Data is in a table where
+    * 1 row == 1 observation
+    * 1 column == 1 variable (observational attribute)
+- Parsing web data (HTML/XML/JSON) is easy (for computers)
+- Getting it in a tidy form is typically *not easy*.
+- Knowing a bit about modern tools & web technologies makes it *much* easier.
+
+# Technical aspects
+## Hypertext Markup Language (HTML)
+
+Most of the data on the web is still largely available as HTML - while it is structured (hierarchical/tree based) it often is not available in a form useful for analysis (flat / tidy).
+
+```html
+<html>
+  <head>
+    <title>This is a title</title>
+  </head>
+  <body>
+    <p align="center">Hello world!</p>
+  </body>
+</html>
+```
+
+HTML has a hierarchical structure formed by elements which consist of a start tag (e.g., `<tag>`), optional attributes (`id='first'`), an end tag (like `</tag>`), and contents (everything in between the start and end tag).
+
+Web scraping is possible because most pages that contain data that you want to scrape generally have a consistent structure.
+    
+
+## `rvest` {.scrollable}
+
+`rvest` is a package that makes basic processing and manipulation of HTML data straight forward.
+
+```{r}
+#install.packages('rvest')
+library(rvest)
+```
+
+`rvest` core functions:
+
+- `read_html` - read HTML data from a url or character string.
+- `html_nodes` - select specified nodes from the HTML document using CSS selectors.
+  + extracts all elements from the page `x` that have the tag / class / id `path`. (Use SelectorGadget to determine `path`.)
+- `html_table` - parse an HTML table into a data frame.
+- `html_text` - extract tag pairs' content.
+  + extracts all text from the nodeset `x` 
+- `html_name` - extract tags' names.
+- `html_attrs` - extract all of each tag's attributes.
+- `html_attr` - extract tags' attribute value by name.
+
+
+## SelectorGadget
+
++ SelectorGadget is a javascript bookmarklet to determine the css selectors of pieces of a website we want to extract.
++ Bookmark the SelectorGadget link, https://rvest.tidyverse.org/articles/selectorgadget.html, then click on it to use it (or add the chrome extension)
++ When SelectorGadget is active, pieces of the website are highlighted in orange/green/red.
+
+# Example
+## Star Wars Example
+
+Let's start with a simple example
+
+1. Open: https://rvest.tidyverse.org/articles/starwars.html
+
+2. Tell R what web-site we want to scrape
+
+```{r}
+html <- read_html("https://rvest.tidyverse.org/articles/starwars.html")
+```
+
+3. Our goal is to turn this data into a 7 row data frame with variables title, year, director, and plot summary
+
+## Method 1: Get Elements Individually
+
+```{r}
+title <- html %>% html_nodes("#main h2") %>% html_text2()
+director <-  html %>% html_nodes(".director") %>% html_text2()
+plot_summary <- html %>% html_nodes(".crawl") %>% html_text2()
+
+star_wars <- tibble(
+  title = title,
+  director = director,
+  plot_summary = plot_summary
+)
+
+head(star_wars)
+```
+
+
+## Method 2: Pull Entire Section at once.
+
+```{r}
+section <- html %>% html_elements("section")
+
+star_wars2<- tibble(
+  title = section %>% 
+    html_element("h2") %>% 
+    html_text2(),
+  released = section %>% 
+    html_element("p") %>% 
+    html_text2() %>% 
+    str_remove("Released: ") %>%
+    parse_date(),
+  director = section %>% 
+    html_element(".director") %>% 
+    html_text2(),
+  intro = section %>% 
+    html_element(".crawl") %>% 
+    html_text2()
+)
+
+head(star_wars2)
+```
+
+
+## Your Turn {visibility="uncounted" }
+
+1. Use SelectorGadget on https://www.baseball-reference.com/teams/KCR/2026-roster.shtml.
+2. Pull from "Current 40 Man Roster" Table Only
+  + Player's Name
+  + Player's Age
+  + Player's Position
+  + Player's first year in MLB (`1stYr`)
+
+```{r echo=FALSE}
+url <- "https://www.baseball-reference.com/teams/KCR/2026-roster.shtml"
+html <- read_html(url)
+
+name <- html %>% html_nodes("#the40man a") %>% html_text()
+position <- html %>% html_nodes("#the40man .right:nth-child(5)") %>% html_text()
+age <- html %>% html_nodes("#the40man .right:nth-child(8)") %>% html_text()
+first_year <- html %>% html_nodes("#the40man .right:nth-child(14)") %>% html_text()
+
+royals_2026 <- tibble(
+  name = name,
+  age = age,
+  position = position,
+  first_year = first_year
+)
+
+head(royals_2026)
+```
+
+# Further topics
+## Some issues with Web-Scraping
+
+1. Data not always able to be scraped
+
+```{r, eval=FALSE}
+url <- "https://www.nhl.com/hurricanes/roster"
+html <- read_html(url)
+html %>% html_nodes("") %>% html_text()
+```
+
+- In many cases, this happens because you’re trying to scrape a website that dynamically generates the content of the page with javascript. This doesn’t currently work with `rvest`, because `rvest` downloads the raw HTML and doesn’t run any javascript.
+  - There are work arounds for this but goes beyond the scope of this class..
+
+
+## Working with Tables
+
+If you’re lucky, your data will be already stored in an HTML table, and it’ll be a matter of just reading it from that table
+
+```{r}
+url <- "https://www.baseball-reference.com/teams/KCR/2026-roster.shtml"
+html <- read_html(url)
+
+
+html %>%
+  html_element("table") %>%
+  html_table()
+```
+
+## Your Turn 
+
+1. Find a website that you may want to scrape (i.e. FDA, Census, NCAA Stats, Creighton Athletics, etc.) 
+2. Read the URL into R and save the url as an object. 
+3. Use the SelectorGadget on your website and look for a node with data that you want to collect.
+
+
+
