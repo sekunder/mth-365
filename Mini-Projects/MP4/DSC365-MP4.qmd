@@ -1,0 +1,115 @@
+---
+title: "Mini Project 4: Wrap Up"
+author: "DSC 365: Introduction to Data Science"
+subtitle: "Due December 1 (presentation) and December 4 (report)" 
+date: 2026-11-19
+format: html
+---
+
+:::{.callout-note}
+# **Task**
+
+**Wrap up what you have and present your work**
+
+Now we are moving towards the end of this project.
+From Mini-Project 2 and Mini-Project 3, you should have received some feedback about your work. Please review the instructor and peer review feedback to make some adjustments.
+
+You are submitting **three things**:
+
+1. **Presentation slides in `html` format**, submitted online *before class* on Tuesday, December 1. Presentations will be in class on December 1st and, if needed, continuing on December 3rd.
+2. **Report, in `html` or `pdf` format**, submitted online by end of day on Friday, December 4
+3. **Report source code** (`qmd` file)
+
+:::
+
+<!-- -------------------------------------------------- -->
+
+<!-- Now we are moving towards the end of this project. You need to modify your current report based on the comments from peer review. In this part, you need to submit three things: a report (both the source `qmd` and the rendered document), and a presentation. **For your report, please submit both QMD file and your report in HTML or PDF to Blueline by Friday, December 4 at 1:59pm**. The report should not exceed 10 pages, including all plots. **The presentation slides are due May 5 at 3:30 pm and the presentation will be in class on May 5th**. The presentation should be 8-10 minutes. -->
+
+<!-- -------------------------------------------------- -->
+
+# Presentation
+
+::: {.callout-warning}
+# **Format Requirement**
+
+You are required to upload your slides in `html` format. I recommend using `quarto`. In R Studio, `File` -> `New File` -> `Quarto Presentation...` should default to using `revealjs`, which creates html slides. Be sure to `embed-resources` so that your slides work on the classroom computer! See the example header below.
+
+```yaml
+---
+title: "Presentation Title"
+author: "A very smart student"
+date: "December 1, 2026"
+format:
+  revealjs:
+    embed-resources: true
+    echo: false
+---
+```
+
+Quarto presentations have a *lot* of features. Take a look at [the documentation](https://quarto.org/docs/presentations/revealjs/presenting.html).
+:::
+
+Prepare an 8-10 minute presentation. 
+
+Here is a list of things you can consider for your presentation:
+
+1. Your presentation should be an overall summary of your report. Please control the time. **You will lose points if your presentation is outside of the time frame** (either too short or too long!)
+2. Do not include `R` code on the slides.
+    - You can show the results (e.g. presenting the `R` summary table is fine, but not the code for generating the table).
+    - Example `yaml` header above shows you how to turn off code chunk visibility globally
+3. No need to discuss everything you have done, just what you think is the most important.
+    - Example: Only need to discuss in-depth the method you decided was best for your data. Mention why it was better than the other method you tested, but you don't need to explain the other method in depth.
+4. Include introduction, EDA, any data cleaning, final model and interpretation.
+5. **Make sure you actually answer the question you set out to answer, or explain what prevented you from doing so.**
+6. More specific details on what to include in Mini-Project 4 Presentation Rubric.
+
+::: {.callout-note}
+Quarto presentations have a *lot* of features. Take a look at [the documentation](https://quarto.org/docs/presentations/revealjs/presenting.html).
+:::
+
+# Report
+
+::: {.callout-warning}
+# **Format Requirement**
+
+You are required to upload
+
+1. Your source code, in `qmd` format
+2. your rendered report in `html` or `pdf` format. If submitting `html`, be sure to `embed-resources`. See example header below
+
+In either case, there should be *no `R` code in your rendered report.* This can accomplished globally, using the `echo: false` option in the format specification. See example header below.
+
+```yaml
+---
+title: "Report Title"
+author: "A very smart student"
+date: 2026-12-04=
+format:
+  html:
+    embed-resources: true
+    echo: false
+---
+```
+:::
+
+Here is a list of things to consider for your report:
+
+1. Be sure to address comments from your Mini-Project 2 and Mini-Project 3.
+2. Similar to MP3: Include more than 6 variables into a random forest model and report the ones that are important.
+    - For the important variables chosen from the random forest, fit two of: linear model, decision tree model, or KNN.
+    - Report the RMSE for both of them. Which is better? Interpret the better model and use it to help answer your research question. 
+3. You do not need to keep your linear model from MP2. Think of finding variable importance as the first step in your data analysis.
+4. You can use PCA as a pre-processing step. This is especially useful when you have a lot of correlated variables.
+5. Render your report and read it. Does it make sense to you? Are there any grammar errors? Do you transition smoothly between each part? See formatting requirements above
+6. Get rid of any parts that are not necessary. Only keep the most important results. Do not include any R code in the report (use the `echo = FALSE` code chunk option). Note, you can turn this off globally in the `yaml` header (see formatting requirements above)
+7. Make sure to include a formal citation for your data set (must credit where you got the data!)
+    **NOTE: kaggle is not the source of your data.**
+6. Make sure you give your report a Title related to reserach question (not  "Mini Project 4")
+8. Pretend this is a stand-alone report (do not reference other mini projects) and the audience is someone with little data science background, not me (avoid jargon when you can, explain it in simple language when you can't)
+9. More specific details on what to include in Mini-Project 4 Report Rubric.
+
+
+
+
+

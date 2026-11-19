@@ -39,7 +39,7 @@ This schedule is tentative and may change without warning. The official calendar
  13   | Nov 19 | [Web scraping](14-Web-Scraping/slides/web-scraping-slides.html) | reading data from web pages | [(in-class qmd)](14-Web-Scraping/web-scraping-student.qmd) |  |
  14   | Nov 24 | **Lab 8** | Lab work day |  |  |
  14   | Nov 26 | **Thanksgiving** | No class |  |  |
- 15   | Dec 1  | **MP4 Presentations** | Present MP 4 |  |  |
+ 15   | Dec 1  | **MP4 Presentations** | Present [Mini-Project 4](Mini-Projects/MP4/DSC365-MP4.html) |  |  |
  15   | Dec 3  | **Lab 9** | Wrap up MP4 presentations, Lab 9 workday |  |  |
  
 **Final** | **Dec 9**  | **1:00 pm** | Final exam will be in-person | bring your computer |  |
