@@ -31,7 +31,7 @@ format:
 **Quiz 4**
 
 - in class next Tuesday
-- covers PCA, clustering, and text data
+- mostly covers clustering and PCA, one or two questions about text data concepts
 
 **Mini Project 4**
 
